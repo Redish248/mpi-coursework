@@ -1,0 +1,58 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+plugins {
+    id 'java'
+    id 'io.spring.dependency-management' version "1.0.11.RELEASE"
+    id 'org.springframework.boot' version "2.6.3"
+}
+
+group 'itmo.mpi'
+version '1.0-SNAPSHOT'
+
+dependencyManagement {
+    dependencies {
+        imports {
+            mavenBom("org.springframework.boot:spring-boot-dependencies:2.6.3")
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation "org.springframework.boot:spring-boot-starter"
+    implementation "org.springframework.boot:spring-boot-starter-web"
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation "org.postgresql:postgresql:${postgresVersion}"
+    implementation "org.hibernate.validator:hibernate-validator:${gradlePropertiesVersion}"
+
+    //lombok
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+bootJar {
+    mainClass = 'itmo.mpi.MpiApplication'
+    launchScript()
+}
+
+jar {
+    enabled = false
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(11)
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
