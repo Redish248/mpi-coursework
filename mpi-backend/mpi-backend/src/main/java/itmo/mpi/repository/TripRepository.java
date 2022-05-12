@@ -1,9 +1,9 @@
 package itmo.mpi.repository;
 
-import itmo.mpi.entity.User;
+import itmo.mpi.entity.Trip;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
+public interface TripRepository extends CrudRepository<Trip, Long> {
 }

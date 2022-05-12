@@ -1,4 +1,4 @@
 package itmo.mpi.service;
 
-public class UserService {
+public interface UserService {
 }

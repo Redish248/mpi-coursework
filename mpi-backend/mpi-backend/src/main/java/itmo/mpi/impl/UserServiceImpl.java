@@ -1,4 +1,8 @@
 package itmo.mpi.impl;
 
-public class UserServiceImpl {
+import itmo.mpi.service.UserService;
+import org.springframework.stereotype.Service;
+
+@Service
+public class UserServiceImpl implements UserService {
 }
