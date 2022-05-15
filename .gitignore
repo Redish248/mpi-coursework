@@ -1,4 +1,4 @@
-/mpi-backend/mpi-backend/.idea/
-/mpi-backend/mpi-backend/.gradle/
-/mpi-backend/mpi-backend/build/
+/mpi-backend/.idea/
+/mpi-backend/.gradle/
+/mpi-backend/build/
 *.iml
