@@ -47,7 +47,10 @@ CREATE TABLE trip_request (
 CREATE TABLE crew (
           uid serial PRIMARY KEY,
           team_name VARCHAR(50),
-          crew_owner BIGINT NOT NULL REFERENCES users
+          crew_owner BIGINT NOT NULL REFERENCES users,
+          price_per_day INTEGER NOT NULL,
+          rates_number INTEGER NOT NULL,
+          rates_average FLOAT(8) NOT NULL
 );
 
 CREATE TABLE crew_member (
@@ -65,7 +68,10 @@ CREATE TABLE ship (
       capacity INTEGER CHECK (capacity >= 0),
       fuel_consumption INTEGER,
       length INTEGER CHECK (length >= 0),
-      width INTEGER CHECK (width >= 0)
+      width INTEGER CHECK (width >= 0),
+      price_per_day INTEGER NOT NULL,
+      rates_number INTEGER NOT NULL,
+      rates_average FLOAT(8) NOT NULL
 );
 
 CREATE TABLE trip (

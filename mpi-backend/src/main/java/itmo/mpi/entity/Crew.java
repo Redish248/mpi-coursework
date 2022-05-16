@@ -30,4 +30,13 @@ public class Crew {
     @JoinColumn(name = "crew_owner", nullable = false)
     private User crewOwner;
 
+    @Column(name = "price_per_day", nullable = false)
+    private Integer pricePerDay;
+
+    @Column(name = "rates_number", nullable = false)
+    private Integer ratesNumber;
+
+    @Column(name = "rates_average", nullable = false)
+    private Double ratesAverage;
+
 }

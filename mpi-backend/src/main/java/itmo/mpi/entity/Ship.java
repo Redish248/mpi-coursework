@@ -49,4 +49,14 @@ public class Ship {
 
     @Column(name = "width")
     private Integer width;
+
+    @Column(name = "price_per_day", nullable = false)
+    private Integer pricePerDay;
+
+    @Column(name = "rates_number", nullable = false)
+    private Integer ratesNumber;
+
+    @Column(name = "rates_average", nullable = false)
+    private Double ratesAverage;
+
 }
