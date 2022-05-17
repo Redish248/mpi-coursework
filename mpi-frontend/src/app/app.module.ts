@@ -2,14 +2,15 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 
 import { AppComponent } from './app.component'
-import { LoginComponent } from './login/login.component';
-import { NotFoungPageComponent } from './not-foung-page/not-foung-page.component';
+import { LoginComponent } from './login/login.component'
 import { MapComponent } from './map/map.component'
 import { RouterModule, Routes } from '@angular/router'
 import { HeaderComponent } from './header/header.component'
+import { ClarityModule } from '@clr/angular'
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent},
+  {path: 'map', component: MapComponent},
   {path: 'login', component: LoginComponent},
   {path: '**', redirectTo: '/'}
 ]
@@ -18,14 +19,14 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    NotFoungPageComponent,
     MapComponent,
     HeaderComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    ClarityModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -4,7 +4,7 @@ import { User } from './User'
 @Injectable({
   providedIn: 'root'
 })
-class AuthService {
+export class AuthService {
   constructor() {
   }
 
