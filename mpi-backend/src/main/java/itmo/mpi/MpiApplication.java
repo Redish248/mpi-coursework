@@ -9,8 +9,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 @ComponentScan(basePackages = {"itmo.mpi.service", "itmo.mpi.entity",
         "itmo.mpi.controller", "itmo.mpi.impl",
-        "itmo.mpi.config",})
-@EntityScan("itmo.coursework.entity")
+        "itmo.mpi.config", "itmo.mpi.exception"})
+@EntityScan("itmo.mpi.entity")
 @EnableJpaRepositories("itmo.mpi.repository")
 public class MpiApplication {
     public static void main(String[] args) {

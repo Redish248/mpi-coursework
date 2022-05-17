@@ -50,11 +50,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .authenticationEntryPoint(authEntryPoint)
                 .and()
                     .authorizeRequests()
-                    /*.antMatchers(HttpMethod.GET, "/databases/staff", "/databases/objects", "/databases/feed").hasAnyAuthority(Role.READER.name(),Role.MANAGER.name(), Role.ADMIN.name())
-                    .antMatchers(HttpMethod.PUT, "/databases/staff", "/databases/objects", "/databases/feed").hasAnyAuthority(Role.ADMIN.name())
-                    .antMatchers(HttpMethod.POST, "/databases/staff", "/databases/objects", "/databases/feed").hasAnyAuthority(Role.ADMIN.name())
-                    .antMatchers(HttpMethod.DELETE, "/databases/staff", "/databases/objects", "/databases/feed").hasAnyAuthority(Role.ADMIN.name())*/
-                    .antMatchers("/mpi/signup").permitAll()
+                    .antMatchers("/mpi/signup/*").permitAll()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -85,8 +81,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
-                .usersByUsernameQuery("select nick, password, true from users where nick=?")
-                .authoritiesByUsernameQuery("select u.nick, ur.name from users u inner join user_role ur on(u.user_type=ur.uid) where u.nick=?")
+                .usersByUsernameQuery("select nick, password, true from (select nick, password from users where is_activated=true union select nick, password from admin) us where us.nick=?")
+                .authoritiesByUsernameQuery("select * from (select u.nick, ur.name from users u inner join user_role ur on(u.user_type=ur.uid) union select nick, 'admin' as name from admin) us where us.nick=?")
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder());
     }
