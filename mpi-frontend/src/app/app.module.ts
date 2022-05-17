@@ -7,6 +7,7 @@ import { MapComponent } from './map/map.component'
 import { RouterModule, Routes } from '@angular/router'
 import { HeaderComponent } from './header/header.component'
 import { ClarityModule } from '@clr/angular'
+import { ReactiveFormsModule } from '@angular/forms'
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent},
@@ -26,7 +27,8 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule,
     RouterModule.forRoot(appRoutes),
-    ClarityModule
+    ClarityModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
