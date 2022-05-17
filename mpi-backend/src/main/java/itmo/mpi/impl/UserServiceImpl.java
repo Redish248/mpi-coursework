@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Service
@@ -40,12 +42,13 @@ public class UserServiceImpl implements UserService {
         newUser.setSurname(surname);
         newUser.setNick(nick);
         newUser.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
-        //FIXME:
-        //newUser.setBirthDate();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.parse(birth_date, formatter);
+        newUser.setBirthDate(localDate);
         newUser.setUserType(userRoleRepository.findUserRoleByName(user_type));
         newUser.setEmail(email);
         newUser.setPhone(phone);
-        newUser.setIsActivated(false);
+        newUser.setIsActivated(user_type.equalsIgnoreCase("traveler"));
         newUser.setIsVip(false);
         newUser.setIsPirate(false);
         return userRepository.save(newUser);
