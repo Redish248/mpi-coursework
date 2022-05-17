@@ -82,7 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
                 .usersByUsernameQuery("select nick, password, true from (select nick, password from users where is_activated=true union select nick, password from admin) us where us.nick=?")
-                .authoritiesByUsernameQuery("select * from (select u.nick, ur.name from users u inner join user_role ur on(u.user_type=ur.uid) union select nick, 'admin' as name from admin) us where us.nick=?")
+                .authoritiesByUsernameQuery("select * from (select u.nick, ur.name from users u inner join user_role ur on(u.user_type=ur.uid) union select nick, 'ADMIN' as name from admin) us where us.nick=?")
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder());
     }

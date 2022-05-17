@@ -3,5 +3,8 @@ export interface User {
 }
 
 export enum Permissions {
-  READ = "READ"
+  TRAVELER = "TRAVELER",
+  CREW_MANAGER = "CREW_MANAGER",
+  SHIP_OWNER = "SHIP_OWNER",
+  ADMIN = "ADMIN"
 }
