@@ -10,6 +10,22 @@
         <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
             <span class="nav-text">Карта</span>
         </a>
+        <a *ngIf="isShipOwner()" class="nav-link" [routerLink]="['ship-history']" routerLinkActive="active">
+            <span class="nav-text">История путешествий</span>
+        </a>
+        <a *ngIf="isTraveler()" class="nav-link" [routerLink]="['traveler-history']" routerLinkActive="active">
+            <span class="nav-text">История путешествий</span>
+        </a>
+        <a *ngIf="isCrewManager()" class="nav-link" [routerLink]="['crew-history']" routerLinkActive="active">
+            <span class="nav-text">История путешествий</span>
+        </a>
+        <a class="nav-link" [routerLink]="['crews']" routerLinkActive="active">
+            <span class="nav-text">Корабли</span>
+        </a>
+        <a class="nav-link" [routerLink]="['ships']" routerLinkActive="active">
+            <span class="nav-text">Экипажи</span>
+        </a>
+        <!--        todo - заявки администратора на подтверждение аккаунтов -->
     </div>
     <div class="header-actions header-actions--overflow" *ngIf="user">
         <clr-dropdown>

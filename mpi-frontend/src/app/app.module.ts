@@ -8,11 +8,23 @@ import { RouterModule, Routes } from '@angular/router'
 import { HeaderComponent } from './header/header.component'
 import { ClarityModule } from '@clr/angular'
 import { ReactiveFormsModule } from '@angular/forms'
+import { ShipHistoryComponent } from './history/ship-history/ship-history.component'
+import { HttpClientModule } from '@angular/common/http'
+import { CrewHistoryComponent } from './history/crew-history/crew-history.component'
+import { TravelerHistoryComponent } from './history/traveler-history/traveler-history.component'
+import { ProfileComponent } from './profiles/components/profile/profile.component'
+import { ShipsComponent } from './profiles/components/ships/ships.component'
+import { CrewsComponent } from './profiles/components/crews/crews.component'
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent},
   {path: 'map', component: MapComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'ships', component: ShipsComponent},
+  {path: 'crews', component: CrewsComponent},
+  {path: 'crew-history', component: CrewHistoryComponent},
+  {path: 'traveler-history', component: TravelerHistoryComponent},
+  {path: 'ship-history', component: ShipHistoryComponent},
   {path: '**', redirectTo: '/'}
 ]
 
@@ -21,14 +33,21 @@ const appRoutes: Routes = [
     AppComponent,
     LoginComponent,
     MapComponent,
-    HeaderComponent
+    HeaderComponent,
+    ShipHistoryComponent,
+    CrewHistoryComponent,
+    TravelerHistoryComponent,
+    ProfileComponent,
+    ShipsComponent,
+    CrewsComponent
   ],
   imports: [
     BrowserModule,
     RouterModule,
     RouterModule.forRoot(appRoutes),
     ClarityModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

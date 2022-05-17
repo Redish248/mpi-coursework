@@ -25,4 +25,16 @@ export class HeaderComponent implements OnInit {
   logout() {
     this.authService.logout()
   }
+
+  isTraveler(): boolean {
+    return this.authService.hasTravelerPermission()
+  }
+
+  isShipOwner(): boolean {
+    return this.authService.hasShipOwnerPermissions()
+  }
+
+  isCrewManager(): boolean {
+    return this.authService.hasCrewOwnerPermissions()
+  }
 }

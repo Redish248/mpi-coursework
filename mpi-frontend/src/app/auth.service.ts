@@ -75,9 +75,18 @@ export class AuthService {
     )
   }
 
-  hasPermission(): boolean {
-    // return JSON.parse(localStorage.getItem('perm')).includes(Permissions.)
-    return true
+  hasTravelerPermission(): boolean {
+    const permissionsList = localStorage.getItem('perm')
+    return permissionsList ? JSON.parse(permissionsList).includes(Permissions.TRAVELER) : false
   }
 
+  hasShipOwnerPermissions(): boolean {
+    const permissionsList = localStorage.getItem('perm')
+    return permissionsList ? JSON.parse(permissionsList).includes(Permissions.SHIP_OWNER) : false
+  }
+
+  hasCrewOwnerPermissions(): boolean {
+    const permissionsList = localStorage.getItem('perm')
+    return permissionsList ? JSON.parse(permissionsList).includes(Permissions.CREW_MANAGER) : false
+  }
 }

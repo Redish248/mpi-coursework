@@ -1,0 +1,5 @@
+<clr-checkbox-wrapper *ngFor="let el of types">
+    <input clrCheckbox type="checkbox" value="{{el.toLowerCase()}}" name="options"
+           (change)="toggleSelection($event)"/>
+    <label>{{el}}</label>
+</clr-checkbox-wrapper>
