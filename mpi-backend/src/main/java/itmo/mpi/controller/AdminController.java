@@ -18,7 +18,7 @@ public class AdminController {
 
     private final UserService userService;
 
-    @GetMapping( "/activatedUsers")
+    @GetMapping( "/notActivatedUsers")
     public @ResponseBody ResponseEntity<List<User>> getAllNotActivatedUsers() {
         List<User> result = userService.findAllNotActivatedUsers();
         return ResponseEntity.ok().body(result);

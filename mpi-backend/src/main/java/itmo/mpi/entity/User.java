@@ -29,7 +29,7 @@ public class User {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne
     @JoinColumn(name = "user_type", nullable = false)
     private UserRole userType;
 
