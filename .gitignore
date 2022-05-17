@@ -1,4 +1,7 @@
-/mpi-backend/.idea/
+*/.idea/
 /mpi-backend/.gradle/
 /mpi-backend/build/
 *.iml
+
+/mpi-frontend/node_modules
+/mpi-frontend/.vscode
