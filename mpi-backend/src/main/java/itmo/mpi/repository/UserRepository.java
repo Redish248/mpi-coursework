@@ -9,10 +9,7 @@ import java.util.List;
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByName(String name);
-
-
     List<User> findUsersByIsActivated(boolean isActivated);
 
-    User findUsersByNick(String nick);
+    User findByNick(String nick);
 }

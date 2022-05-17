@@ -20,7 +20,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void processUser(String nick, boolean isActivated) {
-        User user = userRepository.findUsersByNick(nick);
+        User user = userRepository.findByNick(nick);
         if (isActivated) {
             user.setIsActivated(true);
             userRepository.save(user);
@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public Admin createAdmin(String name, String surname, String nick, String password, int salary) {
-        User user = userRepository.findUsersByNick(nick);
+        User user = userRepository.findByNick(nick);
         Admin oldAdmin = adminRepository.findAdminByNick(nick);
         if (user != null || oldAdmin != null) {
             throw new UserAlreadyExistException(nick);

@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(String name, String surname, String nick, String password, String birth_date, String user_type, String email, String phone) {
-        User user = userRepository.findUsersByNick(nick);
+        User user = userRepository.findByNick(nick);
         Admin oldAdmin = adminRepository.findAdminByNick(nick);
         if (user != null || oldAdmin != null) {
             throw new UserAlreadyExistException(nick);
