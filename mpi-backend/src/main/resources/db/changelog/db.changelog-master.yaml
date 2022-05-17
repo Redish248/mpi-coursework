@@ -1,0 +1,5 @@
+databaseChangeLog:
+  - include:
+      file: /db/changelog/updates/create.sql
+  - include:
+      file: /db/changelog/updates/insert_user_types.sql
