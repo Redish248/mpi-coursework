@@ -13,6 +13,6 @@ export class ConfigService {
   }
 
   get appUrl(): string {
-    return 'http://localhost:8088/app' // fixme later
+    return 'http://localhost:8088/mpi' // fixme later
   }
 }
