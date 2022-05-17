@@ -39,9 +39,13 @@ CREATE TABLE trip_request (
           uid serial PRIMARY KEY,
           traveler BIGINT NOT NULL REFERENCES users,
           date_start DATE,
+          date_end DATE,
           island_start BIGINT NOT NULL REFERENCES island,
           island_end BIGINT NOT NULL REFERENCES island,
-          status VARCHAR(20)
+          status VARCHAR(20),
+          ship_id BIGINT REFERENCES ship,
+          crew_id BIGINT REFERENCES crew,
+          cost INTEGER CHECK (cost >= 0)
 );
 
 CREATE TABLE crew (
@@ -72,13 +76,4 @@ CREATE TABLE ship (
       price_per_day INTEGER NOT NULL,
       rates_number INTEGER NOT NULL,
       rates_average FLOAT(8) NOT NULL
-);
-
-CREATE TABLE trip (
-      uid serial PRIMARY KEY,
-      date_end DATE,
-      ship_id BIGINT REFERENCES ship,
-      crew_id BIGINT REFERENCES crew,
-      cost INTEGER CHECK (cost >= 0),
-      request_id BIGINT NOT NULL REFERENCES trip_request
 );

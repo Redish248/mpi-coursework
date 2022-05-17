@@ -1,7 +1,7 @@
 package itmo.mpi.service;
 
-import itmo.mpi.dto.ExpeditionOption;
-import itmo.mpi.dto.ExpeditionRequest;
+import itmo.mpi.dto.TripOption;
+import itmo.mpi.dto.TripRequestDto;
 
 import java.util.List;
 
@@ -11,6 +11,6 @@ import java.util.List;
  */
 public interface OptionsLookUpService {
 
-    List<ExpeditionOption> lookUpOptions(ExpeditionRequest expeditionRequest);
+    List<TripOption> lookUpOptions(TripRequestDto tripRequestDto);
 
 }

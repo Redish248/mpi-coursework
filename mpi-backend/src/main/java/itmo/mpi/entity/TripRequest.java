@@ -31,6 +31,9 @@ public class TripRequest {
     @Column(name = "date_start")
     private LocalDate dateStart;
 
+    @Column(name = "date_end")
+    private LocalDate dateEnd;
+
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "island_start", nullable = false)
     private Island islandStart;
@@ -39,7 +42,18 @@ public class TripRequest {
     @JoinColumn(name = "island_end", nullable = false)
     private Island islandEnd;
 
-    @Column(name = "status", length = 20)
-    private String status;
+    @Column(name = "status")
+    private TripRequestStatus status;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ship_id")
+    private Ship ship;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "crew_id")
+    private Crew crew;
+
+    @Column(name = "cost")
+    private Integer cost;
 
 }
