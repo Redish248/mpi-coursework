@@ -1,5 +1,6 @@
 package itmo.mpi.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -16,7 +17,7 @@ public class Crew {
     @Column(name = "team_name", length = 50)
     private String teamName;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "crew_owner", nullable = false)
     private User crewOwner;
 
