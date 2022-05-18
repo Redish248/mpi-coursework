@@ -1,6 +1,6 @@
 package itmo.mpi.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -27,7 +27,7 @@ public class Admin {
     private String nick;
 
     @Column(name = "password", nullable = false, length = 100)
-    @JsonIgnore
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
 }
