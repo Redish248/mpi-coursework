@@ -24,6 +24,9 @@ export class AuthService {
     return localStorage.getItem("authData")
   }
 
+  private get baseUrl():string{
+    return this.configService.baseUrl
+  }
   private get apiUrl(): string {
     return this.configService.appUrl
   }
@@ -44,7 +47,7 @@ export class AuthService {
     const sendParams = new HttpParams()
       .append('username', credentials.nick)
       .append('password', credentials.pswd)
-    return this.http.post<User>(`${this.apiUrl}/login`, null, {
+    return this.http.post<User>(`${this.baseUrl}/login`, null, {
       params: sendParams,
       withCredentials: true,
       observe: 'response'

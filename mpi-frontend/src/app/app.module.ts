@@ -8,6 +8,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { HeaderComponent } from './header/header.component'
 import { ClarityModule } from '@clr/angular'
 import { ReactiveFormsModule } from '@angular/forms'
+import { HttpClientModule } from '@angular/common/http'
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent},
@@ -28,7 +29,8 @@ const appRoutes: Routes = [
     RouterModule,
     RouterModule.forRoot(appRoutes),
     ClarityModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
