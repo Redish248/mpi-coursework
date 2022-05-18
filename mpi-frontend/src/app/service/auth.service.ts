@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { Permissions, User } from './User'
+import { Permissions, User } from '../entity/User'
 import { HttpClient, HttpParams } from '@angular/common/http'
 import { Router } from '@angular/router'
 import { ConfigService } from './config.service'
