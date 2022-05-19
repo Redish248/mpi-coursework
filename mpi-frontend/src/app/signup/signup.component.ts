@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { AuthService } from '../service/auth.service'
 import { SignupService } from "./signup.service"
 import { Permissions } from '../entity/User'
+import {DatePipe} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +17,8 @@ export class SignupComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private signupService: SignupService,
-              private authService: AuthService
+              private authService: AuthService,
+              private router: Router
   ) {
   }
 
@@ -34,8 +37,8 @@ export class SignupComponent implements OnInit {
       nick: ['', [Validators.required, Validators.pattern("[A-Za-z]")]],
       email: ['', Validators.required],
       phone: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
-      userRole: ['traveler', Validators.required]
+      birthDate: ['', Validators.required],
+      userType: ['TRAVELER', Validators.required]
     })
   }
 
@@ -45,23 +48,27 @@ export class SignupComponent implements OnInit {
     this.signupService.signup(this.signupForm.getRawValue()).subscribe(
       _ => {
         // login after success registration
-        this.authService.login({
-          nick: this.signupForm.value.nick,
-          pswd: this.signupForm.value.password
-        }).subscribe(
-          _ => {
-            this.loading = false
-            this.closeModal.emit({
-              nick: this.signupForm.value.nick,
-              pswd: this.signupForm.value.password
-            })
-            this.modalOpened = false
-          },
-          err => {
-            this.loading = false
-            this.errorMessage = err
-          }
-        )
+        if (this.signupForm.value.userType == 'TRAVELER') {
+          this.authService.login({
+            nick: this.signupForm.value.nick,
+            pswd: this.signupForm.value.password
+          }).subscribe(
+            _ => {
+              this.loading = false
+              this.closeModal.emit({
+                nick: this.signupForm.value.nick,
+                pswd: this.signupForm.value.password
+              })
+              this.modalOpened = false
+            },
+            err => {
+              this.loading = false
+              this.errorMessage = err
+            }
+          )
+        } else {
+          this.router.navigate(['/'])
+        }
       }, err => {
         this.loading = false
         this.errorMessage = err
