@@ -31,6 +31,8 @@ export class LoginComponent implements OnInit {
   returnUrl: string
   errorMessage: string | undefined
 
+  registrationMode: boolean = false
+
   ngOnInit(): void {
   }
 
@@ -44,6 +46,11 @@ export class LoginComponent implements OnInit {
         },
         err => this.errorMessage = err
       )
+  }
+
+  signup() {
+    this.registrationMode = false
+    this.router.navigate(['/'])
   }
 
 }

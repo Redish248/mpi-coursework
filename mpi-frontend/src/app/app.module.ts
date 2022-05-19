@@ -9,11 +9,13 @@ import { HeaderComponent } from './header/header.component'
 import { ClarityModule } from '@clr/angular'
 import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http'
+import {SignupComponent} from "./signup/signup.component";
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent},
   {path: 'map', component: MapComponent},
   {path: 'login', component: LoginComponent},
+  {path: 'signup', component: SignupComponent},
   {path: '**', redirectTo: '/'}
 ]
 
@@ -21,6 +23,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
+    SignupComponent,
     MapComponent,
     HeaderComponent
   ],

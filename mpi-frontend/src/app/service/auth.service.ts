@@ -66,7 +66,7 @@ export class AuthService {
   }
 
   logout(): Subscription {
-    return this.http.post(`${this.apiUrl}/logout`, null).subscribe(
+    return this.http.post(`${this.baseUrl}/logout`, null).subscribe(
       _ => {
         AuthService.deleteData()
         this.router.navigate(['/login'])
