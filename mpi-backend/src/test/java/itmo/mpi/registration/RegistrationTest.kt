@@ -1,5 +1,6 @@
 package itmo.mpi.registration
 
+import itmo.mpi.model.UserInfo
 import itmo.mpi.service.UserService
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -15,14 +16,16 @@ class RegistrationTest {
     @Disabled("just for test")
     fun createUser() {
         userService.createUser(
-            "test-name",
-            "test-surname",
-            "nick",
-            "12345",
-            "01.09.2017",
-            "TRAVELER",
-            "test@mail.ru",
-            "8-912-345-67-89"
+            UserInfo(
+                "test-name",
+                "test-surname",
+                "nick",
+                "12345",
+                "01.09.2017",
+                "TRAVELER",
+                "test@mail.ru",
+                "8-912-345-67-89"
+            )
         )
     }
 }

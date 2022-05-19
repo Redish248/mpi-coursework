@@ -5,13 +5,10 @@ import itmo.mpi.entity.User;
 import itmo.mpi.model.UserInfo;
 import itmo.mpi.service.AdminService;
 import itmo.mpi.service.UserService;
+import itmo.mpi.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/mpi/signup")
@@ -22,8 +19,11 @@ public class RegistrationController {
 
     private final AdminService adminService;
 
-    @PostMapping( "/registerUser")
-    public @ResponseBody ResponseEntity<User> registerUser(@RequestBody UserInfo newUser) {
+    private final CommonUtils commonUtils;
+
+    @PostMapping("/registerUser")
+    public @ResponseBody
+    ResponseEntity<User> registerUser(@RequestBody UserInfo newUser) {
         return ResponseEntity.ok(userService.createUser(newUser));
     }
 
@@ -32,4 +32,8 @@ public class RegistrationController {
         return ResponseEntity.ok(adminService.createAdmin(name, surname, nick, password, salary));
     }
 
+    @GetMapping("/perms")
+    public String getPermissions() {
+        return commonUtils.getCurrentUser().getAuthorities().stream().findFirst().get().getAuthority();
+    }
 }
