@@ -1,6 +1,7 @@
 package itmo.mpi.repository;
 
 import itmo.mpi.entity.Ship;
+import itmo.mpi.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -17,4 +18,5 @@ public interface ShipRepository extends JpaRepository<Ship, Long> {
             ":startDate AND tr.status = 'COMPLETE' where tr.uid is null;", nativeQuery = true)
     List<Ship> getFreeShipsForTrip(@Param("startDate") LocalDate startDate, @Param("distance") int distance);
 
+    List<Ship> findByOwner(User owner);
 }

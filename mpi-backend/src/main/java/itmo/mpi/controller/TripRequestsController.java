@@ -2,8 +2,11 @@ package itmo.mpi.controller;
 
 import itmo.mpi.dto.TripOption;
 import itmo.mpi.dto.TripRequestDto;
+import itmo.mpi.entity.Crew;
+import itmo.mpi.entity.Ship;
 import itmo.mpi.entity.TripRequest;
 import itmo.mpi.service.OptionsLookUpService;
+import itmo.mpi.service.TripRequestInfoService;
 import itmo.mpi.service.TripRequestManipulationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -20,6 +23,7 @@ public class TripRequestsController {
 
     private final OptionsLookUpService optionsLookUpService;
     private final TripRequestManipulationService tripRequestManipulationService;
+    private final TripRequestInfoService tripRequestInfoService;
 
     @PostMapping("/options")
     public List<TripOption> getExpeditionOptions(@RequestBody TripRequestDto request) {
@@ -44,6 +48,36 @@ public class TripRequestsController {
     @PostMapping("/approve")
     public void approveTripRequest(@RequestBody TripRequest request) {
         tripRequestManipulationService.approveRequest(request, getCurrentUsername());
+    }
+
+    @GetMapping("/complete")
+    public List<TripRequest> getCompleteTrips() {
+        return tripRequestInfoService.getCompleteRequestsForUser(getCurrentUsername());
+    }
+
+    @GetMapping("/pending")
+    public List<TripRequest> getPendingTrips() {
+        return tripRequestInfoService.getPendingRequestsForUser(getCurrentUsername());
+    }
+
+    @PostMapping("/ship/pending")
+    public List<TripRequest> getPendingTripsForShip(@RequestBody Ship ship) {
+        return tripRequestInfoService.getPendingRequestsForShip(ship);
+    }
+
+    @PostMapping("/ship/complete")
+    public List<TripRequest> getCompleteTripsForShip(@RequestBody Ship ship) {
+        return tripRequestInfoService.getCompleteRequestsForShip(ship);
+    }
+
+    @PostMapping("/crew/pending")
+    public List<TripRequest> getPendingTripsForCrew(@RequestBody Crew crew) {
+        return tripRequestInfoService.getPendingRequestsForCrew(crew);
+    }
+
+    @PostMapping("/crew/complete")
+    public List<TripRequest> getCompleteTripsForCrew(@RequestBody Crew crew) {
+        return tripRequestInfoService.getCompleteRequestsForCrew(crew);
     }
 
     @DeleteMapping

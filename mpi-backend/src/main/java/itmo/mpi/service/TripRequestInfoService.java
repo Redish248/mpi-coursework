@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface TripRequestInfoService {
 
-    List<TripRequest> getPendingRequestsForTraveller(String username);
+    List<TripRequest> getPendingRequestsForUser(String username);
 
-    List<TripRequest> getCompleteRequestsForTraveller(String username);
+    List<TripRequest> getCompleteRequestsForUser(String username);
 
     List<TripRequest> getPendingRequestsForShip(Ship ship);
 

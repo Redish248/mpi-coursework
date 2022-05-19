@@ -1,6 +1,8 @@
 package itmo.mpi.service.impl;
 
 import itmo.mpi.entity.*;
+import itmo.mpi.repository.CrewRepository;
+import itmo.mpi.repository.ShipRepository;
 import itmo.mpi.repository.TripRequestRepository;
 import itmo.mpi.repository.UserRepository;
 import itmo.mpi.service.TripRequestInfoService;
@@ -12,7 +14,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static itmo.mpi.entity.TripRequestStatus.*;
-import static itmo.mpi.util.Const.TRAVELLER_ROLE;
+import static itmo.mpi.util.Const.*;
 
 @RequiredArgsConstructor
 @Service
@@ -20,6 +22,8 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
 
     private final TripRequestRepository requestRepository;
     private final UserRepository userRepository;
+    private final ShipRepository shipRepository;
+    private final CrewRepository crewRepository;
 
     @Override
     public List<TripRequest> getPendingRequestsForShip(Ship ship) {
@@ -42,13 +46,33 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
     }
 
     @Override
-    public List<TripRequest> getPendingRequestsForTraveller(String username) {
-        return getRequestsForUserWithStatuses(username, getPendingStatuses());
+    public List<TripRequest> getPendingRequestsForUser(String username) {
+        User user = userRepository.findByNick(username);
+        switch (user.getUserType().getName()) {
+            case TRAVELLER_ROLE:
+                return getRequestsForUserWithStatuses(user, getPendingStatuses());
+            case CREW_ROLE:
+                return getPendingRequestsForCrewOwner(user);
+            case SHIP_ROLE:
+                return getPendingRequestsForShipOwner(user);
+            default:
+                throw new IllegalArgumentException("User has no role");
+        }
     }
 
     @Override
-    public List<TripRequest> getCompleteRequestsForTraveller(String username) {
-        return getRequestsForUserWithStatuses(username, getCompleteStatuses());
+    public List<TripRequest> getCompleteRequestsForUser(String username) {
+        User user = userRepository.findByNick(username);
+        switch (user.getUserType().getName()) {
+            case TRAVELLER_ROLE:
+                return getRequestsForUserWithStatuses(user, getCompleteStatuses());
+            case CREW_ROLE:
+                return getCompleteRequestsForCrewOwner(user);
+            case SHIP_ROLE:
+                return getCompleteRequestsForShipOwner(user);
+            default:
+                throw new IllegalArgumentException("User has no role");
+        }
     }
 
     @Override
@@ -61,12 +85,31 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
         return requestRepository.findByCrewAndStatusIn(crew, getApprovedCrewStatuses());
     }
 
-    private List<TripRequest> getRequestsForUserWithStatuses(String username, List<TripRequestStatus> statuses) {
-        User user = userRepository.findByNick(username);
+    private List<TripRequest> getPendingRequestsForCrewOwner(User crewOwner) {
+        List<Crew> crews = crewRepository.findByCrewOwner(crewOwner);
+        return requestRepository.findByCrewInAndStatusIn(crews, getPendingStatuses());
+    }
+
+    private List<TripRequest> getPendingRequestsForShipOwner(User shipOwner) {
+        List<Ship> ships = shipRepository.findByOwner(shipOwner);
+        return requestRepository.findByShipInAndStatusIn(ships, getPendingStatuses());
+    }
+
+    private List<TripRequest> getCompleteRequestsForCrewOwner(User crewOwner) {
+        List<Crew> crews = crewRepository.findByCrewOwner(crewOwner);
+        return requestRepository.findByCrewInAndStatusIn(crews, getCompleteStatuses());
+    }
+
+    private List<TripRequest> getCompleteRequestsForShipOwner(User shipOwner) {
+        List<Ship> ships = shipRepository.findByOwner(shipOwner);
+        return requestRepository.findByShipInAndStatusIn(ships, getCompleteStatuses());
+    }
+
+    private List<TripRequest> getRequestsForUserWithStatuses(User user, List<TripRequestStatus> statuses) {
         if (user.getUserType().getName().equals(TRAVELLER_ROLE)) {
-            return requestRepository.findByTravellerAndStatusIn(user, statuses);
+            return requestRepository.findByTravelerAndStatusIn(user, statuses);
         } else {
-            throw new IllegalArgumentException(String.format("User %s is not a traveller", username));
+            throw new IllegalArgumentException(String.format("User %s is not a traveller", user.getNick()));
         }
     }
 
