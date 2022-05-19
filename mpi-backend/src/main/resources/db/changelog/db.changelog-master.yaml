@@ -3,3 +3,5 @@ databaseChangeLog:
       file: /db/changelog/updates/create.sql
   - include:
       file: /db/changelog/updates/insert_user_types.sql
+  - include:
+      file: /db/changelog/updates/users_1.sql

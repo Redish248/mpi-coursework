@@ -3,9 +3,8 @@ package itmo.mpi.impl;
 import itmo.mpi.entity.Admin;
 import itmo.mpi.entity.User;
 import itmo.mpi.exception.UserAlreadyExistException;
-import itmo.mpi.repository.AdminRepository;
-import itmo.mpi.repository.UserRepository;
-import itmo.mpi.repository.UserRoleRepository;
+import itmo.mpi.model.ProfilesResponse;
+import itmo.mpi.repository.*;
 import itmo.mpi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -14,10 +13,15 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
+    private final String TRAVELER = "TRAVELER";
+    private final String SHIP_OWNER = "SHIP_OWNER";
+    private final String CREW_MANAGER = "CREW_MANAGER";
 
     private final UserRepository userRepository;
 
@@ -48,11 +52,36 @@ public class UserServiceImpl implements UserService {
         newUser.setUserType(userRoleRepository.findUserRoleByName(user_type));
         newUser.setEmail(email);
         newUser.setPhone(phone);
-        newUser.setIsActivated(user_type.equalsIgnoreCase("traveler"));
+        newUser.setIsActivated(user_type.equalsIgnoreCase(TRAVELER));
         newUser.setIsVip(false);
         newUser.setIsPirate(false);
         return userRepository.save(newUser);
     }
 
+    @Override
+    public List<ProfilesResponse> getShipsForCurrentUser(String nickname) {
+        return getProfilesByTypeForUser(SHIP_OWNER, nickname);
+    }
 
+    @Override
+    public List<ProfilesResponse> getCrewsForCurrentUser(String nickname) {
+        return getProfilesByTypeForUser(CREW_MANAGER, nickname);
+    }
+
+    private List<ProfilesResponse> getProfilesByTypeForUser(String type, String nickname) {
+        User currentUser = userRepository.findByNick(nickname);
+
+        return userRepository
+                .findAll().stream()
+                .filter(el -> Objects.equals(el.getUserType().getName(), type))
+                .map(el -> new ProfilesResponse(
+                        el.getId(),
+                        el.getName(),
+                        el.getSurname(),
+                        el.isShareContactInfo() ? el.getEmail() : null,
+                        el.isShareContactInfo() ? el.getPhone() : null,
+                        currentUser.getIsVip() ? el.getIsPirate() : null
+                ))
+                .collect(Collectors.toList());
+    }
 }
