@@ -1,4 +1,3 @@
-drop table trip;
 drop table ship;
 drop table crew_member;
 drop table crew;

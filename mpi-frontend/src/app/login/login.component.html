@@ -2,16 +2,16 @@
     <form clrForm [formGroup]="loginForm" class="login">
         <section class="title">
             <h3 class="welcome">Добро пожаловать в </h3>
-            SILVER PAW
+            Treasure Island
         </section>
         <div class="login-group">
             <clr-input-container>
                 <label class="clr-sr-only">Логин</label>
-                <input type="text" name="username" clrInput placeholder="Username" formControlName="username"/>
+                <input type="text" name="username" clrInput placeholder="Nickname" formControlName="nick"/>
             </clr-input-container>
             <clr-password-container>
                 <label class="clr-sr-only">Пароль</label>
-                <input type="password" name="password" clrPassword placeholder="Password" formControlName="password"/>
+                <input type="password" name="password" clrPassword placeholder="Password" formControlName="pswd"/>
             </clr-password-container>
             <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
 

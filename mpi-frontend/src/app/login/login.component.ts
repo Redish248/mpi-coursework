@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { AuthService } from '../auth.service'
+import { AuthService } from '../service/auth.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import { first } from 'rxjs'
 
@@ -16,8 +16,8 @@ export class LoginComponent implements OnInit {
               private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      nick: ['', Validators.required],
+      pswd: ['', Validators.required]
     })
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/'
     this.errorMessage = undefined

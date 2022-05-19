@@ -29,9 +29,10 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void cancelRequest(TripRequest request, String username) {
-        if (request.getTraveler().getNick().equals(username)) {
-            request.setStatus(TripRequestStatus.CANCELLED);
-            repository.save(request);
+        TripRequest tripRequest = repository.getById(request.getId());
+        if (tripRequest.getTraveler().getNick().equals(username)) {
+            tripRequest.setStatus(TripRequestStatus.CANCELLED);
+            repository.save(tripRequest);
         } else {
             throw new IllegalArgumentException("Request can only be cancelled by traveller");
         }
@@ -39,10 +40,11 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void rejectRequest(TripRequest request, String username) {
-        if (request.getCrew().getCrewOwner().getNick().equals(username) ||
-                request.getShip().getOwner().getNick().equals(username)) {
-            request.setStatus(TripRequestStatus.REJECTED);
-            repository.save(request);
+        TripRequest tripRequest = repository.getById(request.getId());
+        if (tripRequest.getCrew().getCrewOwner().getNick().equals(username) ||
+                tripRequest.getShip().getOwner().getNick().equals(username)) {
+            tripRequest.setStatus(TripRequestStatus.REJECTED);
+            repository.save(tripRequest);
         } else {
             throw new IllegalArgumentException("Request can only be rejected by ship or crew owner");
         }
@@ -50,8 +52,9 @@ public class TripServiceImpl implements TripService {
 
     @Override
     public void deleteRequest(TripRequest request, String username) {
-        if (request.getTraveler().getNick().equals(username)) {
-            repository.delete(request);
+        TripRequest tripRequest = repository.getById(request.getId());
+        if (tripRequest.getTraveler().getNick().equals(username)) {
+            repository.delete(tripRequest);
         } else {
             throw new IllegalArgumentException("Request can only be deleted by traveller");
         }

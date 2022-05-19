@@ -20,11 +20,6 @@ const appRoutes: Routes = [
   {path: '', component: MapComponent},
   {path: 'map', component: MapComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'ships', component: ShipsComponent},
-  {path: 'crews', component: CrewsComponent},
-  {path: 'crew-history', component: CrewHistoryComponent},
-  {path: 'traveler-history', component: TravelerHistoryComponent},
-  {path: 'ship-history', component: ShipHistoryComponent},
   {path: '**', redirectTo: '/'}
 ]
 

@@ -12,6 +12,7 @@ import itmo.mpi.service.OptionsLookUpService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +26,6 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
 
     @Override
     public List<TripOption> lookUpOptions(TripRequestDto tripRequestDto) {
-        List<Crew> crews = crewRepository.findAll();
         List<ShipOption> shipOptions = getShipOptions(tripRequestDto);
 
         return shipOptions.stream()
@@ -33,8 +33,12 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
                     int days = shipOption.getDays();
                     Ship ship = shipOption.getShip();
                     int shipCost = (ship.getFuelConsumption()+ship.getPricePerDay()) * days;
+                    LocalDate finishDate = tripRequestDto.getStartDate().plus(days, ChronoUnit.DAYS);
 
-                    return crews.stream()
+                    List<Crew> crewsForShip = crewRepository.getFreeCrewsForDates(tripRequestDto.getStartDate(),
+                            finishDate);
+
+                    return crewsForShip.stream()
                             .filter(crew -> crew.getPricePerDay()*days + shipCost <= tripRequestDto.getBudget())
                             .map(crew -> TripOption.builder()
                                     .crew(crew)
@@ -48,13 +52,20 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
     }
 
     private List<ShipOption> getShipOptions(TripRequestDto tripRequestDto) {
-        return shipRepository.findAll().stream()
+        int distance = calculateDistance(tripRequestDto.getFrom(), tripRequestDto.getTo());
+        return shipRepository.getFreeShipsForTrip(tripRequestDto.getStartDate(), distance)
+                .stream()
+                .filter(ship -> (travelDurationInDays(distance, ship.getSpeed()))
+                        * (ship.getPricePerDay()+ship.getFuelConsumption()) <= tripRequestDto.getBudget())
                 .map(ship -> ShipOption.builder()
                         .ship(ship)
-                        .days(calculateDistance(tripRequestDto.getFrom(), tripRequestDto.getTo()) /
-                        ship.getSpeed() + 1)
+                        .days(travelDurationInDays(distance, ship.getSpeed()))
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    int travelDurationInDays(int distance, int speed) {
+        return (int) Math.ceil((float) distance / speed);
     }
 
     int calculateDistance(Island from, Island to) {
