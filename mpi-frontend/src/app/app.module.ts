@@ -8,14 +8,17 @@ import { RouterModule, Routes } from '@angular/router'
 import { HeaderComponent } from './header/header.component'
 import { ClarityModule } from '@clr/angular'
 import { ReactiveFormsModule } from '@angular/forms'
-import { HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
+import { AuthGuard } from './helpers/auth.guard'
+import { AuthBasicInterceptor } from './helpers/auth-basic.interceptor'
+import { ErrorInterceptor } from './helpers/error.interseptor'
 import {SignupComponent} from "./signup/signup.component";
 
 const appRoutes: Routes = [
-  {path: '', component: MapComponent},
-  {path: 'map', component: MapComponent},
+  {path: '', component: MapComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'signup', component: SignupComponent},
+  {path: 'map', component: MapComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/'}
 ]
 
@@ -35,7 +38,11 @@ const appRoutes: Routes = [
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthBasicInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

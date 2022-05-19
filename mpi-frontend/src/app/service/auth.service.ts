@@ -24,9 +24,10 @@ export class AuthService {
     return localStorage.getItem("authData")
   }
 
-  private get baseUrl():string{
+  private get baseUrl(): string {
     return this.configService.baseUrl
   }
+
   private get apiUrl(): string {
     return this.configService.appUrl
   }
