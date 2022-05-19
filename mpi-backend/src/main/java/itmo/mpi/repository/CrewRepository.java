@@ -14,7 +14,7 @@ import java.util.List;
 public interface CrewRepository extends JpaRepository<Crew, Long> {
 
     @Query(value = "select cr.* from crew cr left join trip_request tr on cr.uid = tr.crew_id and tr.date_start <= " +
-            ":dateEnd and tr.date_end >= :dateStart AND tr.status = 'COMPLETE' where tr.uid is null;", nativeQuery = true)
+            ":dateEnd and tr.date_end >= :dateStart AND tr.status IN ('COMPLETE', 'APPROVED_BY_CREW', 'APPROVED_BY_CREW_AND_SHIP') where tr.uid is null;", nativeQuery = true)
     List<Crew> getFreeCrewsForDates(@Param("dateStart") LocalDate startDate, @Param("dateEnd") LocalDate endDate);
 
     List<Crew> findByCrewOwner(User crewOwner);
