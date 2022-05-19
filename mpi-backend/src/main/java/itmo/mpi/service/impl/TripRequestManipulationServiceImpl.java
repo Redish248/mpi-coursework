@@ -98,7 +98,7 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
             case APPROVED_BY_SHIP:
                 throw new IllegalArgumentException("Request must be approved both by ship and crew before being" +
                         " approved by traveller");
-            case APPROVED_BY_CREW_AND_SHIP:
+            case APPROVED_BY_BOTH:
                 tripRequest.setStatus(TripRequestStatus.COMPLETE);
                 repository.save(tripRequest);
         }
@@ -107,14 +107,14 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
     private void approveRequestByCrew(TripRequest request) {
         switch (request.getStatus()) {
             case APPROVED_BY_CREW:
-            case APPROVED_BY_CREW_AND_SHIP:
+            case APPROVED_BY_BOTH:
             case COMPLETE:
                 throw new IllegalArgumentException("This request is already approved");
             case REJECTED:
             case CANCELLED:
                 throw new IllegalArgumentException("Cancelled and rejected requests can't be approved");
             case APPROVED_BY_SHIP:
-                request.setStatus(TripRequestStatus.APPROVED_BY_CREW_AND_SHIP);
+                request.setStatus(TripRequestStatus.APPROVED_BY_BOTH);
                 break;
             case PENDING:
                 if (ifCrewAvailable(request)) {
@@ -130,14 +130,14 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
     private void approveRequestByShip(TripRequest request) {
         switch (request.getStatus()) {
             case APPROVED_BY_SHIP:
-            case APPROVED_BY_CREW_AND_SHIP:
+            case APPROVED_BY_BOTH:
             case COMPLETE:
                 throw new IllegalArgumentException("This request is already approved");
             case REJECTED:
             case CANCELLED:
                 throw new IllegalArgumentException("Cancelled and rejected requests can't be approved");
             case APPROVED_BY_CREW:
-                request.setStatus(TripRequestStatus.APPROVED_BY_CREW_AND_SHIP);
+                request.setStatus(TripRequestStatus.APPROVED_BY_BOTH);
                 break;
             case PENDING:
                 if (isShipAvailable(request)) {

@@ -114,7 +114,7 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
     }
 
     private List<TripRequestStatus> getPendingStatuses() {
-        return Stream.of(PENDING, APPROVED_BY_SHIP, APPROVED_BY_CREW, APPROVED_BY_CREW_AND_SHIP)
+        return Stream.of(PENDING, APPROVED_BY_SHIP, APPROVED_BY_CREW, APPROVED_BY_BOTH)
                 .collect(Collectors.toList());
     }
 
@@ -123,12 +123,12 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
     }
 
     private List<TripRequestStatus> getApprovedShipStatuses() {
-        return Stream.of(COMPLETE, APPROVED_BY_SHIP, APPROVED_BY_CREW_AND_SHIP)
+        return Stream.of(COMPLETE, APPROVED_BY_SHIP, APPROVED_BY_BOTH)
                 .collect(Collectors.toList());
     }
 
     private List<TripRequestStatus> getApprovedCrewStatuses() {
-        return Stream.of(COMPLETE, APPROVED_BY_CREW, APPROVED_BY_CREW_AND_SHIP)
+        return Stream.of(COMPLETE, APPROVED_BY_CREW, APPROVED_BY_BOTH)
                 .collect(Collectors.toList());
     }
 

@@ -7,6 +7,7 @@ import itmo.mpi.entity.Crew;
 import itmo.mpi.entity.Island;
 import itmo.mpi.entity.Ship;
 import itmo.mpi.repository.CrewRepository;
+import itmo.mpi.repository.IslandRepository;
 import itmo.mpi.repository.ShipRepository;
 import itmo.mpi.service.OptionsLookUpService;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +24,11 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
 
     private final CrewRepository crewRepository;
     private final ShipRepository shipRepository;
+    private final IslandRepository islandRepository;
 
     @Override
     public List<TripOption> lookUpOptions(TripRequestDto tripRequestDto) {
+        preprocessRequest(tripRequestDto);
         List<ShipOption> shipOptions = getShipOptions(tripRequestDto);
 
         return shipOptions.stream()
@@ -72,4 +75,14 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
         return (int) Math.ceil(Math.sqrt(Math.pow(from.getXCoordinate() - to.getXCoordinate(), 2) +
                 Math.pow(from.getYCoordinate() - to.getYCoordinate(), 2)));
     }
+
+    private void preprocessRequest(TripRequestDto requestDto) {
+        if (requestDto.getFrom().getYCoordinate() == null || requestDto.getFrom().getXCoordinate() == null) {
+            requestDto.setFrom(islandRepository.getById(requestDto.getFrom().getId()));
+        }
+        if (requestDto.getTo().getYCoordinate() == null || requestDto.getTo().getXCoordinate() == null) {
+            requestDto.setTo(islandRepository.getById(requestDto.getTo().getId()));
+        }
+    }
+
 }

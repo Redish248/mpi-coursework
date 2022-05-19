@@ -15,7 +15,7 @@ public interface ShipRepository extends JpaRepository<Ship, Long> {
 
     @Query(value = "select sh.* from ship sh left join trip_request tr on sh.uid = tr.ship_id AND " +
             "tr.date_start <= :startDate\\:\\:date + (ceil(:distance\\:\\:float/sh.speed) * interval '1 day') AND tr.date_end >= " +
-            ":startDate AND tr.status IN ('COMPLETE','APPROVED_BY_SHIP','APPROVED_BY_CREW_AND_SHIP') where tr.uid is null;", nativeQuery = true)
+            ":startDate AND tr.status IN ('COMPLETE','APPROVED_BY_SHIP','APPROVED_BY_BOTH') where tr.uid is null;", nativeQuery = true)
     List<Ship> getFreeShipsForTrip(@Param("startDate") LocalDate startDate, @Param("distance") int distance);
 
     List<Ship> findByOwner(User owner);

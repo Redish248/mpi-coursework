@@ -12,6 +12,6 @@ public enum TripRequestStatus {
     REJECTED,
     APPROVED_BY_CREW,
     APPROVED_BY_SHIP,
-    APPROVED_BY_CREW_AND_SHIP,
+    APPROVED_BY_BOTH,
     COMPLETE
 }
