@@ -13,12 +13,14 @@ import { AuthGuard } from './helpers/auth.guard'
 import { AuthBasicInterceptor } from './helpers/auth-basic.interceptor'
 import { ErrorInterceptor } from './helpers/error.interseptor'
 import {SignupComponent} from "./signup/signup.component";
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UserApprovalComponent } from './user-approval/user-approval.component'
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'map', component: MapComponent, canActivate: [AuthGuard]},
+  {path: 'approvals', component: UserApprovalComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/'}
 ]
 
@@ -28,7 +30,8 @@ const appRoutes: Routes = [
     LoginComponent,
     SignupComponent,
     MapComponent,
-    HeaderComponent
+    HeaderComponent,
+    UserApprovalComponent
   ],
   imports: [
     BrowserModule,

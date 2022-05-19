@@ -56,7 +56,7 @@ export class AuthService {
       map((user) => {
         console.log('sign in user', user)
         AuthService.saveData(credentials.nick, credentials.pswd)
-        return this.http.get<Permissions[]>(`${this.apiUrl}/databases/permissions`).subscribe(
+        return this.http.get<Permissions[]>(`${this.apiUrl}/permissions`).subscribe(
           permissions => {
             localStorage.setItem('perm', JSON.stringify(permissions))
             return user

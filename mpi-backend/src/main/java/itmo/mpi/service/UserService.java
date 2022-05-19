@@ -6,7 +6,7 @@ import itmo.mpi.model.UserInfo;
 import java.util.List;
 
 public interface UserService {
-    List<User> findAllNotActivatedUsers();
+    List<UserInfo> findAllNotActivatedUsers();
 
     User createUser(UserInfo newUser);
 }
