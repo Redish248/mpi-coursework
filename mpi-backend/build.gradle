@@ -8,6 +8,8 @@ plugins {
     id 'java'
     id 'io.spring.dependency-management' version "1.0.11.RELEASE"
     id 'org.springframework.boot' version "2.6.3"
+
+    id 'org.jetbrains.kotlin.jvm' version '1.4.32'
 }
 
 group 'itmo.mpi'
@@ -39,6 +41,15 @@ dependencies {
 
     // liquibase
     implementation("org.liquibase:liquibase-core")
+
+    // tests
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    testImplementation "org.springframework.boot:spring-boot-starter-test"
+    testImplementation("org.jetbrains.kotlin:kotlin-test-junit")
+
+    testImplementation "io.mockk:mockk:${mockkVersion}"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:${junitVersion}"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:${junitVersion}"
 }
 
 bootJar {
@@ -58,4 +69,20 @@ java {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+compileKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+compileTestKotlin {
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }

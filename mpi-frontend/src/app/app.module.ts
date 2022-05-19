@@ -15,11 +15,16 @@ import { TravelerHistoryComponent } from './history/traveler-history/traveler-hi
 import { ProfileComponent } from './profiles/components/profile/profile.component'
 import { ShipsComponent } from './profiles/components/ships/ships.component'
 import { CrewsComponent } from './profiles/components/crews/crews.component'
+import { AuthGuard } from './helpers/auth.guard'
+import { AuthBasicInterceptor } from './helpers/auth-basic.interceptor'
+import { ErrorInterceptor } from './helpers/error.interseptor'
+import {SignupComponent} from "./signup/signup.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 const appRoutes: Routes = [
-  {path: '', component: MapComponent},
-  {path: 'map', component: MapComponent},
+  {path: '', component: MapComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
+  {path: 'map', component: MapComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/'}
 ]
 
@@ -27,6 +32,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
+    SignupComponent,
     MapComponent,
     HeaderComponent,
     ShipHistoryComponent,
@@ -41,10 +47,15 @@ const appRoutes: Routes = [
     RouterModule,
     RouterModule.forRoot(appRoutes),
     ClarityModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    AuthGuard,
+    {provide: HTTP_INTERCEPTORS, useClass: AuthBasicInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

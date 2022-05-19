@@ -18,10 +18,6 @@ export class HeaderComponent implements OnInit {
     return this.authService.getUser()
   }
 
-  getUsername() {
-    return localStorage.getItem("username")
-  }
-
   logout() {
     this.authService.logout()
   }

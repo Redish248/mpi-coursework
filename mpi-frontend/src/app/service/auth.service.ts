@@ -24,9 +24,10 @@ export class AuthService {
     return localStorage.getItem("authData")
   }
 
-  private get baseUrl():string{
+  private get baseUrl(): string {
     return this.configService.baseUrl
   }
+
   private get apiUrl(): string {
     return this.configService.appUrl
   }
@@ -66,7 +67,7 @@ export class AuthService {
   }
 
   logout(): Subscription {
-    return this.http.post(`${this.apiUrl}/logout`, null).subscribe(
+    return this.http.post(`${this.baseUrl}/logout`, null).subscribe(
       _ => {
         AuthService.deleteData()
         this.router.navigate(['/login'])
