@@ -25,15 +25,15 @@
       </clr-input-container>
       <clr-input-container>
         <label>Телефон</label>
-        <input clrInput formControlName="phone" type="text">
+        <input clrInput formControlName="phone" type="text" required pattern="\d{2}-\d{2}-\d{4}">
       </clr-input-container>
       <clr-date-container>
         <label>Дата рождения</label>
-        <input type="date" clrDate formControlName="dateOfBirth"/>
+        <input type="date" clrDate formControlName="birthDate"/>
       </clr-date-container>
-      -<clr-select-container>
+      <clr-select-container>
         <label>Тип пользователя</label>
-        <select clrSelect formControlName="userRole">
+        <select clrSelect formControlName="userType">
           <option [value]="Roles.TRAVELER">Путешественник</option>
           <option [value]="Roles.SHIP_OWNER">Капитан корабля</option>
           <option [value]="Roles.CREW_MANAGER">Владелец экипажа</option>
