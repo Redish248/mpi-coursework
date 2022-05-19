@@ -1,6 +1,5 @@
 package itmo.mpi.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;

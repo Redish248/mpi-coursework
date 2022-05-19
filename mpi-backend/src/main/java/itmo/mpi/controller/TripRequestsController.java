@@ -4,7 +4,7 @@ import itmo.mpi.dto.TripOption;
 import itmo.mpi.dto.TripRequestDto;
 import itmo.mpi.entity.TripRequest;
 import itmo.mpi.service.OptionsLookUpService;
-import itmo.mpi.service.TripService;
+import itmo.mpi.service.TripRequestManipulationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +19,7 @@ import java.util.List;
 public class TripRequestsController {
 
     private final OptionsLookUpService optionsLookUpService;
-    private final TripService tripService;
+    private final TripRequestManipulationService tripRequestManipulationService;
 
     @PostMapping("/options")
     public List<TripOption> getExpeditionOptions(@RequestBody TripRequestDto request) {
@@ -28,22 +28,27 @@ public class TripRequestsController {
 
     @PostMapping("/create")
     public void createTripRequest(@RequestBody TripRequest request) {
-        tripService.createTripRequest(request, getCurrentUsername());
+        tripRequestManipulationService.createTripRequest(request, getCurrentUsername());
     }
 
     @PostMapping("/cancel")
     public void cancelTripRequest(@RequestBody TripRequest request) {
-        tripService.cancelRequest(request, getCurrentUsername());
+        tripRequestManipulationService.cancelRequest(request, getCurrentUsername());
     }
 
     @PostMapping("/reject")
     public void rejectTripRequest(@RequestBody TripRequest request) {
-        tripService.rejectRequest(request, getCurrentUsername());
+        tripRequestManipulationService.rejectRequest(request, getCurrentUsername());
+    }
+
+    @PostMapping("/approve")
+    public void approveTripRequest(@RequestBody TripRequest request) {
+        tripRequestManipulationService.approveRequest(request, getCurrentUsername());
     }
 
     @DeleteMapping
     public void deleteRequest(@RequestBody TripRequest request) {
-        tripService.deleteRequest(request, getCurrentUsername());
+        tripRequestManipulationService.deleteRequest(request, getCurrentUsername());
     }
 
     private String getCurrentUsername() {
