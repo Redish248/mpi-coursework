@@ -15,10 +15,14 @@
             </clr-password-container>
             <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
 
-            <!--            TODO - add registration -->
-            <!--            <button class="btn btn-link" (click)="registrationMode = true">Зарегистрироваться</button>-->
+            <button class="btn btn-link" (click)="registrationMode = true">Зарегистрироваться</button>
 
             <button [disabled]="loginForm?.invalid" (click)="submitLogin()" class="btn btn-primary">ВОЙТИ</button>
         </div>
     </form>
 </div>
+
+<app-signup *ngIf="registrationMode"
+            [modalOpened]="registrationMode"
+            (closeModal)="registrationMode= false; login($event)">
+</app-signup>

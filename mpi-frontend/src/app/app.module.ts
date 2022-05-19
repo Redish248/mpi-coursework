@@ -13,11 +13,11 @@ import { AuthGuard } from './helpers/auth.guard'
 import { AuthBasicInterceptor } from './helpers/auth-basic.interceptor'
 import { ErrorInterceptor } from './helpers/error.interseptor'
 import {SignupComponent} from "./signup/signup.component";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
-  {path: 'signup', component: SignupComponent},
   {path: 'map', component: MapComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/'}
 ]
@@ -35,6 +35,7 @@ const appRoutes: Routes = [
     RouterModule,
     RouterModule.forRoot(appRoutes),
     ClarityModule,
+    BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule
   ],

@@ -38,7 +38,11 @@ export class LoginComponent implements OnInit {
 
   submitLogin() {
     this.errorMessage = undefined
-    this.authService.login(this.loginForm?.getRawValue())
+    this.login(this.loginForm?.getRawValue())
+  }
+
+  login(data: { nick: string, pswd: string }) {
+    this.authService.login(data)
       .pipe(first())
       .subscribe(
         _ => {

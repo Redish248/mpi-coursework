@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
-import {FormBuilder, FormGroup, Validators} from '@angular/forms'
-import {AuthService} from '../service/auth.service'
-import {SignupService} from "./signup.service";
-import {Role, Gender} from "../common_model";
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { AuthService } from '../service/auth.service'
+import { SignupService } from "./signup.service"
+import { Permissions } from '../entity/User'
 
 @Component({
   selector: 'app-signup',
@@ -11,7 +11,7 @@ import {Role, Gender} from "../common_model";
 })
 export class SignupComponent implements OnInit {
   @Input() modalOpened: boolean
-  @Output() closeModal = new EventEmitter()
+  @Output() closeModal = new EventEmitter<{ nick: string, pswd: string }>()
 
   constructor(private formBuilder: FormBuilder,
               private signupService: SignupService,
@@ -22,7 +22,8 @@ export class SignupComponent implements OnInit {
   signupForm: FormGroup
   errorMessage: string = ""
   loading: boolean = false
-  Role: Role
+  Roles = Permissions
+
   /*Gender: Gender*/
 
   ngOnInit(): void {
@@ -51,8 +52,8 @@ export class SignupComponent implements OnInit {
           _ => {
             this.loading = false
             this.closeModal.emit({
-              username: this.signupForm.value.nick,
-              password: this.signupForm.value.password
+              nick: this.signupForm.value.nick,
+              pswd: this.signupForm.value.password
             })
             this.modalOpened = false
           },
