@@ -10,6 +10,9 @@
         <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
             <span class="nav-text">Карта</span>
         </a>
+      <a class="nav-link" [routerLink]="['approvals']" routerLinkActive="active">
+        <span class="nav-text">Регистрации</span>
+      </a>
     </div>
     <div class="header-actions header-actions--overflow" *ngIf="user">
         <clr-dropdown>

@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,8 +29,22 @@ public class UserServiceImpl implements UserService {
     private final AdminRepository adminRepository;
 
     @Override
-    public List<User> findAllNotActivatedUsers() {
-        return userRepository.findUsersByIsActivated(false);
+    public List<UserInfo> findAllNotActivatedUsers() {
+        List<User> allUsers =  userRepository.findUsersByIsActivated(false);
+        List<UserInfo> result = new ArrayList<>();
+        allUsers.forEach(user -> {
+            UserInfo userInfo = new UserInfo();
+            userInfo.setName(user.getName());
+            userInfo.setSurname(user.getSurname());
+            userInfo.setNick(user.getNick());
+            userInfo.setEmail(user.getEmail());
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+            userInfo.setBirthDate(user.getBirthDate().format(formatter));
+            userInfo.setPhone(user.getPhone());
+            userInfo.setUserType(user.getUserType().getName());
+            result.add(userInfo);
+        });
+        return result;
     }
 
     @Override

@@ -1,9 +1,8 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { AuthService } from '../service/auth.service'
-import { SignupService } from "./signup.service"
-import { Permissions } from '../entity/User'
-import {DatePipe} from "@angular/common";
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
+import {FormBuilder, FormGroup, Validators} from '@angular/forms'
+import {AuthService} from '../service/auth.service'
+import {SignupService} from "./signup.service"
+import {Permissions} from '../entity/User'
 import {Router} from "@angular/router";
 
 @Component({
