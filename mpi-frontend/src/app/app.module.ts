@@ -15,12 +15,16 @@ import { ErrorInterceptor } from './helpers/error.interseptor'
 import {SignupComponent} from "./signup/signup.component";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserApprovalComponent } from './user-approval/user-approval.component'
+import { IslandPipe } from './service/island.pipe';
+import { OptionsComponent } from './options/options.component'
+import { DatePipe } from '@angular/common'
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'map', component: MapComponent, canActivate: [AuthGuard]},
   {path: 'approvals', component: UserApprovalComponent, canActivate: [AuthGuard]},
+  {path: 'options', component: OptionsComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/'}
 ]
 
@@ -31,7 +35,9 @@ const appRoutes: Routes = [
     SignupComponent,
     MapComponent,
     HeaderComponent,
-    UserApprovalComponent
+    UserApprovalComponent,
+    IslandPipe,
+    OptionsComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +52,7 @@ const appRoutes: Routes = [
     AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthBasicInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })
