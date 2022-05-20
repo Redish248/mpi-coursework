@@ -19,8 +19,10 @@ import { AuthGuard } from './helpers/auth.guard'
 import { AuthBasicInterceptor } from './helpers/auth-basic.interceptor'
 import { ErrorInterceptor } from './helpers/error.interseptor'
 import { SignupComponent } from "./signup/signup.component"
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AlertComponent } from './alert/alert.component'
+import { ProfilesTableComponent } from './profiles/components/profiles-table/profiles-table.component'
+import { RatingComponent } from './helpers/rating/rating.component'
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
@@ -42,7 +44,9 @@ const appRoutes: Routes = [
     ProfileComponent,
     ShipsComponent,
     CrewsComponent,
-    AlertComponent
+    AlertComponent,
+    ProfilesTableComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

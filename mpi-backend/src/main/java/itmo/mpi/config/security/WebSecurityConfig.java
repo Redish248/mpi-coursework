@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -43,27 +42,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                    .cors()
+                .cors()
                 .and()
-                    .csrf().disable()
-                    .exceptionHandling()
-                    .authenticationEntryPoint(authEntryPoint)
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(authEntryPoint)
                 .and()
-                    .authorizeRequests()
-                    .antMatchers("/mpi/signup/*").permitAll()
-                    .anyRequest().authenticated()
+                .authorizeRequests()
+                .antMatchers("/mpi/signup/*").permitAll()
+                .anyRequest().authenticated()
                 .and()
-                    .formLogin()
-                    .loginProcessingUrl("/login/**")
-                    .successHandler(authSuccessHandler)
-                    .failureHandler(failureHandler)
-                    .permitAll()
+                .formLogin()
+                .loginProcessingUrl("/login/**")
+                .successHandler(authSuccessHandler)
+                .failureHandler(failureHandler)
+                .permitAll()
                 .and()
-                    .logout()
-                    .logoutSuccessHandler(new LogoutSuccess())
-                    .deleteCookies("JSESSIONID")
-                    .invalidateHttpSession(false)
-                    .permitAll();
+                .logout()
+                .logoutSuccessHandler(new LogoutSuccess())
+                .deleteCookies("JSESSIONID")
+                .invalidateHttpSession(false)
+                .permitAll();
 
         http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
     }

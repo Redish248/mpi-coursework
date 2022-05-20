@@ -16,4 +16,5 @@ public interface CrewRepository extends JpaRepository<Crew, Long> {
             ":dateEnd and tr.date_end >= :dateStart where tr.uid is null;", nativeQuery = true)
     List<Crew> getFreeCrewsForDates(@Param("dateStart") LocalDate startDate, @Param("dateEnd") LocalDate endDate);
 
+    Crew getCrewByOwnerId(int id);
 }

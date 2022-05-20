@@ -17,4 +17,5 @@ public interface ShipRepository extends JpaRepository<Ship, Long> {
             ":startDate where tr.uid is null;", nativeQuery = true)
     List<Ship> getFreeShipsForTrip(@Param("startDate") LocalDate startDate, @Param("distance") int distance);
 
+    Ship getShipByOwnerId(int ownerUid);
 }

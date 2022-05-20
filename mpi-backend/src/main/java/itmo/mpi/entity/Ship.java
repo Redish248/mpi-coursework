@@ -1,6 +1,5 @@
 package itmo.mpi.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 
@@ -50,5 +49,11 @@ public class Ship {
 
     @Column(name = "rates_average", nullable = false)
     private Double ratesAverage;
+
+    @Column(name = "photo")
+    private String photo;
+
+    @Column(name = "description")
+    private String description;
 
 }

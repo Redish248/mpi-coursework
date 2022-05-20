@@ -1,0 +1,14 @@
+<div id="profiles-list">
+    <div *ngFor="let profile of filteredProfiles"
+         class="profile card clickable"
+         (click)="profileOpen = true">
+        <div class="card-header">
+            {{profile.name}} {{profile.surname}}
+        </div>
+
+    </div>
+</div>
+
+<app-profile *ngIf="profileOpen">
+
+</app-profile>

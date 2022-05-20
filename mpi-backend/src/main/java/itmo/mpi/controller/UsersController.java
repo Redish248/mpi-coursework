@@ -1,6 +1,8 @@
 package itmo.mpi.controller;
 
-import itmo.mpi.model.ProfilesResponse;
+import itmo.mpi.model.profiles.CrewProfileResponse;
+import itmo.mpi.model.profiles.ShipProfileResponse;
+import itmo.mpi.service.ProfilesService;
 import itmo.mpi.service.UserService;
 import itmo.mpi.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
@@ -15,19 +17,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UsersController {
 
-    private final UserService userService;
+    private final ProfilesService profilesService;
 
     private final CommonUtils commonUtils;
 
     @GetMapping("ships")
-    public List<ProfilesResponse> getShipsProfiles() {
+    public List<ShipProfileResponse> getShipsProfiles() {
         String nickname = commonUtils.getCurrentUser().getName();
-        return userService.getShipsForCurrentUser(nickname);
+        return profilesService.getShipsForCurrentUser(nickname);
     }
 
     @GetMapping("crews")
-    public List<ProfilesResponse> getCrewsProfiles() {
+    public List<CrewProfileResponse> getCrewsProfiles() {
         String nickname = commonUtils.getCurrentUser().getName();
-        return userService.getCrewsForCurrentUser(nickname);
+        return profilesService.getCrewsForCurrentUser(nickname);
     }
 }

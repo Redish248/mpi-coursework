@@ -1,6 +1,5 @@
 package itmo.mpi.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -30,4 +29,9 @@ public class Crew {
     @Column(name = "rates_average", nullable = false)
     private Double ratesAverage;
 
+    @Column(name = "photo")
+    private String photo;
+
+    @Column(name = "description")
+    private String description;
 }
