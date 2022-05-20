@@ -18,8 +18,8 @@
     <clr-dg-cell>{{next.birthDate}}</clr-dg-cell>
     <clr-dg-cell>{{next.email}}</clr-dg-cell>
     <clr-dg-cell>{{next.phone}}</clr-dg-cell>
-    <clr-dg-cell><button type="button" class="btn btn-outline" (click)="this.userApproval.processUser(next.nick, true)">Активировать</button></clr-dg-cell>
-    <clr-dg-cell><button type="button" class="btn btn-outline" (click)="this.userApproval.processUser(next.nick, false)">Удалить</button></clr-dg-cell>
+    <clr-dg-cell><button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, true)">Активировать</button></clr-dg-cell>
+    <clr-dg-cell><button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, false)">Удалить</button></clr-dg-cell>
   </clr-dg-row>
 
   <clr-dg-footer>

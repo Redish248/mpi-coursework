@@ -2,7 +2,6 @@ import {Injectable} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {ConfigService} from "../service/config.service";
 import {UserInfo} from "../entity/UserInfo";
-import {map} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +19,11 @@ export class UserApprovalService {
     const sendParams = new HttpParams()
       .append('nick', nick)
       .append('isActivated', status)
-    this.http.post(`${this.apiUrl}/processUser`, null, {
+    return this.http.post(`${this.apiUrl}/processUser`, null, {
       params: sendParams,
       withCredentials: true,
       observe: 'response'
-    }).subscribe();
+    });
   }
 
   public getUsers() {

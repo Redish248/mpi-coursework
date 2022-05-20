@@ -12,6 +12,7 @@ import {Router} from "@angular/router";
 })
 export class SignupComponent implements OnInit {
   @Input() modalOpened: boolean
+  @Input() registrationMode: boolean
   @Output() closeModal = new EventEmitter<{ nick: string, pswd: string }>()
 
   constructor(private formBuilder: FormBuilder,
@@ -46,6 +47,8 @@ export class SignupComponent implements OnInit {
     this.errorMessage = ""
     this.signupService.signup(this.signupForm.getRawValue()).subscribe(
       _ => {
+        this.registrationMode = false
+        this.modalOpened = false
         // login after success registration
         if (this.signupForm.value.userType == 'TRAVELER') {
           this.authService.login({
@@ -58,7 +61,6 @@ export class SignupComponent implements OnInit {
                 nick: this.signupForm.value.nick,
                 pswd: this.signupForm.value.password
               })
-              this.modalOpened = false
             },
             err => {
               this.loading = false

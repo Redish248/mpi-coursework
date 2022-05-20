@@ -34,6 +34,12 @@ export class UserApprovalComponent implements OnInit {
     )
   }
 
+  processUser(nick: string, status: boolean) {
+    this.userApproval.processUser(nick, status).subscribe(_ =>
+      this.getAllNotActivatedUsers()
+    );
+  }
+
   parseUserType(type: string) {
     switch (type) {
       case "CREW_MANAGER" : return "Владелец экипажа"

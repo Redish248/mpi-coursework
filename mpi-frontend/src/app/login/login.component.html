@@ -23,6 +23,7 @@
 </div>
 
 <app-signup *ngIf="registrationMode"
+            [registrationMode]="registrationMode"
             [modalOpened]="registrationMode"
             (closeModal)="registrationMode= false; signup()">
 </app-signup>
