@@ -12,6 +12,8 @@ public interface TripRequestInfoService {
 
     List<TripRequest> getCompleteRequestsForUser(String username);
 
+    List<TripRequest> getCancelledRequestsForUser(String username);
+
     List<TripRequest> getPendingRequestsForShip(Ship ship);
 
     List<TripRequest> getPendingRequestsForCrew(Crew crew);

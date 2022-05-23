@@ -76,6 +76,21 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
     }
 
     @Override
+    public List<TripRequest> getCancelledRequestsForUser(String username) {
+        User user = userRepository.findByNick(username);
+        switch (user.getUserType().getName()) {
+            case TRAVELLER_ROLE:
+                return getRequestsForUserWithStatuses(user, getCancelledStatuses());
+            case CREW_ROLE:
+                return getCancelledRequestsForCrewOwner(user);
+            case SHIP_ROLE:
+                return getCancelledRequestsForShipOwner(user);
+            default:
+                throw new IllegalArgumentException("User has no role");
+        }
+    }
+
+    @Override
     public List<TripRequest> getApprovedRequestsForShip(Ship ship) {
         return requestRepository.findByShipAndStatusIn(ship, getApprovedShipStatuses());
     }
@@ -105,12 +120,26 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
         return requestRepository.findByShipInAndStatusIn(ships, getCompleteStatuses());
     }
 
+    private List<TripRequest> getCancelledRequestsForCrewOwner(User crewOwner) {
+        List<Crew> crews = crewRepository.findByCrewOwner(crewOwner);
+        return requestRepository.findByCrewInAndStatusIn(crews, getCancelledStatuses());
+    }
+
+    private List<TripRequest> getCancelledRequestsForShipOwner(User crewOwner) {
+        List<Ship> ships = shipRepository.findByOwner(crewOwner);
+        return requestRepository.findByShipInAndStatusIn(ships, getCancelledStatuses());
+    }
+
     private List<TripRequest> getRequestsForUserWithStatuses(User user, List<TripRequestStatus> statuses) {
         if (user.getUserType().getName().equals(TRAVELLER_ROLE)) {
             return requestRepository.findByTravelerAndStatusIn(user, statuses);
         } else {
             throw new IllegalArgumentException(String.format("User %s is not a traveller", user.getNick()));
         }
+    }
+
+    private List<TripRequestStatus> getCancelledStatuses() {
+        return Stream.of(CANCELLED, REJECTED).collect(Collectors.toList());
     }
 
     private List<TripRequestStatus> getPendingStatuses() {

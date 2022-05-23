@@ -60,6 +60,11 @@ public class TripRequestsController {
         return tripRequestInfoService.getPendingRequestsForUser(getCurrentUsername());
     }
 
+    @GetMapping("/cancelled")
+    public List<TripRequest> getCancelledTrips() {
+        return tripRequestInfoService.getCancelledRequestsForUser(getCurrentUsername());
+    }
+
     @PostMapping("/ship/pending")
     public List<TripRequest> getPendingTripsForShip(@RequestBody Ship ship) {
         return tripRequestInfoService.getPendingRequestsForShip(ship);
@@ -91,7 +96,7 @@ public class TripRequestsController {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleException(IllegalArgumentException exception) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
     }
 
 }

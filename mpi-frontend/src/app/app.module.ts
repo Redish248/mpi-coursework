@@ -19,6 +19,7 @@ import { IslandPipe } from './service/island.pipe';
 import { OptionsComponent } from './options/options.component'
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { RequestsComponent } from './requests/requests.component';
+import { StatusPipe } from './service/status.pipe';
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
@@ -41,6 +42,7 @@ const appRoutes: Routes = [
     IslandPipe,
     OptionsComponent,
     RequestsComponent,
+    StatusPipe,
   ],
   imports: [
     BrowserModule,

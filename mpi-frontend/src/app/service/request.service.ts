@@ -15,4 +15,32 @@ export class RequestService {
     return this.http.post<void>(this.config.baseUrl+'/request/create', req);
   }
 
+  public getPendingRequests(): Observable<TripRequest[]> {
+    return this.http.get<TripRequest[]>(this.config.baseUrl+'/request/pending');
+  }
+
+  public getCompleteRequests(): Observable<TripRequest[]> {
+    return this.http.get<TripRequest[]>(this.config.baseUrl+'/request/complete');
+  }
+
+  public getCancelledRequests(): Observable<TripRequest[]> {
+    return this.http.get<TripRequest[]>(this.config.baseUrl+'/request/cancelled');
+  }
+
+  public cancelRequest(request: TripRequest) {
+    return this.http.post(this.config.baseUrl+'/request/cancel', request);
+  }
+
+  public rejectRequest(request: TripRequest) {
+    return this.http.post(this.config.baseUrl+'/request/reject', request);
+  }
+
+  public approveRequest(request: TripRequest) {
+    return this.http.post(this.config.baseUrl+'/request/approve', request);
+  }
+
+  public deleteReqeust(request: TripRequest) {
+    return this.http.delete(this.config.baseUrl+'/request', {body: request});
+  }
+
 }

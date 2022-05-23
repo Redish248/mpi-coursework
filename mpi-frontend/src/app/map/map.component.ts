@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Route, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Island } from '../entity/island';
 import { OptionsService } from '../service/options.service';
 import { IslandService } from '../service/island.service';
