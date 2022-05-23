@@ -4,7 +4,7 @@ import { Route, Router } from '@angular/router';
 import { Island } from '../entity/island';
 import { OptionsService } from '../service/options.service';
 import { IslandService } from '../service/island.service';
-import { TripRequestDto } from '../entity/Triprequest';
+import { TripRequestDto } from '../entity/TripRequestDto';
 import { DatePipe } from '@angular/common';
 
 @Component({

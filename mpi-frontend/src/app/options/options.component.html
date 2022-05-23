@@ -1,1 +1,23 @@
-<p>options works!</p>
+<div *ngIf="loading" id="spinner-container">
+    <clr-spinner id="loading">Loading options</clr-spinner>
+</div>
+<div *ngIf="!loading" class="content">
+    <div *ngFor="let option of options" class="option-block">
+            <div>Корабль
+                <div class="value">{{option.ship.name}} (⭐{{option.ship.ratesAverage}})</div>
+            </div>
+            <div>Команда
+                <div class="value">{{option.crew.teamName}} (⭐{{option.crew.ratesAverage}})</div>
+            </div>
+            <div>Даты поездки
+                <div class="value">{{option.startDate}} - {{option.finishDate}}</div>
+            </div>
+            <div>Стоимость
+                <div class="value">{{option.price}}</div>
+            </div>
+        <button (click)="submit(option)" class="btn btn-primary">Создать заявку</button>
+    </div>
+</div>
+<div *ngIf="!loading && options.length == 0" id="nothing-found">
+    Подходящих вариантов не найдено :(
+</div>
