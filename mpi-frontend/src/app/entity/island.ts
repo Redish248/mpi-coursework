@@ -3,5 +3,5 @@ export class Island {
     public name: string;
     public xCoordinate: number;
     public yCoordinate: number;
-    public rusname: string;
+    public hasPirates: boolean;
 }

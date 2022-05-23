@@ -6,6 +6,7 @@ import { OptionsService } from '../service/options.service';
 import { IslandService } from '../service/island.service';
 import { TripRequestDto } from '../entity/TripRequestDto';
 import { DatePipe } from '@angular/common';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-map',
@@ -25,22 +26,25 @@ export class MapComponent implements OnInit {
   private clickStatus: number = 0;
 
   constructor(private islandService: IslandService, private router: Router, private options: OptionsService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe, private auth: AuthService) { }
 
   ngOnInit(): void {
     this.islandService.loadIslands().subscribe((data:Island[]) => {
       this.islands = data;
+      this.updateIslands();
     });
   }
 
   onIslandClick(islandId: number) {
-    if (this.clickStatus == 1) {
-      this.expeditionControl.get('to')?.setValue(islandId+1);
-    } else {
-      this.expeditionControl.get('from')?.setValue(islandId+1);
+    if (this.canCreateRequests()) {
+      if (this.clickStatus == 1) {
+        this.expeditionControl.get('to')?.setValue(islandId+1);
+      } else {
+        this.expeditionControl.get('from')?.setValue(islandId+1);
+      }
+      this.incrementClickStatus();
+      this.updateIslands();
     }
-    this.incrementClickStatus();
-    this.updateIslands();
   }
 
   onChangeFrom() {
@@ -89,7 +93,11 @@ export class MapComponent implements OnInit {
 
   updateIslands() {
     this.islands.forEach(island => {
+      if (island.hasPirates) {
+        this.setPirates(island.name);
+      }
       if (this.selectedToIsland()?.name == island.name || this.selectedFromIsland()?.name == island.name) {
+        this.removePirates(island.name);
         this.selectIsland(island.name);
       } else {
         this.releaseIsland(island.name);
@@ -117,12 +125,24 @@ export class MapComponent implements OnInit {
     document.getElementById(islandName)?.classList.add('selected');
   }
 
+  setPirates(islandName: string) {
+    document.getElementById(islandName)?.classList.add('pirates');
+  }
+
+  removePirates(islandName: string) {
+    document.getElementById(islandName)?.classList.remove('pirates');
+  }
+
   releaseIsland(islandName: string) {
     document.getElementById(islandName)?.classList.remove('selected');
   }
 
   incrementClickStatus() {
     this.clickStatus = (this.clickStatus + 1)%2;
+  }
+
+  canCreateRequests() {
+    return true;
   }
 
 }

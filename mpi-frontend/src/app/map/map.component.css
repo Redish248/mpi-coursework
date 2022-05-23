@@ -19,6 +19,10 @@
     fill: #F5C84C;
 }
 
+.pirates {
+    fill: #fa1414;
+}
+
 .alert {
     display: none;
     width: 50%;
