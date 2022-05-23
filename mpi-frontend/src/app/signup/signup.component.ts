@@ -20,16 +20,6 @@ export class SignupComponent implements OnInit {
               private authService: AuthService,
               private router: Router
   ) {
-  }
-
-  signupForm: FormGroup
-  errorMessage: string = ""
-  loading: boolean = false
-  Roles = Permissions
-
-  /*Gender: Gender*/
-
-  ngOnInit(): void {
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.required],
       surname: ['', Validators.required],
@@ -42,38 +32,62 @@ export class SignupComponent implements OnInit {
     })
   }
 
+  signupForm: FormGroup
+  errorMessage: string | undefined
+  loading: boolean = false
+  Roles = Permissions
+
+  ngOnInit(): void {
+  }
+
   signup() {
     this.loading = true
-    this.errorMessage = ""
-    this.signupService.signup(this.signupForm.getRawValue()).subscribe(
-      _ => {
-        this.registrationMode = false
-        this.modalOpened = false
-        // login after success registration
-        if (this.signupForm.value.userType == 'TRAVELER') {
-          this.authService.login({
-            nick: this.signupForm.value.nick,
-            pswd: this.signupForm.value.password
-          }).subscribe(
-            _ => {
-              this.loading = false
-              this.closeModal.emit({
-                nick: this.signupForm.value.nick,
-                pswd: this.signupForm.value.password
-              })
-            },
-            err => {
-              this.loading = false
-              this.errorMessage = err
-            }
-          )
-        } else {
-          this.router.navigate(['/'])
-        }
-      }, err => {
-        this.loading = false
-        this.errorMessage = err
-      })
+    this.errorMessage = undefined
+    if (this.signupForm.getRawValue().birthDate === '' ||
+      this.signupForm.getRawValue().email === '' ||
+      this.signupForm.getRawValue().name === '' ||
+      this.signupForm.getRawValue().nick === '' ||
+      this.signupForm.getRawValue().password === '' ||
+      this.signupForm.getRawValue().phone === '' ||
+      this.signupForm.getRawValue().surname === ''
+    ) {
+      this.errorMessage = "Заполните все поля!"
+    } else {
+      this.signupService.signup(this.signupForm.getRawValue()).subscribe(
+        _ => {
+          this.registrationMode = false
+          this.modalOpened = false
+          // login after success registration
+          if (this.signupForm.value.userType == 'TRAVELER') {
+            this.authService.login({
+              nick: this.signupForm.value.nick,
+              pswd: this.signupForm.value.password
+            }).subscribe(
+              _ => {
+                this.loading = false
+                this.closeModal.emit({
+                  nick: this.signupForm.value.nick,
+                  pswd: this.signupForm.value.password
+                })
+              },
+              _ => {
+                this.loading = false
+                this.errorMessage = "Ошибка входа в систему"
+              }
+            )
+          } else {
+            localStorage.setItem("alertShow", 'true')
+            location.reload()
+          }
+        }, error => {
+          this.loading = false
+          if (error.includes('register')) {
+            this.errorMessage = "Такой пользователь уже существует в системе"
+          } else {
+            this.errorMessage = "Ошибка регистрации"
+          }
+        })
+    }
   }
 
 }

@@ -20,6 +20,8 @@ import { OptionsComponent } from './options/options.component'
 import { DatePipe, DecimalPipe } from '@angular/common';
 import { RequestsComponent } from './requests/requests.component';
 import { StatusPipe } from './service/status.pipe';
+import { CdsModule } from '@cds/angular';
+import '@cds/core/alert/register.js';
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
@@ -49,6 +51,7 @@ const appRoutes: Routes = [
     RouterModule,
     RouterModule.forRoot(appRoutes),
     ClarityModule,
+    CdsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule
