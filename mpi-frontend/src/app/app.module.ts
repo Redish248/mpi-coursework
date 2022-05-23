@@ -17,8 +17,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserApprovalComponent } from './user-approval/user-approval.component'
 import { IslandPipe } from './service/island.pipe';
 import { OptionsComponent } from './options/options.component'
-import { DatePipe } from '@angular/common';
-import { RequestsComponent } from './requests/requests.component'
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { RequestsComponent } from './requests/requests.component';
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
@@ -40,7 +40,7 @@ const appRoutes: Routes = [
     UserApprovalComponent,
     IslandPipe,
     OptionsComponent,
-    RequestsComponent
+    RequestsComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +55,8 @@ const appRoutes: Routes = [
     AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthBasicInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-    DatePipe
+    DatePipe,
+    DecimalPipe
   ],
   bootstrap: [AppComponent]
 })

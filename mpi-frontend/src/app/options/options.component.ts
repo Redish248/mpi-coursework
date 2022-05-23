@@ -5,6 +5,7 @@ import { Option } from '../entity/Option';
 import { TripRequest } from '../entity/TripRequest';
 import { OptionsService } from '../service/options.service';
 import { RequestService } from '../service/request.service';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-options',
