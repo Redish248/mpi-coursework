@@ -25,7 +25,6 @@ export class LoginComponent implements OnInit {
     if (this.authService.getUser()) {
       this.router.navigate(['/'])
     }
-    this.alertShow = localStorage.getItem("alertShow") === 'true'
   }
 
   loginForm: FormGroup
@@ -33,7 +32,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string | undefined
 
   registrationMode: boolean = false
-  alertShow: boolean
+  alertShow: boolean = false
 
   ngOnInit(): void {
   }
@@ -44,6 +43,7 @@ export class LoginComponent implements OnInit {
   }
 
   login(data: { nick: string, pswd: string }) {
+    this.alertShow = false
     this.authService.login(data)
       .pipe(first())
       .subscribe(
@@ -57,13 +57,12 @@ export class LoginComponent implements OnInit {
   }
 
   signup() {
-    localStorage.setItem("alertShow", 'false')
+    this.alertShow = false
     this.registrationMode = false
     this.router.navigate(['/'])
   }
 
   hideAlert() {
-    localStorage.setItem("alertShow", 'false')
     this.alertShow = false
   }
 

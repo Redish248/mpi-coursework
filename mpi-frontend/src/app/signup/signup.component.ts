@@ -3,7 +3,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../service/auth.service'
 import {SignupService} from "./signup.service"
 import {Permissions} from '../entity/User'
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-signup',
@@ -13,12 +12,13 @@ import {Router} from "@angular/router";
 export class SignupComponent implements OnInit {
   @Input() modalOpened: boolean
   @Input() registrationMode: boolean
+  @Input() alertLogin: boolean
+  @Output() alertLoginChange  = new EventEmitter<boolean>();
   @Output() closeModal = new EventEmitter<{ nick: string, pswd: string }>()
 
   constructor(private formBuilder: FormBuilder,
               private signupService: SignupService,
-              private authService: AuthService,
-              private router: Router
+              private authService: AuthService
   ) {
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.required],
@@ -43,6 +43,7 @@ export class SignupComponent implements OnInit {
   signup() {
     this.loading = true
     this.errorMessage = undefined
+    this.alertLoginChange.emit(false)
     if (this.signupForm.getRawValue().birthDate === '' ||
       this.signupForm.getRawValue().email === '' ||
       this.signupForm.getRawValue().name === '' ||
@@ -76,8 +77,7 @@ export class SignupComponent implements OnInit {
               }
             )
           } else {
-            localStorage.setItem("alertShow", 'true')
-            location.reload()
+            this.alertLoginChange.emit(true)
           }
         }, error => {
           this.loading = false

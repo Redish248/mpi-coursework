@@ -33,5 +33,6 @@
 <app-signup *ngIf="registrationMode"
             [registrationMode]="registrationMode"
             [modalOpened]="registrationMode"
+            [(alertLogin)]="alertShow"
             (closeModal)="registrationMode= false; signup()">
 </app-signup>
