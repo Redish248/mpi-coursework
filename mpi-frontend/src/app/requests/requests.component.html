@@ -2,6 +2,20 @@
     <clr-tab>
         <button clrTabLink id="link1">Активные заявки</button>
         <clr-tab-content id="active" *clrIfActive="true">
+            <div id="alert" class="alert alert-danger">
+                <div class="alert-items">
+                    <div class="alert-item static">
+                        <div class="alert-icon-wrapper">
+                            <clr-icon class="alert-icon" shape="exclamation-circle"></clr-icon>
+                        </div>
+                        <span id="alertText" class="alert-text">
+                        </span>
+                    </div>
+                </div>
+                <button (click)="hideAlert()" type="button" class="close" aria-label="Close">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+            </div>
             <div *ngFor="let request of activeRequests" class="request-block">
                 <div>
                     Из

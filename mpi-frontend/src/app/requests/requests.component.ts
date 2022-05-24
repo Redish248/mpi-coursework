@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { catchError } from 'rxjs';
 import { TripRequest } from '../entity/TripRequest';
 import { AuthService } from '../service/auth.service';
 import { RequestService } from '../service/request.service';
@@ -29,6 +30,10 @@ export class RequestsComponent implements OnInit {
   approve(request: TripRequest) {
     this.requestService.approveRequest(request).subscribe(res => {
       this.refreshRequests();
+    },
+    err => {
+      console.log("kek");
+      this.showAlert('Это путешествие перескается по датам с другой одобренной или завершенной заявкой');
     });
   }
 
@@ -83,6 +88,15 @@ export class RequestsComponent implements OnInit {
 
   canBeApprovedByShip(request: TripRequest): boolean {
     return request.status.toString() == 'PENDING' || request.status.toString() == 'APPROVED_BY_CREW';
+  }
+
+  showAlert(text: string) {
+    document.getElementById('alertText')!.innerText = text;
+    document.getElementById('alert')!.style.display='flex';
+  }
+
+  hideAlert() {
+    document.getElementById('alert')!.style.display='none';
   }
 
 }

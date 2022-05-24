@@ -96,7 +96,11 @@ public class TripRequestsController {
 
     @ExceptionHandler(IllegalArgumentException.class)
     public ResponseEntity<String> handleException(IllegalArgumentException exception) {
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception.getMessage());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(buildJson(exception.getMessage()));
+    }
+
+    private String buildJson(String error) {
+        return String.format("{\"error\": \"%s\"}", error);
     }
 
 }

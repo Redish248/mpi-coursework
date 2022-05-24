@@ -114,8 +114,12 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
             case CANCELLED:
                 throw new IllegalArgumentException("Cancelled and rejected requests can't be approved");
             case APPROVED_BY_SHIP:
-                request.setStatus(TripRequestStatus.APPROVED_BY_BOTH);
-                break;
+                if (ifCrewAvailable(request)) {
+                    request.setStatus(TripRequestStatus.APPROVED_BY_BOTH);
+                    break;
+                } else {
+                    throw new IllegalArgumentException("Crew is occupied by another trip on selected dates");
+                }
             case PENDING:
                 if (ifCrewAvailable(request)) {
                     request.setStatus(TripRequestStatus.APPROVED_BY_CREW);
@@ -137,8 +141,12 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
             case CANCELLED:
                 throw new IllegalArgumentException("Cancelled and rejected requests can't be approved");
             case APPROVED_BY_CREW:
-                request.setStatus(TripRequestStatus.APPROVED_BY_BOTH);
-                break;
+                if (isShipAvailable(request)) {
+                    request.setStatus(TripRequestStatus.APPROVED_BY_BOTH);
+                    break;
+                } else {
+                    throw new IllegalArgumentException("Ship is occupied by another trip in selected dates");
+                }
             case PENDING:
                 if (isShipAvailable(request)) {
                     request.setStatus(TripRequestStatus.APPROVED_BY_SHIP);
