@@ -1,3 +1,11 @@
+<div cds-layout="vertical gap:sm" *ngIf="alertShow">
+  <cds-alert-group type="banner" status="success">
+    <cds-alert>
+      Пользователь отправлен на обработку
+      <button (click)="hideAlert()" class="btn btn-success" style="background: green">ОК</button>
+    </cds-alert>
+  </cds-alert-group>
+</div>
 <div class="login-wrapper">
     <form clrForm [formGroup]="loginForm" class="login">
         <section class="title">
@@ -5,6 +13,7 @@
             Treasure Island
         </section>
         <div class="login-group">
+          <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
             <clr-input-container>
                 <label class="clr-sr-only">Логин</label>
                 <input type="text" name="username" clrInput placeholder="Nickname" formControlName="nick"/>
@@ -13,7 +22,6 @@
                 <label class="clr-sr-only">Пароль</label>
                 <input type="password" name="password" clrPassword placeholder="Password" formControlName="pswd"/>
             </clr-password-container>
-            <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
 
             <button class="btn btn-link" (click)="registrationMode = true">Зарегистрироваться</button>
 
@@ -25,5 +33,6 @@
 <app-signup *ngIf="registrationMode"
             [registrationMode]="registrationMode"
             [modalOpened]="registrationMode"
+            [(alertLogin)]="alertShow"
             (closeModal)="registrationMode= false; signup()">
 </app-signup>

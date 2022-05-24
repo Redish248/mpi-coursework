@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
   errorMessage: string | undefined
 
   registrationMode: boolean = false
+  alertShow: boolean = false
 
   ngOnInit(): void {
   }
@@ -42,19 +43,27 @@ export class LoginComponent implements OnInit {
   }
 
   login(data: { nick: string, pswd: string }) {
+    this.alertShow = false
     this.authService.login(data)
       .pipe(first())
       .subscribe(
         _ => {
           this.router.navigate([this.returnUrl])
         },
-        err => this.errorMessage = err
+        _ => {
+          this.errorMessage = "Введены неправильные данные или пользователь ещё не был активирован администратором"
+        }
       )
   }
 
   signup() {
+    this.alertShow = false
     this.registrationMode = false
     this.router.navigate(['/'])
+  }
+
+  hideAlert() {
+    this.alertShow = false
   }
 
 }
