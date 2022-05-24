@@ -5,7 +5,6 @@ import { Option } from '../entity/Option';
 import { TripRequest } from '../entity/TripRequest';
 import { OptionsService } from '../service/options.service';
 import { RequestService } from '../service/request.service';
-import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-options',
@@ -35,7 +34,7 @@ export class OptionsComponent implements OnInit {
       console.log(res);
       this.options = res;
       this.loading = false;
-      
+
       this.from = this.optionsService.request!.from;
       this.to = this.optionsService.request!.to;
       this.optionsService.request = undefined;
@@ -51,7 +50,7 @@ export class OptionsComponent implements OnInit {
     tripRequest.islandEnd = this.to;
     tripRequest.islandStart = this.from;
     tripRequest.ship = option.ship;
-    
+
     this.requestService.createRequest(tripRequest).subscribe(res => {
       this.router.navigateByUrl('/requests');
     });

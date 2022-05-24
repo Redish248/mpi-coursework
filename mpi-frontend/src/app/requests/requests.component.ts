@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { catchError } from 'rxjs';
 import { TripRequest } from '../entity/TripRequest';
 import { AuthService } from '../service/auth.service';
 import { RequestService } from '../service/request.service';
