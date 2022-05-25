@@ -7,10 +7,10 @@
         </a>
     </div>
     <div class="header-nav">
-        <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
+        <a class="nav-link" *ngIf="authService.isLoggedIn()" [routerLink]="['map']" routerLinkActive="active">
             <span class="nav-text">Карта</span>
         </a>
-      <a class="nav-link" [routerLink]="['approvals']" routerLinkActive="active">
+      <a class="nav-link" *ngIf="authService.isAdmin()" [routerLink]="['approvals']" routerLinkActive="active">
         <span class="nav-text">Регистрации</span>
       </a>
       <a class="nav-link" [routerLink]="['requests']" routerLinkActive="active">

@@ -94,4 +94,8 @@ export class AuthService {
   isShipOwner(): boolean {
     return localStorage.getItem('perm') == Permissions.SHIP_OWNER
   }
+
+  isLoggedIn(): boolean {
+    return this.isAdmin() || this.isTraveler() || this.isShipOwner() || this.isCrewManager();
+  }
 }
