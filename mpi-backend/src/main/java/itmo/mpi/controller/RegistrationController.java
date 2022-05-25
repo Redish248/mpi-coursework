@@ -27,13 +27,14 @@ public class RegistrationController {
         return ResponseEntity.ok(userService.createUser(newUser));
     }
 
-    @PostMapping( "/registerAdmin")
-    public @ResponseBody ResponseEntity<Admin> registerAdmin(String name, String surname, String nick, String password, int salary) {
+    @PostMapping("/registerAdmin")
+    public @ResponseBody
+    ResponseEntity<Admin> registerAdmin(String name, String surname, String nick, String password, int salary) {
         return ResponseEntity.ok(adminService.createAdmin(name, surname, nick, password, salary));
     }
 
-    @GetMapping("/perms")
-    public String getPermissions() {
+    @GetMapping("/roles")
+    public @ResponseBody String getPermissions() {
         return commonUtils.getCurrentUser().getAuthorities().stream().findFirst().get().getAuthority();
     }
 }

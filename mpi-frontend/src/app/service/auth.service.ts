@@ -56,9 +56,9 @@ export class AuthService {
       map((user) => {
         console.log('sign in user', user)
         AuthService.saveData(credentials.nick, credentials.pswd)
-        return this.http.get<Permissions[]>(`${this.apiUrl}/permissions`).subscribe(
-          permissions => {
-            localStorage.setItem('perm', JSON.stringify(permissions))
+        return this.http.get(`${this.apiUrl}/signup/roles`, {responseType: "text"}).subscribe(
+          role => {
+            localStorage.setItem('perm', role)
             return user
           }
         )
@@ -79,9 +79,19 @@ export class AuthService {
     )
   }
 
-  hasPermission(): boolean {
-    // return JSON.parse(localStorage.getItem('perm')).includes(Permissions.)
-    return true
+  isTraveler(): boolean {
+    return localStorage.getItem('perm') == Permissions.TRAVELER
   }
 
+  isAdmin(): boolean {
+    return localStorage.getItem('perm') == Permissions.ADMIN
+  }
+
+  isCrewManager(): boolean {
+    return localStorage.getItem('perm') == Permissions.CREW_MANAGER
+  }
+
+  isShipOwner(): boolean {
+    return localStorage.getItem('perm') == Permissions.SHIP_OWNER
+  }
 }
