@@ -142,7 +142,7 @@ export class MapComponent implements OnInit {
   }
 
   canCreateRequests() {
-    return true;
+    return this.auth.isTraveler();
   }
 
 }

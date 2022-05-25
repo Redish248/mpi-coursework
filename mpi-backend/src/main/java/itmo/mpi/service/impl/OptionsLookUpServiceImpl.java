@@ -32,6 +32,7 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
         List<ShipOption> shipOptions = getShipOptions(tripRequestDto);
 
         return shipOptions.stream()
+                .filter(ship -> ship.getShip().getOwner().getIsActivated())
                 .flatMap(shipOption -> {
                     int days = shipOption.getDays();
                     Ship ship = shipOption.getShip();
@@ -42,7 +43,8 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
                             finishDate);
 
                     return crewsForShip.stream()
-                            .filter(crew -> crew.getPricePerDay()*days + shipCost <= tripRequestDto.getBudget())
+                            .filter(crew -> crew.getCrewOwner().getIsActivated() &&
+                                    crew.getPricePerDay()*days + shipCost <= tripRequestDto.getBudget())
                             .map(crew -> TripOption.builder()
                                     .crew(crew)
                                     .ship(ship)
