@@ -1,7 +1,6 @@
 package itmo.mpi.entity;
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -20,11 +19,6 @@ public class Ship {
     @ManyToOne(optional = false)
     @JoinColumn(name = "owner", nullable = false)
     private User owner;
-
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "description")
-    private String description;
 
     @Column(name = "speed")
     private Integer speed;

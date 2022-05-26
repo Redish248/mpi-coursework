@@ -64,7 +64,7 @@ public class ProfilesServiceImpl implements ProfilesService {
                 .findAll().stream()
                 .filter(el -> Objects.equals(el.getUserType().getName(), CREW_MANAGER) && el.getIsActivated())
                 .map(el -> {
-                    Crew crew = crewRepository.getCrewByOwnerId(el.getId());
+                    Crew crew = crewRepository.getCrewByCrewOwner(el);
                     if (crew == null) return null;
 
                     List<CrewMember> members = crewMemberRepository.getCrewMemberByCrewId(crew.getId());

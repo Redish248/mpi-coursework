@@ -3,6 +3,7 @@ package itmo.mpi.impl;
 import itmo.mpi.entity.Admin;
 import itmo.mpi.entity.User;
 import itmo.mpi.exception.UserAlreadyExistException;
+import itmo.mpi.model.UserInfo;
 import itmo.mpi.repository.AdminRepository;
 import itmo.mpi.repository.UserRepository;
 import itmo.mpi.repository.UserRoleRepository;
@@ -20,8 +21,6 @@ import java.util.Locale;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-    private final String TRAVELER = "TRAVELER";
-
     private final UserRepository userRepository;
 
     private final UserRoleRepository userRoleRepository;
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserInfo> findAllNotActivatedUsers() {
-        List<User> allUsers =  userRepository.findUsersByIsActivated(false);
+        List<User> allUsers = userRepository.findUsersByIsActivated(false);
         List<UserInfo> result = new ArrayList<>();
         allUsers.forEach(user -> {
             UserInfo userInfo = new UserInfo();
