@@ -1,7 +1,6 @@
-import { Injectable } from '@angular/core'
-import { ConfigService } from '../service/config.service'
-import { HttpClient } from '@angular/common/http'
-import { User } from "../entity/User"
+import {Injectable} from '@angular/core'
+import {ConfigService} from '../service/config.service'
+import {HttpClient} from '@angular/common/http'
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +15,7 @@ export class SignupService {
     return this.appConfig.appUrl
   }
 
-  signup(newUser: User) {
-    return this.http.post(`${this.apiUrl}/signup`, JSON.stringify(newUser), {headers: {'Content-Type': 'application/json'}})
+  signup(newUser: string) {
+    return this.http.post(`${this.apiUrl}/signup/registerUser`, JSON.stringify(newUser), {headers: {'Content-Type': 'application/json'}})
   }
 }

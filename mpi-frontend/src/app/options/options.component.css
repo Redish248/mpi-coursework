@@ -1,0 +1,27 @@
+#spinner-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+}
+
+#nothing-found {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+    font-size: 40pt;
+}
+
+.option-block {
+    width: 70%;
+    margin: 20px auto;
+    background-color: #bcbce4;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 16pt;
+    display: flex;
+    justify-content: space-around;
+}
+
+.value {
+    font-size: 12pt;
+}

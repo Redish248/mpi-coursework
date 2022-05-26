@@ -1,0 +1,34 @@
+<div *ngIf="loading" id="spinner-container">
+    <clr-spinner id="loading">Loading options</clr-spinner>
+</div>
+<div *ngIf="!loading" class="content">
+    <div *ngFor="let option of options" class="option-block">
+            <div>Корабль
+                <div class="value">
+                    <span aria-haspopup="true" class="tooltip tooltip-lg">
+                    {{option.ship.name}}
+                    <span class="tooltip-content">
+                        Скорость: {{option.ship.speed}}<br>
+                        Вместимость: {{option.ship.capacity}}<br>
+                        Длина: {{option.ship.length}}<br>
+                        Ширина: {{option.ship.width}}<br>
+                        Описание: {{option.ship.description}}
+                    </span>
+                </span> (⭐{{option.ship.ratesAverage | number: '1.1-1'}})
+                </div>
+            </div>
+            <div>Команда
+                <div class="value">{{option.crew.teamName}} (⭐{{option.crew.ratesAverage | number: '1.1-1'}})</div>
+            </div>
+            <div>Даты поездки
+                <div class="value">{{option.startDate}} - {{option.finishDate}}</div>
+            </div>
+            <div>Стоимость
+                <div class="value">{{option.price}}</div>
+            </div>
+        <button (click)="submit(option)" class="btn btn-primary">Создать заявку</button>
+    </div>
+</div>
+<div *ngIf="!loading && options.length == 0" id="nothing-found">
+    Подходящих вариантов не найдено :(
+</div>

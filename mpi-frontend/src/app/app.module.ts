@@ -23,11 +23,22 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { AlertComponent } from './alert/alert.component'
 import { ProfilesTableComponent } from './profiles/components/profiles-table/profiles-table.component'
 import { RatingComponent } from './helpers/rating/rating.component'
+import { UserApprovalComponent } from './user-approval/user-approval.component'
+import { IslandPipe } from './service/island.pipe';
+import { OptionsComponent } from './options/options.component'
+import { DatePipe, DecimalPipe } from '@angular/common';
+import { RequestsComponent } from './requests/requests.component';
+import { StatusPipe } from './service/status.pipe';
+import { CdsModule } from '@cds/angular';
+import '@cds/core/alert/register.js';
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'map', component: MapComponent, canActivate: [AuthGuard]},
+  {path: 'approvals', component: UserApprovalComponent, canActivate: [AuthGuard]},
+  {path: 'options', component: OptionsComponent, canActivate: [AuthGuard]},
+  {path: 'requests', component: RequestsComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/'}
 ]
 
@@ -46,13 +57,19 @@ const appRoutes: Routes = [
     CrewsComponent,
     AlertComponent,
     ProfilesTableComponent,
-    RatingComponent
+    RatingComponent,
+    UserApprovalComponent,
+    IslandPipe,
+    OptionsComponent,
+    RequestsComponent,
+    StatusPipe
   ],
   imports: [
     BrowserModule,
     RouterModule,
     RouterModule.forRoot(appRoutes),
     ClarityModule,
+    CdsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
     HttpClientModule
@@ -61,6 +78,8 @@ const appRoutes: Routes = [
     AuthGuard,
     {provide: HTTP_INTERCEPTORS, useClass: AuthBasicInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
+    DatePipe,
+    DecimalPipe
   ],
   bootstrap: [AppComponent]
 })

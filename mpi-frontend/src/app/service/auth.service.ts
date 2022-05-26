@@ -56,9 +56,9 @@ export class AuthService {
       map((user) => {
         console.log('sign in user', user)
         AuthService.saveData(credentials.nick, credentials.pswd)
-        return this.http.get<Permissions[]>(`${this.apiUrl}/databases/permissions`).subscribe(
-          permissions => {
-            localStorage.setItem('perm', JSON.stringify(permissions))
+        return this.http.get(`${this.apiUrl}/signup/roles`, {responseType: "text"}).subscribe(
+          role => {
+            localStorage.setItem('perm', role)
             return user
           }
         )
@@ -79,18 +79,23 @@ export class AuthService {
     )
   }
 
-  hasTravelerPermission(): boolean {
-    const permissionsList = localStorage.getItem('perm')
-    return permissionsList ? JSON.parse(permissionsList).includes(Permissions.TRAVELER) : false
+  isTraveler(): boolean {
+    return localStorage.getItem('perm') == Permissions.TRAVELER
   }
 
-  hasShipOwnerPermissions(): boolean {
-    const permissionsList = localStorage.getItem('perm')
-    return permissionsList ? JSON.parse(permissionsList).includes(Permissions.SHIP_OWNER) : false
+  isAdmin(): boolean {
+    return localStorage.getItem('perm') == Permissions.ADMIN
   }
 
-  hasCrewOwnerPermissions(): boolean {
-    const permissionsList = localStorage.getItem('perm')
-    return permissionsList ? JSON.parse(permissionsList).includes(Permissions.CREW_MANAGER) : false
+  isCrewManager(): boolean {
+    return localStorage.getItem('perm') == Permissions.CREW_MANAGER
+  }
+
+  isShipOwner(): boolean {
+    return localStorage.getItem('perm') == Permissions.SHIP_OWNER
+  }
+
+  isLoggedIn(): boolean {
+    return this.isAdmin() || this.isTraveler() || this.isShipOwner() || this.isCrewManager();
   }
 }

@@ -1,4 +1,4 @@
-<header class="header-6">
+<header class="header-6" *ngIf="authService.isLoggedIn()">
     <div class="branding">
         <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
       <span class="clr-icon logo title">
@@ -10,6 +10,12 @@
         <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
             <span class="nav-text">Карта</span>
         </a>
+      <a class="nav-link" [routerLink]="['requests']" routerLinkActive="active">
+        <span class="nav-text">Заявки</span>
+      </a>
+      <a class="nav-link" *ngIf="authService.isAdmin()" [routerLink]="['approvals']" routerLinkActive="active">
+        <span class="nav-text">Регистрации</span>
+      </a>
         <a *ngIf="isShipOwner()" class="nav-link" [routerLink]="['ship-history']" routerLinkActive="active">
             <span class="nav-text">История путешествий</span>
         </a>

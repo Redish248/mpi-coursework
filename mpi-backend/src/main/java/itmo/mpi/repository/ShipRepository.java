@@ -1,6 +1,7 @@
 package itmo.mpi.repository;
 
 import itmo.mpi.entity.Ship;
+import itmo.mpi.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,8 +15,9 @@ public interface ShipRepository extends JpaRepository<Ship, Long> {
 
     @Query(value = "select sh.* from ship sh left join trip_request tr on sh.uid = tr.ship_id AND " +
             "tr.date_start <= :startDate\\:\\:date + (ceil(:distance\\:\\:float/sh.speed) * interval '1 day') AND tr.date_end >= " +
-            ":startDate where tr.uid is null;", nativeQuery = true)
+            ":startDate AND tr.status IN ('COMPLETE','APPROVED_BY_SHIP','APPROVED_BY_BOTH') where tr.uid is null;", nativeQuery = true)
     List<Ship> getFreeShipsForTrip(@Param("startDate") LocalDate startDate, @Param("distance") int distance);
 
     Ship getShipByOwnerId(int ownerUid);
+    List<Ship> findByOwner(User owner);
 }

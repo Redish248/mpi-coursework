@@ -33,6 +33,7 @@ public class TripRequest {
     private Island islandEnd;
 
     @Column(name = "status")
+    @Enumerated(value = EnumType.STRING)
     private TripRequestStatus status;
 
     @ManyToOne
