@@ -33,7 +33,7 @@ export interface Crew {
 }
 
 export interface CrewMember {
-  name: string
-  surname: string
-  // experience: number TODO (?)
+  uid: number
+  fullName: string
+  experience: number
 }

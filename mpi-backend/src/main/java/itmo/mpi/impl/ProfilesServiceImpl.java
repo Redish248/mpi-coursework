@@ -68,7 +68,6 @@ public class ProfilesServiceImpl implements ProfilesService {
                     if (crew == null) return null;
 
                     List<CrewMember> members = crewMemberRepository.getCrewMemberByCrewId(crew.getId());
-                    List<User> simpleMembers = members.stream().map(m -> userRepository.findById(m.getId())).collect(Collectors.toList());
 
                     return new CrewProfileResponse(
                             el.getId(),
@@ -82,7 +81,7 @@ public class ProfilesServiceImpl implements ProfilesService {
                             crew.getDescription(),
 
                             crew,
-                            simpleMembers
+                            members
                     );
                 })
                 .collect(Collectors.toList());

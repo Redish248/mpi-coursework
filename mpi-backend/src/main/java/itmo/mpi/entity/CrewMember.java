@@ -21,7 +21,7 @@ public class CrewMember {
     private String fullName;
 
     @Column(name = "experience")
-    private String experience;
+    private int experience;
 
 
 }

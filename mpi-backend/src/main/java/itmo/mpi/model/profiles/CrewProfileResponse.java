@@ -38,11 +38,12 @@ public class CrewProfileResponse {
     @Data
     @AllArgsConstructor
     static class CrewMember {
-        private String name;
-        private String surname;
+        private int uid;
+        private String fullName;
+        private int experience;
     }
 
-    public CrewProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, String photo, String description, Crew crew, List<User> members) {
+    public CrewProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, String photo, String description, Crew crew, List<itmo.mpi.entity.CrewMember> members) {
         this.uid = uid;
         this.name = name;
         this.surname = surname;
@@ -56,7 +57,7 @@ public class CrewProfileResponse {
                 crew.getId(),
                 crew.getTeamName(),
                 members.size(),
-                members.stream().map(el -> new CrewMember(el.getName(), el.getSurname())).collect(Collectors.toList())
+                members.stream().map(el -> new CrewMember(el.getId(), el.getFullName(), el.getExperience())).collect(Collectors.toList())
         );
     }
 }
