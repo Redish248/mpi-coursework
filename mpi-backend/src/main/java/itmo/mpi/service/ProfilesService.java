@@ -1,6 +1,7 @@
 package itmo.mpi.service;
 
 import itmo.mpi.model.profiles.CrewProfileResponse;
+import itmo.mpi.model.profiles.CrewResponse;
 import itmo.mpi.model.profiles.ShipProfileResponse;
 import itmo.mpi.model.profiles.UserProfileResponse;
 
@@ -13,4 +14,6 @@ public interface ProfilesService {
     List<ShipProfileResponse> getShipsForCurrentUser(String nickname);
 
     List<CrewProfileResponse> getCrewsForCurrentUser(String nickname);
+
+    CrewResponse getUserCrew(String nickname);
 }

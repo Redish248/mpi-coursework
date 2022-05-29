@@ -2,9 +2,7 @@ package itmo.mpi.model.profiles;
 
 import itmo.mpi.entity.Crew;
 import itmo.mpi.entity.CrewMember;
-import itmo.mpi.entity.User;
-import lombok.AllArgsConstructor;
-import lombok.Data;
+
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,27 +23,6 @@ public class CrewProfileResponse {
     // crew info
     private CrewResponse crew;
 
-    @Data
-    @AllArgsConstructor
-    static class CrewResponse {
-        private int uid;
-        private String teamName;
-        private int rates;
-        private String photo;
-        private String description;
-        private int pricePerDay;
-        private int membersNumber;
-        private List<CrewMember> members;
-    }
-
-    @Data
-    @AllArgsConstructor
-    static class CrewMember {
-        private int uid;
-        private String fullName;
-        private int experience;
-    }
-
     public CrewProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, Crew crew, List<itmo.mpi.entity.CrewMember> members) {
         this.uid = uid;
         this.name = name;
@@ -55,14 +32,8 @@ public class CrewProfileResponse {
         this.isPirate = isPirate;
 
         this.crew = new CrewResponse(
-                crew.getId(),
-                crew.getTeamName(),
-                crew.getRatesNumber(),
-                crew.getPhoto(),
-                crew.getDescription(),
-                crew.getPricePerDay(),
-                members.size(),
-                members.stream().map(el -> new CrewMember(el.getId(), el.getFullName(), el.getExperience())).collect(Collectors.toList())
+                crew,
+                members
         );
     }
 }

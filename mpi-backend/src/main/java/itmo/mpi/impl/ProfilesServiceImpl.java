@@ -4,7 +4,9 @@ import itmo.mpi.entity.Crew;
 import itmo.mpi.entity.CrewMember;
 import itmo.mpi.entity.Ship;
 import itmo.mpi.entity.User;
+import itmo.mpi.exception.NoUserCrewFound;
 import itmo.mpi.model.profiles.CrewProfileResponse;
+import itmo.mpi.model.profiles.CrewResponse;
 import itmo.mpi.model.profiles.ShipProfileResponse;
 import itmo.mpi.model.profiles.UserProfileResponse;
 import itmo.mpi.repository.CrewMemberRepository;
@@ -98,4 +100,14 @@ public class ProfilesServiceImpl implements ProfilesService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public CrewResponse getUserCrew(String nickname) {
+        User user = userRepository.findByNick(nickname);
+        if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER)) throw new NoUserCrewFound();
+
+        Crew crew = crewRepository.getCrewByCrewOwner(user);
+        List<CrewMember> members = crewMemberRepository.getCrewMemberByCrewId(crew.getId());
+
+        return new CrewResponse(crew, members);
+    }
 }

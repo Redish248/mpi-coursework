@@ -1,3 +1,6 @@
+<app-alert [errorMessage]="errorMessage"></app-alert>
+<clr-spinner *ngIf="loading"></clr-spinner>
+
 <form clrForm [formGroup]="userProfileForm">
     Мой профиль
     <span *ngIf="!user.isActivated" class="label label-danger">Акаунт не подтвержден администратором</span>
@@ -24,8 +27,12 @@
         <input clrInput formControlName="surname" type="text">
     </clr-input-container>
 
-    <button *ngIf="shipOwner">Профиль корабля</button>
-    <button *ngIf="shipOwner">Профиль команды</button>
+    <button *ngIf="shipOwner" (click)="openCrewProfile()">Профиль корабля</button>
+    <button *ngIf="crewManager">Профиль команды</button>
 
     <button (click)="updateUser()">Сохранить изменения</button>
 </form>
+
+<app-edit-crew-profile *ngIf="openCrewProfileModal"
+                       [crewProfile]="crew">
+</app-edit-crew-profile>

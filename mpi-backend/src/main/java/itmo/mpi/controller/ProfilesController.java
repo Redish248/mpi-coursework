@@ -1,6 +1,7 @@
 package itmo.mpi.controller;
 
 import itmo.mpi.model.profiles.CrewProfileResponse;
+import itmo.mpi.model.profiles.CrewResponse;
 import itmo.mpi.model.profiles.ShipProfileResponse;
 import itmo.mpi.model.profiles.UserProfileResponse;
 import itmo.mpi.service.ProfilesService;
@@ -31,6 +32,12 @@ public class ProfilesController {
     public List<ShipProfileResponse> getShipsProfiles() {
         String nickname = commonUtils.getCurrentUser().getName();
         return profilesService.getShipsForCurrentUser(nickname);
+    }
+
+    @GetMapping("crew")
+    public CrewResponse getCurrentUserCrew() {
+        String nickname = commonUtils.getCurrentUser().getName();
+        return profilesService.getUserCrew(nickname);
     }
 
     @GetMapping("crews")
