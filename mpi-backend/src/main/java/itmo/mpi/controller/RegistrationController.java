@@ -3,6 +3,7 @@ package itmo.mpi.controller;
 import itmo.mpi.entity.Admin;
 import itmo.mpi.entity.User;
 import itmo.mpi.model.UserInfo;
+import itmo.mpi.model.profiles.CrewRequest;
 import itmo.mpi.service.AdminService;
 import itmo.mpi.service.UserService;
 import itmo.mpi.utils.CommonUtils;
@@ -34,7 +35,18 @@ public class RegistrationController {
     }
 
     @GetMapping("/roles")
-    public @ResponseBody String getPermissions() {
+    public @ResponseBody
+    String getPermissions() {
         return commonUtils.getCurrentUser().getAuthorities().stream().findFirst().get().getAuthority();
+    }
+
+    @PostMapping("/crew")
+    public void registerCrew(@RequestBody CrewRequest request) {
+        // TODO
+    }
+
+    @PostMapping("/ship")
+    public void registerShip() {
+
     }
 }
