@@ -1,29 +1,52 @@
 <form clrForm [formGroup]="crewProfileForm">
-    <clr-modal [(clrModalOpen)]>
+    <clr-modal [(clrModalOpen)] (clrModalOpenChange)="modalClose.emit()">
         <h3 class="modal-title">Мой профиль</h3>
         <div class="modal-body">
             <clr-input-container>
-                <label>Имя</label>
-                <input clrInput formControlName="name" type="text">
+                <label>название</label>
+                <input clrInput formControlName="teamName" type="text">
             </clr-input-container>
             <clr-input-container>
-                <label>Фамилия</label>
-                <input clrInput formControlName="surname" type="text">
+                <label>Фотография</label>
+                <input clrInput formControlName="photo" type="text">
             </clr-input-container>
-            <clr-checkbox-wrapper>
-                <label>Делиться конактами</label>
-                <input type="checkbox" clrCheckbox formControlName="shareContacts"/>
-            </clr-checkbox-wrapper>
+            <img *ngIf="photo" [src]="photo" id="photo" alt="">
             <clr-input-container>
-                <label>Почта</label>
-                <input clrInput formControlName="surname" type="text">
+                <label>Цена за день</label>
+                <input clrInput formControlName="pricePerDay" type="number">
             </clr-input-container>
-            <clr-input-container>
-                <label>Телефон</label>
-                <input clrInput formControlName="surname" type="text">
-            </clr-input-container>
+
+            <div formArrayName="members">
+                <hr>
+                <div *ngFor="let member of getMembersArr().controls; let i = index"
+                     [formGroupName]="i">
+                    <clr-input-container>
+                        <label [for]="'fullName'+i">Имя
+                            <button class="btn btn-link" (click)="deleteCrewMember(i)">(Х)</button>
+                        </label>
+                        <input clrInput [id]="'fullName'+i" formControlName="fullName" type="text">
+                    </clr-input-container>
+                    <clr-input-container>
+                        <label [for]="'exp'+i">Опыт</label>
+                        <input [id]="'exp'+i" clrInput formControlName="experience" type="number">
+                    </clr-input-container>
+
+                    <button class="btn btn-info-outline" (click)="addNewMember()">добавить</button>
+                </div>
+            </div>
         </div>
 
-
+        <div class="modal-footer">
+            <button *ngIf="crewProfile"
+                    [disabled]="crewProfileForm.invalid"
+                    (click)="updateCrewProfile()">
+                обновить данные
+            </button>
+            <button *ngIf="!crewProfile"
+                    [disabled]="crewProfileForm.invalid"
+                    (click)="registerNewCrew()">
+                зарегистрировать команду
+            </button>
+        </div>
     </clr-modal>
 </form>

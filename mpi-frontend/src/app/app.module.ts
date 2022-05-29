@@ -43,6 +43,8 @@ const appRoutes: Routes = [
   {path: 'options', component: OptionsComponent, canActivate: [AuthGuard]},
   {path: 'requests', component: RequestsComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard]},
+  {path: 'ships', component: ShipsComponent, canActivate: [AuthGuard]},
+  {path: 'crews', component: CrewsComponent, canActivate: [AuthGuard]},
   {path: '**', redirectTo: '/'}
 ]
 

@@ -46,7 +46,7 @@ export class CrewsComponent implements OnInit {
     this.profilesService.getCrews().subscribe(
       data => {
         this.loading = false
-        this.crews = data.sort((el1, el2) => el1.rates > el2.rates ? 1 : -1)
+        this.crews = data.sort((el1, el2) => el1.crew.rates > el2.crew.rates ? 1 : -1)
         this.filteredProfiles = this.crews
         this.countDefaultParams()
         this.initFilter()
