@@ -1,0 +1,31 @@
+<form clrForm [formGroup]="userProfileForm">
+    Мой профиль
+    <span *ngIf="!user.isActivated" class="label label-danger">Акаунт не подтвержден администратором</span>
+    <clr-icon *ngIf="user.isVip" shape="crown"></clr-icon>
+
+    <clr-input-container>
+        <label>Имя</label>
+        <input clrInput formControlName="name" type="text">
+    </clr-input-container>
+    <clr-input-container>
+        <label>Фамилия</label>
+        <input clrInput formControlName="surname" type="text">
+    </clr-input-container>
+    <clr-checkbox-wrapper>
+        <label>Делиться конактами</label>
+        <input type="checkbox" clrCheckbox formControlName="shareContacts"/>
+    </clr-checkbox-wrapper>
+    <clr-input-container>
+        <label>Почта</label>
+        <input clrInput formControlName="surname" type="text">
+    </clr-input-container>
+    <clr-input-container>
+        <label>Телефон</label>
+        <input clrInput formControlName="surname" type="text">
+    </clr-input-container>
+
+    <button *ngIf="shipOwner">Профиль корабля</button>
+    <button *ngIf="shipOwner">Профиль команды</button>
+
+    <button (click)="updateUser()">Сохранить изменения</button>
+</form>

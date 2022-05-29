@@ -35,6 +35,7 @@ import { CrewProfileComponent } from './profiles/components/crew-profile/crew-pr
 import { ViewCrewProfileComponent } from './profiles/components/view-crew-profile/view-crew-profile.component';
 import { EditCrewProfileComponent } from './profiles/components/edit-crew-profile/edit-crew-profile.component';
 import { PirateLabelComponent } from './helpers/pirate-label/pirate-label.component';
+import { UserProfileComponent } from './profiles/components/user-profile/user-profile.component';
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
@@ -70,7 +71,8 @@ const appRoutes: Routes = [
     CrewProfileComponent,
     ViewCrewProfileComponent,
     EditCrewProfileComponent,
-    PirateLabelComponent
+    PirateLabelComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

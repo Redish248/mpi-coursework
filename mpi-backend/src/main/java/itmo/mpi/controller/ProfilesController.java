@@ -2,8 +2,8 @@ package itmo.mpi.controller;
 
 import itmo.mpi.model.profiles.CrewProfileResponse;
 import itmo.mpi.model.profiles.ShipProfileResponse;
+import itmo.mpi.model.profiles.UserProfileResponse;
 import itmo.mpi.service.ProfilesService;
-import itmo.mpi.service.UserService;
 import itmo.mpi.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,11 +15,17 @@ import java.util.List;
 @RestController
 @RequestMapping("/mpi/profiles")
 @RequiredArgsConstructor
-public class UsersController {
+public class ProfilesController {
 
     private final ProfilesService profilesService;
 
     private final CommonUtils commonUtils;
+
+    @GetMapping
+    public UserProfileResponse getCurrentUserProfile() {
+        String nickname = commonUtils.getCurrentUser().getName();
+        return profilesService.getCurrentUserProfile(nickname);
+    }
 
     @GetMapping("ships")
     public List<ShipProfileResponse> getShipsProfiles() {

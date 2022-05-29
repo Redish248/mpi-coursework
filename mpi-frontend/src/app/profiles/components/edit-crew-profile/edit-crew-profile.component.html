@@ -1,0 +1,29 @@
+<form clrForm [formGroup]="crewProfileForm">
+    <clr-modal [(clrModalOpen)]>
+        <h3 class="modal-title">Мой профиль</h3>
+        <div class="modal-body">
+            <clr-input-container>
+                <label>Имя</label>
+                <input clrInput formControlName="name" type="text">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Фамилия</label>
+                <input clrInput formControlName="surname" type="text">
+            </clr-input-container>
+            <clr-checkbox-wrapper>
+                <label>Делиться конактами</label>
+                <input type="checkbox" clrCheckbox formControlName="shareContacts"/>
+            </clr-checkbox-wrapper>
+            <clr-input-container>
+                <label>Почта</label>
+                <input clrInput formControlName="surname" type="text">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Телефон</label>
+                <input clrInput formControlName="surname" type="text">
+            </clr-input-container>
+        </div>
+
+
+    </clr-modal>
+</form>

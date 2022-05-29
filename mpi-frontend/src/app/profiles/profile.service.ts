@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core'
 import { ConfigService } from '../service/config.service'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
-import { Profile } from './model/CrewProfile'
+import { CrewProfile } from './model/CrewProfile'
+import { UserProfile } from './model/UserProfile'
+import { ShipProfile } from './model/ShipProfile'
 
 
 @Injectable({
@@ -17,11 +19,15 @@ export class ProfileService {
     return `${this.configService.appUrl}/profiles`
   }
 
-  getShips(): Observable<Profile[]> {
-    return this.http.get<Profile[]>(`${this.apiUrl}/ships`)
+  getCurrentUserInfo(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.apiUrl}/`)
   }
 
-  getCrews(): Observable<Profile[]> {
-    return this.http.get<Profile[]>(`${this.apiUrl}/crews`)
+  getShips(): Observable<ShipProfile[]> {
+    return this.http.get<ShipProfile[]>(`${this.apiUrl}/ships`)
+  }
+
+  getCrews(): Observable<CrewProfile[]> {
+    return this.http.get<CrewProfile[]>(`${this.apiUrl}/crews`)
   }
 }

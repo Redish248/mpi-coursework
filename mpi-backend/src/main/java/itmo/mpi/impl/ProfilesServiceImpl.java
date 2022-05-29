@@ -6,6 +6,7 @@ import itmo.mpi.entity.Ship;
 import itmo.mpi.entity.User;
 import itmo.mpi.model.profiles.CrewProfileResponse;
 import itmo.mpi.model.profiles.ShipProfileResponse;
+import itmo.mpi.model.profiles.UserProfileResponse;
 import itmo.mpi.repository.CrewMemberRepository;
 import itmo.mpi.repository.CrewRepository;
 import itmo.mpi.repository.ShipRepository;
@@ -28,6 +29,22 @@ public class ProfilesServiceImpl implements ProfilesService {
     private final ShipRepository shipRepository;
     private final CrewRepository crewRepository;
     private final CrewMemberRepository crewMemberRepository;
+
+    @Override
+    public UserProfileResponse getCurrentUserProfile(String nickName) {
+        User user = userRepository.findByNick(nickName);
+        return new UserProfileResponse(
+                user.getId(),
+                user.getName(),
+                user.getSurname(),
+                user.getNick(),
+                user.getBirthDate().toString(),
+                user.getEmail(),
+                user.getPhone(),
+                user.isShareContactInfo(),
+                user.getIsVip()
+        );
+    }
 
     @Override
     public List<ShipProfileResponse> getShipsForCurrentUser(String nickname) {
