@@ -32,6 +32,9 @@ import { StatusPipe } from './service/status.pipe';
 import { CdsModule } from '@cds/angular';
 import '@cds/core/alert/register.js';
 import { CrewProfileComponent } from './profiles/components/crew-profile/crew-profile.component';
+import { ViewCrewProfileComponent } from './profiles/components/view-crew-profile/view-crew-profile.component';
+import { EditCrewProfileComponent } from './profiles/components/edit-crew-profile/edit-crew-profile.component';
+import { PirateLabelComponent } from './helpers/pirate-label/pirate-label.component';
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
@@ -64,7 +67,10 @@ const appRoutes: Routes = [
     OptionsComponent,
     RequestsComponent,
     StatusPipe,
-    CrewProfileComponent
+    CrewProfileComponent,
+    ViewCrewProfileComponent,
+    EditCrewProfileComponent,
+    PirateLabelComponent
   ],
   imports: [
     BrowserModule,

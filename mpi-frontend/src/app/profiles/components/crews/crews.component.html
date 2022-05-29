@@ -33,8 +33,8 @@
         <div class="card-block">
             <p class="card-text">
                 Капитан: {{profile.name}} {{profile.surname}}
-                <span *ngIf="profile.is_pirate" class="label label-danger">ПИРАТ</span>
-                <span *ngIf="profile.is_pirate" class="label label-danger">Безопасная личность</span>
+                <span *ngIf="profile.isPirate" class="label label-danger">ПИРАТ</span>
+                <span *ngIf="profile.isPirate" class="label label-danger">Безопасная личность</span>
 
                 Почта: {{profile.email || "****"}}
                 Телефон: {{profile.email || "****"}}
@@ -46,3 +46,7 @@
     </div>
 </div>
 
+<app-view-crew-profile *ngIf="selectedProfileId"
+                       [crewProfile]="selectedProfileId"
+                       (closeModal)="selectedProfileId = undefined"
+></app-view-crew-profile>

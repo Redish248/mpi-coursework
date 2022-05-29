@@ -33,6 +33,7 @@ public class CrewProfileResponse {
         private int rates;
         private String photo;
         private String description;
+        private int pricePerDay;
         private int membersNumber;
         private List<CrewMember> members;
     }
@@ -59,6 +60,7 @@ public class CrewProfileResponse {
                 crew.getRatesNumber(),
                 crew.getPhoto(),
                 crew.getDescription(),
+                crew.getPricePerDay(),
                 members.size(),
                 members.stream().map(el -> new CrewMember(el.getId(), el.getFullName(), el.getExperience())).collect(Collectors.toList())
         );

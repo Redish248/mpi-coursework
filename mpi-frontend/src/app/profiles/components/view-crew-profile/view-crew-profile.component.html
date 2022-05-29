@@ -1,0 +1,32 @@
+<clr-modal [(clrModalOpen)]="!!crewProfile" (clrModalOpenChange)="closeModal.emit()">
+    <h3 class="modal-title">Команда {{crewProfile.crew.teamName}}
+        <app-rating [rating]="crewProfile.crew.rates"></app-rating>
+    </h3>
+    <div class="modal-body">
+        Капитан {{crewProfile.name}} {{crewProfile.surname}}
+        <app-pirate-label [isPirate]="crewProfile.isPirate"></app-pirate-label>
+        Почта: {{crewProfile.email || "****"}}
+        Телефон: {{crewProfile.phone || "****"}}
+
+        <img [src]="crewProfile.crew.photo" [alt]="defaultCrewPhotoUrl" class="photo"/>
+        Характеристика
+        {{crewProfile.crew.description}}
+        Цена за день: {{crewProfile.crew.pricePerDay}}
+
+        Состав
+        <table class="table table-compact">
+            <thead>
+            <tr>
+                <th>Имя</th>
+                <th>Опыт</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let member of crewProfile.crew.members">
+                <td>{{member.fullName}}</td>
+                <td>{{member.experience}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</clr-modal>

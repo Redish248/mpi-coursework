@@ -5,10 +5,9 @@ export interface CrewProfile {
   surname: string
   email: string
   phone: string
-  is_pirate: string
+  isPirate: boolean
 
   crew: Crew
-
 }
 
 export interface Crew {
@@ -19,6 +18,7 @@ export interface Crew {
   description: string
   members: CrewMember[]
   membersNumber: number
+  pricePerDay: number
   // tripNumber: number TODO
 }
 

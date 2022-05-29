@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProfilesTableComponent } from './profiles-table.component';
+import { ViewCrewProfileComponent } from './view-crew-profile.component';
 
-describe('ProfilesTableComponent', () => {
-  let component: ProfilesTableComponent;
-  let fixture: ComponentFixture<ProfilesTableComponent>;
+describe('ViewCrewProfileComponent', () => {
+  let component: ViewCrewProfileComponent;
+  let fixture: ComponentFixture<ViewCrewProfileComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ProfilesTableComponent ]
+      declarations: [ ViewCrewProfileComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ProfilesTableComponent);
+    fixture = TestBed.createComponent(ViewCrewProfileComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
