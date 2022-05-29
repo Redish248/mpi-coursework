@@ -1,4 +1,48 @@
 <app-alert [errorMessage]="errorMessage"></app-alert>
+<div>
+    <clr-input-container>
+        <label>min</label>
+        <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
+               (change)="filterProfiles()">
+    </clr-input-container>
 
-<!--filters -->
-<!--sort -->
+    <clr-input-container>
+        <label>max</label>
+        <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
+               (change)="filterProfiles()">
+    </clr-input-container>
+
+    <clr-range-container>
+        <label>Минимальный рейтинг:</label>
+        <input clrRange type="range" [min]="minRates" [max]="maxRates"
+               [(ngModel)]="filter.minRates"
+               (change)="filterProfiles()"/>
+    </clr-range-container>
+</div>
+<div id="profiles-list">
+    <div *ngFor="let profile of filteredProfiles"
+         class="profile card clickable"
+         (click)="selectedProfileId = profile">
+        <div class="card-header">
+            {{profile.crew.teamName}}
+            <app-rating [rating]="profile.crew.rates"></app-rating>
+        </div>
+        <div class="card-img">
+            <img [src]="profile.crew.photo" [alt]="defaultCrewPhotoUrl" class="photo"/>
+        </div>
+        <div class="card-block">
+            <p class="card-text">
+                Капитан: {{profile.name}} {{profile.surname}}
+                <span *ngIf="profile.is_pirate" class="label label-danger">ПИРАТ</span>
+                <span *ngIf="profile.is_pirate" class="label label-danger">Безопасная личность</span>
+
+                Почта: {{profile.email || "****"}}
+                Телефон: {{profile.email || "****"}}
+
+                Численность команды: {{profile.crew.membersNumber}}
+                Описание: {{profile.crew.description}}
+            </p>
+        </div>
+    </div>
+</div>
+

@@ -7,7 +7,7 @@ import { MapComponent } from './map/map.component'
 import { RouterModule, Routes } from '@angular/router'
 import { HeaderComponent } from './header/header.component'
 import { ClarityModule } from '@clr/angular'
-import { ReactiveFormsModule } from '@angular/forms'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { ShipHistoryComponent } from './history/ship-history/ship-history.component'
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { CrewHistoryComponent } from './history/crew-history/crew-history.component'
@@ -31,6 +31,7 @@ import { RequestsComponent } from './requests/requests.component';
 import { StatusPipe } from './service/status.pipe';
 import { CdsModule } from '@cds/angular';
 import '@cds/core/alert/register.js';
+import { CrewProfileComponent } from './profiles/components/crew-profile/crew-profile.component';
 
 const appRoutes: Routes = [
   {path: '', component: MapComponent, canActivate: [AuthGuard]},
@@ -62,7 +63,8 @@ const appRoutes: Routes = [
     IslandPipe,
     OptionsComponent,
     RequestsComponent,
-    StatusPipe
+    StatusPipe,
+    CrewProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ const appRoutes: Routes = [
     CdsModule,
     BrowserAnimationsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     AuthGuard,

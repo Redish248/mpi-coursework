@@ -1,4 +1,4 @@
-export interface Profile {
+export interface CrewProfile {
   // user info
   uid: number
   name: string
@@ -7,29 +7,19 @@ export interface Profile {
   phone: string
   is_pirate: string
 
-  // general object info (ship or crew)
-  photo: string
-  rates: number
-  tripNumber: number
-  description: string
+  crew: Crew
 
-  // one of two fields must be not null
-  ship?: Ship
-  crew?: Crew
-}
-
-export interface Ship {
-  uid: number
-  title: string
-  speed: number
-  capacity: number
 }
 
 export interface Crew {
   uid: number,
   teamName: string,
+  rates: number
+  photo: string
+  description: string
   members: CrewMember[]
   membersNumber: number
+  // tripNumber: number TODO
 }
 
 export interface CrewMember {

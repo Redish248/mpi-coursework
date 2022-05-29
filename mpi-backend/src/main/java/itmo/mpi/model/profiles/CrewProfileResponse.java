@@ -14,16 +14,15 @@ import java.util.stream.Collectors;
  * Only VIP users get information about pirates
  */
 public class CrewProfileResponse {
+    // user profile info
     private int uid;
     private String name;
     private String surname;
     private String email;
     private String phone;
-    private Boolean isPirate;
+    private Boolean isPirate; // true false - for VIP & null for others
 
-    private String photo;
-    private String description;
-
+    // crew info
     private CrewResponse crew;
 
     @Data
@@ -31,6 +30,9 @@ public class CrewProfileResponse {
     static class CrewResponse {
         private int uid;
         private String teamName;
+        private int rates;
+        private String photo;
+        private String description;
         private int membersNumber;
         private List<CrewMember> members;
     }
@@ -43,19 +45,20 @@ public class CrewProfileResponse {
         private int experience;
     }
 
-    public CrewProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, String photo, String description, Crew crew, List<itmo.mpi.entity.CrewMember> members) {
+    public CrewProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, Crew crew, List<itmo.mpi.entity.CrewMember> members) {
         this.uid = uid;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
         this.isPirate = isPirate;
-        this.photo = photo;
-        this.description = description;
 
         this.crew = new CrewResponse(
                 crew.getId(),
                 crew.getTeamName(),
+                crew.getRatesNumber(),
+                crew.getPhoto(),
+                crew.getDescription(),
                 members.size(),
                 members.stream().map(el -> new CrewMember(el.getId(), el.getFullName(), el.getExperience())).collect(Collectors.toList())
         );

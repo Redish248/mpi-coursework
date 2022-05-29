@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core'
 import { ProfileService } from '../../profile.service'
-import { Profile } from '../../model/Profile'
+import { CrewProfile } from '../../model/CrewProfile'
 import { CommonService } from '../../../service/commonService'
 
 @Component({
   selector: 'app-crews',
   templateUrl: './crews.component.html',
-  styleUrls: ['./crews.component.css']
+  styleUrls: ['../../profiles.css', './crews.component.css']
 })
 export class CrewsComponent implements OnInit {
 
   constructor(private profilesService: ProfileService) {
   }
 
-  crews: Profile[] = []
-  filteredProfiles: Profile[] = []
+  selectedProfileId: CrewProfile | undefined = undefined
+
+  defaultCrewPhotoUrl = "https://avatars.mds.yandex.net/get-ott/2385704/2a000001720da5ff01ebaf599f6af08d0832/1344x756"
+  crews: CrewProfile[] = []
+  filteredProfiles: CrewProfile[] = []
 
   minMembersNumber: number = 0
   maxMemberNumber: number = 0
@@ -26,7 +29,7 @@ export class CrewsComponent implements OnInit {
   filter: {
     minMembersNumber: number
     maxMembersNumber: number
-    minTripNumber: number
+    // minTripNumber: number
     minRates: number
   }
 
@@ -70,15 +73,14 @@ export class CrewsComponent implements OnInit {
     this.filter = {
       maxMembersNumber: this.maxMemberNumber,
       minMembersNumber: this.minMembersNumber,
-      minTripNumber: this.minTripNumber,
+      // minTripNumber: this.minTripNumber,
       minRates: this.minRates
     }
   }
 
   filterProfiles() {
     this.filteredProfiles = this.crews.filter(el =>
-      el.tripNumber > this.filter.minTripNumber &&
-      el.rates > this.filter.minRates &&
+      el.crew.rates > this.filter.minRates &&
       (el.crew?.membersNumber || -1) > this.filter.minMembersNumber &&
       (el.crew?.membersNumber || Number.MAX_SAFE_INTEGER) < this.filter.maxMembersNumber
     )

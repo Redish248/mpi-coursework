@@ -1,0 +1,11 @@
+#profiles-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#photo {
+    max-width: 400px;
+    max-height: 400px;
+
+}

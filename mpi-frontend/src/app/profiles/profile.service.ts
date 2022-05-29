@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core'
 import { ConfigService } from '../service/config.service'
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
-import { Profile } from './model/Profile'
+import { Profile } from './model/CrewProfile'
 
 
 @Injectable({

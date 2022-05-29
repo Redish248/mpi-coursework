@@ -12,9 +12,6 @@ public class ShipProfileResponse {
     private String phone;
     private Boolean isPirate;
 
-    private String photo;
-    private String description;
-
     private ShipResponse ship;
 
     @Data
@@ -24,22 +21,25 @@ public class ShipProfileResponse {
         private String title;
         private int speed;
         private int capacity;
+        private String photo;
+        private String description;
     }
 
-    public ShipProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, String photo, String description, Ship ship) {
+    public ShipProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, Ship ship) {
         this.uid = uid;
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.phone = phone;
         this.isPirate = isPirate;
-        this.photo = photo;
-        this.description = description;
+
         this.ship = new ShipResponse(
                 ship.getId(),
                 ship.getName(),
                 ship.getSpeed(),
-                ship.getCapacity()
+                ship.getCapacity(),
+                ship.getPhoto(),
+                ship.getDescription()
         );
     }
 }

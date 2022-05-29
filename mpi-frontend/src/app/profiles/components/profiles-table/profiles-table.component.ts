@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core'
-import { Profile } from '../../model/Profile'
+import { Profile } from '../../model/CrewProfile'
 import { Permissions } from '../../../entity/User'
 
 @Component({

@@ -47,9 +47,6 @@ public class ProfilesServiceImpl implements ProfilesService {
                             el.isShareContactInfo() ? el.getPhone() : null,
                             currentUser.getIsVip() ? el.getIsPirate() : null,
 
-                            ship.getPhoto(),
-                            ship.getDescription(),
-
                             ship
                     );
                 })
@@ -76,9 +73,6 @@ public class ProfilesServiceImpl implements ProfilesService {
                             el.isShareContactInfo() ? el.getEmail() : null,
                             el.isShareContactInfo() ? el.getPhone() : null,
                             currentUser.getIsVip() ? el.getIsPirate() : null,
-
-                            crew.getPhoto(),
-                            crew.getDescription(),
 
                             crew,
                             members
