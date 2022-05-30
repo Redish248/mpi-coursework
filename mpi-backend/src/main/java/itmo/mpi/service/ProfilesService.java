@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface ProfilesService {
 
-    void registerCrew(String nickName, CrewRequest newCrew);
+    CrewResponse registerCrew(String nickName, CrewRequest newCrew);
 
-    void registerShip(String nickName, ShipRequest newShip);
+    ShipResponse registerShip(String nickName, ShipRequest newShip);
 
     UserProfileResponse getCurrentUserProfile(String nickName);
 
@@ -17,4 +17,6 @@ public interface ProfilesService {
     List<CrewProfileResponse> getCrewsForCurrentUser(String nickname);
 
     CrewResponse getUserCrew(String nickname);
+
+    ShipResponse getUserShip(String nickName);
 }

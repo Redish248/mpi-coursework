@@ -8,5 +8,5 @@ export interface UserProfile {
   email: string
   phone: string
   isVip: boolean
-  isActivated: boolean
+  activated: boolean
 }

@@ -47,6 +47,7 @@
 </div>
 
 <app-view-crew-profile *ngIf="selectedProfileId"
+                       [modalOpen]="!!selectedProfileId"
                        [crewProfile]="selectedProfileId"
                        (closeModal)="selectedProfileId = undefined"
 ></app-view-crew-profile>

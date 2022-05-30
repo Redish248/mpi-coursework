@@ -1,4 +1,4 @@
-<clr-modal [(clrModalOpen)]="!!crewProfile" (clrModalOpenChange)="closeModal.emit()">
+<clr-modal [(clrModalOpen)]="modalOpen" (clrModalOpenChange)="closeModal.emit()">
     <h3 class="modal-title">Команда {{crewProfile.crew.teamName}}
         <app-rating [rating]="crewProfile.crew.rates"></app-rating>
     </h3>

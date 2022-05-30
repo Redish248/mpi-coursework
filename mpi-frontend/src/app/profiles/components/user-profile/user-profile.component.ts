@@ -85,13 +85,13 @@ export class UserProfileComponent implements OnInit {
     this.profileService.getCurrentUserCrew().subscribe(
       (data) => {
         this.loading = false
-        this.crew = data
+        this.crew = data // nullable
         this.openCrewProfileModal = true
       },
-      err => { // check 404
+      err => {
         this.loading = false
         this.crew = undefined
-        this.openCrewProfileModal = true // register new crew
+        this.errorMessage = err
       }
     )
   }

@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs'
 import { Crew, CrewProfile } from './model/CrewProfile'
 import { UserProfile } from './model/UserProfile'
-import { ShipProfile } from './model/ShipProfile'
+import { Ship, ShipProfile } from './model/ShipProfile'
 
 
 @Injectable({
@@ -33,5 +33,13 @@ export class ProfileService {
 
   getCrews(): Observable<CrewProfile[]> {
     return this.http.get<CrewProfile[]>(`${this.apiUrl}/crews`)
+  }
+
+  addCrew(newCrew: any): Observable<Crew> {
+    return this.http.post<Crew>(`${this.apiUrl}/crew`, JSON.stringify(newCrew), {headers: {'Content-Type': 'application/json'}})
+  }
+
+  addShip(newShip: any) {
+    return this.http.post(`${this.apiUrl}/crew`, JSON.stringify(newShip), {headers: {'Content-Type': 'application/json'}})
   }
 }

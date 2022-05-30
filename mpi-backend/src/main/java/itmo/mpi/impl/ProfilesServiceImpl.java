@@ -4,7 +4,7 @@ import itmo.mpi.entity.Crew;
 import itmo.mpi.entity.CrewMember;
 import itmo.mpi.entity.Ship;
 import itmo.mpi.entity.User;
-import itmo.mpi.exception.NoUserCrewFound;
+import itmo.mpi.exception.IllegalRequestParamsException;
 import itmo.mpi.model.profiles.*;
 import itmo.mpi.repository.CrewMemberRepository;
 import itmo.mpi.repository.CrewRepository;
@@ -30,9 +30,9 @@ public class ProfilesServiceImpl implements ProfilesService {
     private final CrewMemberRepository crewMemberRepository;
 
     @Override
-    public void registerCrew(String nickName, CrewRequest newCrew) {
+    public CrewResponse registerCrew(String nickName, CrewRequest newCrew) {
         User user = userRepository.findByNick(nickName);
-        if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER)) return;
+        if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER)) throw new IllegalRequestParamsException("");
         Crew crewEntity = new Crew(
                 newCrew.getTeamName(),
                 user,
@@ -45,12 +45,14 @@ public class ProfilesServiceImpl implements ProfilesService {
 
         List<CrewMember> members = newCrew.getMembers().stream().map(m -> new CrewMember(savedCrew, m.getFullName(), m.getExperience())).collect(Collectors.toList());
         crewMemberRepository.saveAll(members);
+
+        return new CrewResponse(savedCrew, members);
     }
 
     @Override
-    public void registerShip(String nickName, ShipRequest newShip) {
+    public ShipResponse registerShip(String nickName, ShipRequest newShip) {
         User user = userRepository.findByNick(nickName);
-        if (!Objects.equals(user.getUserType().getName(), SHIP_OWNER)) return;
+        if (!Objects.equals(user.getUserType().getName(), SHIP_OWNER)) throw new IllegalRequestParamsException("");
 
         Ship shipEntity = new Ship(
                 newShip.getName(),
@@ -65,7 +67,8 @@ public class ProfilesServiceImpl implements ProfilesService {
                 newShip.getDescription()
         );
 
-        shipRepository.save(shipEntity);
+        Ship savedShip = shipRepository.save(shipEntity);
+        return new ShipResponse(savedShip);
     }
 
     @Override
@@ -80,7 +83,8 @@ public class ProfilesServiceImpl implements ProfilesService {
                 user.getEmail(),
                 user.getPhone(),
                 user.isShareContactInfo(),
-                user.getIsVip()
+                user.getIsVip(),
+                user.getIsActivated()
         );
     }
 
@@ -92,7 +96,7 @@ public class ProfilesServiceImpl implements ProfilesService {
                 .findAll().stream()
                 .filter(el -> Objects.equals(el.getUserType().getName(), SHIP_OWNER) && el.getIsActivated())
                 .map(el -> {
-                    Ship ship = shipRepository.getShipByOwnerId(el.getId());
+                    Ship ship = getShip(el);
                     if (ship == null) return null;
                     return new ShipProfileResponse(
                             el.getId(),
@@ -116,7 +120,7 @@ public class ProfilesServiceImpl implements ProfilesService {
                 .findAll().stream()
                 .filter(el -> Objects.equals(el.getUserType().getName(), CREW_MANAGER) && el.getIsActivated())
                 .map(el -> {
-                    Crew crew = crewRepository.getCrewByCrewOwner(el);
+                    Crew crew = getCrew(el);
                     if (crew == null) return null;
 
                     List<CrewMember> members = crewMemberRepository.getCrewMemberByCrewId(crew.getId());
@@ -139,11 +143,40 @@ public class ProfilesServiceImpl implements ProfilesService {
     @Override
     public CrewResponse getUserCrew(String nickname) {
         User user = userRepository.findByNick(nickname);
-        if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER)) throw new NoUserCrewFound();
+        if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER))
+            throw new IllegalRequestParamsException("incorrect user type");
 
-        Crew crew = crewRepository.getCrewByCrewOwner(user);
+        Crew crew = getCrew(user);
+        if (crew == null) return null;
+
         List<CrewMember> members = crewMemberRepository.getCrewMemberByCrewId(crew.getId());
-
         return new CrewResponse(crew, members);
+    }
+
+    @Override
+    public ShipResponse getUserShip(String nickName) {
+        User user = userRepository.findByNick(nickName);
+        if (!Objects.equals(user.getUserType().getName(), SHIP_OWNER))
+            throw new IllegalRequestParamsException("incorrect user type");
+
+        Ship ship = getShip(user);
+
+        return new ShipResponse(ship);
+    }
+
+    private Crew getCrew(User user) {
+        try {
+            return crewRepository.getCrewByCrewOwner(user);
+        } catch (NullPointerException e) {
+            return null;
+        }
+    }
+
+    private Ship getShip(User user) {
+        try {
+            return shipRepository.getShipByOwnerId(user.getId());
+        } catch (NullPointerException e) {
+            return null;
+        }
     }
 }

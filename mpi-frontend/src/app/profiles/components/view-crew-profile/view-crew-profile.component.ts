@@ -11,6 +11,7 @@ export class ViewCrewProfileComponent implements OnInit {
   constructor() {
   }
 
+  @Input() modalOpen: boolean
   @Input() crewProfile: CrewProfile
   @Output() closeModal = new EventEmitter()
 

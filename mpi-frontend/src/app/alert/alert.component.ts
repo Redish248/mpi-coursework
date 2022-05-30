@@ -10,7 +10,7 @@ export class AlertComponent implements OnInit {
   constructor() {
   }
 
-  @Input() errorMessage: string
+  @Input() errorMessage: string | undefined
 
   ngOnInit(): void {
   }

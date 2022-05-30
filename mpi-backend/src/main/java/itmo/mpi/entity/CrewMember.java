@@ -28,4 +28,8 @@ public class CrewMember {
         this.fullName = fullName;
         this.experience = experience;
     }
+
+    public CrewMember() {
+
+    }
 }

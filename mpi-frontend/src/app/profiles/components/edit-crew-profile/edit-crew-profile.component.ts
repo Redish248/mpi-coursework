@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
 import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
-import { Crew } from '../../model/CrewProfile'
+import { Crew, CrewMember } from '../../model/CrewProfile'
+import { ProfileService } from '../../profile.service'
 
 
 @Component({
@@ -9,7 +10,8 @@ import { Crew } from '../../model/CrewProfile'
   styleUrls: ['../../profiles.css', './edit-crew-profile.component.css']
 })
 export class EditCrewProfileComponent implements OnInit {
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private profileService: ProfileService) {
     this.crewProfileForm = formBuilder.group({
       teamName: ['', Validators.required],
       photo: ['', Validators.required],
@@ -19,40 +21,44 @@ export class EditCrewProfileComponent implements OnInit {
     })
   }
 
-  @Input() crewProfile: Crew // obj or null (create new)
+  @Input() modalOpen: boolean
+  @Input() crewProfile: Crew | undefined // obj or null (create new)
   @Output() modalClose = new EventEmitter()
 
   crewProfileForm: FormGroup
 
   ngOnInit(): void {
+    console.log(this.crewProfile)
     if (this.crewProfile) this.fillForm()
   }
 
   private fillForm() {
     this.crewProfileForm.reset({
-      uid: this.crewProfile.uid,
-      teamName: this.crewProfile.teamName,
-      photo: this.crewProfile.photo,
-      description: this.crewProfile.description,
-      pricePerDay: this.crewProfile.pricePerDay,
-      membersNumber: this.crewProfile.membersNumber,
-      members: this.formBuilder.array([this.fillCrewMembers()])
+      teamName: this.crewProfile?.teamName,
+      photo: this.crewProfile?.photo,
+      description: this.crewProfile?.description,
+      pricePerDay: this.crewProfile?.pricePerDay,
+      members: this.formBuilder.array(
+        this.crewProfile?.members.map((m) => this.formBuilder.group({
+          fullName: m.fullName,
+          experience: m.experience
+        })) || []
+      )
     })
+    console.log(this.crewProfileForm)
   }
 
   private get crewMember(): FormGroup {
     return this.formBuilder.group({
-      uid: [''],
       fullName: ['', Validators.required],
       experience: ['', Validators.required]
     })
   }
 
-  private fillCrewMembers() {
-    const members = this.crewProfile.members
+  private fillCrewMembers(members: CrewMember[]): FormArray {
+    console.log(members)
     return this.formBuilder.array(
       members.map((m) => this.formBuilder.group({
-        uid: m.uid,
         fullName: m.fullName,
         experience: m.experience
       }))
@@ -79,6 +85,13 @@ export class EditCrewProfileComponent implements OnInit {
 
   registerNewCrew() {
     if (this.crewProfile) return
+    this.profileService.addCrew(this.crewProfileForm.getRawValue()).subscribe(
+      data => {
+        this.crewProfile = data
+        this.fillForm()
+      },
+      err => console.log(err)
+    )
     console.log(`Update crew to new data: `, this.crewProfileForm.getRawValue())
   }
 

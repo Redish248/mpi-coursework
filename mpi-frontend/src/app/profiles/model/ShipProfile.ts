@@ -10,7 +10,6 @@ export interface ShipProfile {
 }
 
 export interface Ship {
-  uid: number
   title: string
   speed: number
   capacity: number

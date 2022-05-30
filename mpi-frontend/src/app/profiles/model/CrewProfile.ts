@@ -11,7 +11,6 @@ export interface CrewProfile {
 }
 
 export interface Crew {
-  uid: number,
   teamName: string,
   rates: number
   photo: string
@@ -21,6 +20,7 @@ export interface Crew {
   pricePerDay: number
   // tripNumber: number TODO
 }
+
 
 export interface CrewMember {
   uid: number

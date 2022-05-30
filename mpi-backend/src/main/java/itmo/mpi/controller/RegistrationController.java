@@ -43,16 +43,4 @@ public class RegistrationController {
     String getPermissions() {
         return commonUtils.getCurrentUser().getAuthorities().stream().findFirst().get().getAuthority();
     }
-
-    @PostMapping("/crew")
-    public void registerCrew(@RequestBody CrewRequest request) {
-        String nickname = commonUtils.getCurrentUser().getName();
-        profilesService.registerCrew(nickname, request);
-    }
-
-    @PostMapping("/ship")
-    public void registerShip(@RequestBody ShipRequest request) {
-        String nickname = commonUtils.getCurrentUser().getName();
-        profilesService.registerShip(nickname, request);
-    }
 }

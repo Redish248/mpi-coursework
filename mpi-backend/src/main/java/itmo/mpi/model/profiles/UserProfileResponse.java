@@ -15,5 +15,5 @@ public class UserProfileResponse {
     private String phone;
     private boolean shareContactInfo;
     private boolean isVip;
-
+    private boolean isActivated;
 }
