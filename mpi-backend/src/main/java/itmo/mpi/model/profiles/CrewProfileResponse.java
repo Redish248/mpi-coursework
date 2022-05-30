@@ -2,15 +2,16 @@ package itmo.mpi.model.profiles;
 
 import itmo.mpi.entity.Crew;
 import itmo.mpi.entity.CrewMember;
+import lombok.Data;
 
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Phone & email will be return only if user allows (else null)
  * Only VIP users get information about pirates
  */
+@Data
 public class CrewProfileResponse {
     // user profile info
     private int uid;
