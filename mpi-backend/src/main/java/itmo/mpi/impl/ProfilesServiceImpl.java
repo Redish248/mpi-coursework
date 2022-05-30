@@ -5,10 +5,7 @@ import itmo.mpi.entity.CrewMember;
 import itmo.mpi.entity.Ship;
 import itmo.mpi.entity.User;
 import itmo.mpi.exception.NoUserCrewFound;
-import itmo.mpi.model.profiles.CrewProfileResponse;
-import itmo.mpi.model.profiles.CrewResponse;
-import itmo.mpi.model.profiles.ShipProfileResponse;
-import itmo.mpi.model.profiles.UserProfileResponse;
+import itmo.mpi.model.profiles.*;
 import itmo.mpi.repository.CrewMemberRepository;
 import itmo.mpi.repository.CrewRepository;
 import itmo.mpi.repository.ShipRepository;
@@ -31,6 +28,45 @@ public class ProfilesServiceImpl implements ProfilesService {
     private final ShipRepository shipRepository;
     private final CrewRepository crewRepository;
     private final CrewMemberRepository crewMemberRepository;
+
+    @Override
+    public void registerCrew(String nickName, CrewRequest newCrew) {
+        User user = userRepository.findByNick(nickName);
+        if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER)) return;
+        Crew crewEntity = new Crew(
+                newCrew.getTeamName(),
+                user,
+                newCrew.getPricePerDay(),
+                newCrew.getPhoto(),
+                newCrew.getDescription()
+        );
+
+        Crew savedCrew = crewRepository.save(crewEntity);
+
+        List<CrewMember> members = newCrew.getMembers().stream().map(m -> new CrewMember(savedCrew, m.getFullName(), m.getExperience())).collect(Collectors.toList());
+        crewMemberRepository.saveAll(members);
+    }
+
+    @Override
+    public void registerShip(String nickName, ShipRequest newShip) {
+        User user = userRepository.findByNick(nickName);
+        if (!Objects.equals(user.getUserType().getName(), SHIP_OWNER)) return;
+
+        Ship shipEntity = new Ship(
+                newShip.getName(),
+                user,
+                newShip.getSpeed(),
+                newShip.getCapacity(),
+                newShip.getFuelConsumption(),
+                newShip.getLength(),
+                newShip.getWidth(),
+                newShip.getPricePerDay(),
+                newShip.getPhoto(),
+                newShip.getDescription()
+        );
+
+        shipRepository.save(shipEntity);
+    }
 
     @Override
     public UserProfileResponse getCurrentUserProfile(String nickName) {

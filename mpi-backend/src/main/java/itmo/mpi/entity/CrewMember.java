@@ -23,5 +23,9 @@ public class CrewMember {
     @Column(name = "experience")
     private int experience;
 
-
+    public CrewMember(Crew crew, String fullName, int experience) {
+        this.crew = crew;
+        this.fullName = fullName;
+        this.experience = experience;
+    }
 }

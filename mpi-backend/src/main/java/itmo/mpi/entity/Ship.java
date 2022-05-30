@@ -50,4 +50,22 @@ public class Ship {
     @Column(name = "description")
     private String description;
 
+
+    public Ship(String name, User owner, Integer speed, Integer capacity, Integer fuelConsumption, Integer length, Integer width, Integer pricePerDay, String photo, String description) {
+        this.name = name;
+        this.owner = owner;
+        this.speed = speed;
+        this.capacity = capacity;
+        this.fuelConsumption = fuelConsumption;
+        this.length = length;
+        this.width = width;
+        this.pricePerDay = pricePerDay;
+        this.ratesNumber = 0;
+        this.ratesAverage = 0.0;
+        this.photo = photo;
+        this.description = description;
+    }
+
+    public Ship() {
+    }
 }

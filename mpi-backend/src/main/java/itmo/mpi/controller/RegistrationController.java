@@ -4,7 +4,9 @@ import itmo.mpi.entity.Admin;
 import itmo.mpi.entity.User;
 import itmo.mpi.model.UserInfo;
 import itmo.mpi.model.profiles.CrewRequest;
+import itmo.mpi.model.profiles.ShipRequest;
 import itmo.mpi.service.AdminService;
+import itmo.mpi.service.ProfilesService;
 import itmo.mpi.service.UserService;
 import itmo.mpi.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,8 @@ public class RegistrationController {
     private final AdminService adminService;
 
     private final CommonUtils commonUtils;
+
+    private final ProfilesService profilesService;
 
     @PostMapping("/registerUser")
     public @ResponseBody
@@ -42,11 +46,13 @@ public class RegistrationController {
 
     @PostMapping("/crew")
     public void registerCrew(@RequestBody CrewRequest request) {
-        // TODO
+        String nickname = commonUtils.getCurrentUser().getName();
+        profilesService.registerCrew(nickname, request);
     }
 
     @PostMapping("/ship")
-    public void registerShip() {
-
+    public void registerShip(@RequestBody ShipRequest request) {
+        String nickname = commonUtils.getCurrentUser().getName();
+        profilesService.registerShip(nickname, request);
     }
 }

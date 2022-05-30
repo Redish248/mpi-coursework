@@ -1,13 +1,14 @@
 package itmo.mpi.service;
 
-import itmo.mpi.model.profiles.CrewProfileResponse;
-import itmo.mpi.model.profiles.CrewResponse;
-import itmo.mpi.model.profiles.ShipProfileResponse;
-import itmo.mpi.model.profiles.UserProfileResponse;
+import itmo.mpi.model.profiles.*;
 
 import java.util.List;
 
 public interface ProfilesService {
+
+    void registerCrew(String nickName, CrewRequest newCrew);
+
+    void registerShip(String nickName, ShipRequest newShip);
 
     UserProfileResponse getCurrentUserProfile(String nickName);
 
