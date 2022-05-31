@@ -42,27 +42,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
-                .cors()
+                    .cors()
                 .and()
-                .csrf().disable()
-                .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint)
+                    .csrf().disable()
+                    .exceptionHandling()
+                    .authenticationEntryPoint(authEntryPoint)
                 .and()
-                .authorizeRequests()
-                .antMatchers("/mpi/signup/*").permitAll()
-                .anyRequest().authenticated()
+                    .authorizeRequests()
+                    .antMatchers("/mpi/signup/*").permitAll()
+                    .anyRequest().authenticated()
                 .and()
-                .formLogin()
-                .loginProcessingUrl("/login/**")
-                .successHandler(authSuccessHandler)
-                .failureHandler(failureHandler)
-                .permitAll()
+                    .formLogin()
+                    .loginProcessingUrl("/login/**")
+                    .successHandler(authSuccessHandler)
+                    .failureHandler(failureHandler)
+                    .permitAll()
                 .and()
-                .logout()
-                .logoutSuccessHandler(new LogoutSuccess())
-                .deleteCookies("JSESSIONID")
-                .invalidateHttpSession(false)
-                .permitAll();
+                    .logout()
+                    .logoutSuccessHandler(new LogoutSuccess())
+                    .deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(false)
+                    .permitAll();
 
         http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
     }
