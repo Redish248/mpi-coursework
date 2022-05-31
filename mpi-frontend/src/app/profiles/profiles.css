@@ -9,7 +9,7 @@
     max-height: 300px;
 }
 
-#profiles-list div{
+#profiles-list div {
     min-width: 300px;
     max-width: fit-content;
 }

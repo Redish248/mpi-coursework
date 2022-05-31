@@ -38,7 +38,7 @@ export class EditShipProfileComponent implements OnInit {
   fillForm() {
     console.log(this.shipProfile)
     this.shipProfileForm.reset({
-      name: ['', Validators.required],
+      name: this.shipProfile?.title,
       speed: this.shipProfile?.speed,
       capacity: this.shipProfile?.capacity,
       fuelConsumption: this.shipProfile?.fuelConsumption,

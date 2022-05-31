@@ -1,7 +1,9 @@
 package itmo.mpi.model.profiles;
 
 import itmo.mpi.entity.Ship;
+import lombok.Data;
 
+@Data
 public class ShipProfileResponse {
     private int uid;
     private String name;

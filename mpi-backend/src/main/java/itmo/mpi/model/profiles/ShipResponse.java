@@ -17,6 +17,7 @@ public class ShipResponse {
     private int pricePerDay;
     private String photo;
     private String description;
+    private double rates;
 
     public ShipResponse(Ship ship) {
         this.uid = ship.getId();
@@ -29,5 +30,6 @@ public class ShipResponse {
         this.pricePerDay = ship.getPricePerDay();
         this.photo = ship.getPhoto();
         this.description = ship.getDescription();
+        this.rates = ship.getRatesAverage();
     }
 }

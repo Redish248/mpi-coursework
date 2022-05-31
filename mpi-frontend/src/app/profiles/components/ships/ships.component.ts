@@ -6,7 +6,7 @@ import { CommonService } from '../../../service/commonService'
 @Component({
   selector: 'app-ships',
   templateUrl: './ships.component.html',
-  styleUrls: ['./ships.component.css']
+  styleUrls: ['../../profiles.css','./ships.component.css']
 })
 export class ShipsComponent implements OnInit {
 
