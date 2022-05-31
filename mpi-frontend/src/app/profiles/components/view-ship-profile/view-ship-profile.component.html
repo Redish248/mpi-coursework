@@ -1,0 +1,22 @@
+<clr-modal [(clrModalOpen)]="modalOpen" (clrModalOpenChange)="closeModal.emit()">
+    <h3 class="modal-title">Корабль {{shipProfile.ship.title}}
+        <app-rating [rating]="shipProfile.ship.rates"></app-rating>
+    </h3>
+    <div class="modal-body">
+        Капитан {{shipProfile.name}} {{shipProfile.surname}}
+        <app-pirate-label [isPirate]="shipProfile.isPirate"></app-pirate-label>
+        <br>
+        Почта: {{shipProfile.email || "****"}}
+        <br>
+        Телефон: {{shipProfile.phone || "****"}}
+        <br>
+        Вместимость: {{shipProfile.ship.capacity}}
+        <br>
+        Скорость: {{shipProfile.ship.speed}}
+        <br>
+        <img [src]="shipProfile.ship.photo" [alt]="defaultShipPhotoUrl" class="photo"/>
+        <br>
+        Характеристика
+        {{shipProfile.ship.description}}
+    </div>
+</clr-modal>

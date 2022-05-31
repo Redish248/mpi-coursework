@@ -20,7 +20,7 @@ export class CrewsComponent implements OnInit {
   filteredProfiles: CrewProfile[] = []
 
   minMembersNumber: number = 0
-  maxMemberNumber: number = 0
+  maxMemberNumber: number = 10
   // maxTripNumber: number = 0
   // minTripNumber: number = 0
   maxRates: number = 5
@@ -38,13 +38,7 @@ export class CrewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCrews()
-    this.filter = {
-      maxMembersNumber: 10,
-      minMembersNumber: 0,
-      // minTripNumber: this.minTripNumber,
-      minRates: 0
-
-    }
+    this.initFilter() // default values first
   }
 
   getCrews() {
@@ -56,7 +50,6 @@ export class CrewsComponent implements OnInit {
         this.crews = data.sort((el1, el2) => el1.crew.rates > el2.crew.rates ? 1 : -1)
         this.filteredProfiles = this.crews
         this.countDefaultParams()
-        this.initFilter()
       },
       err => {
         this.loading = false
@@ -74,6 +67,8 @@ export class CrewsComponent implements OnInit {
 
     this.maxRates = CommonService.getMax(this.crews, "rates")
     this.minRates = CommonService.getMin(this.crews, "rates")
+
+    this.initFilter()
   }
 
   initFilter() {

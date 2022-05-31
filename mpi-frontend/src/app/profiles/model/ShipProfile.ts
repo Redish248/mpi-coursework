@@ -4,7 +4,7 @@ export interface ShipProfile {
   surname: string
   email: string
   phone: string
-  is_pirate: string
+  isPirate: boolean
 
   ship: Ship
 }
@@ -15,4 +15,5 @@ export interface Ship {
   capacity: number
   photo: string
   description: string
+  rates: number
 }

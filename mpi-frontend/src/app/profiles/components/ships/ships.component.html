@@ -1,0 +1,59 @@
+<app-alert [errorMessage]="errorMessage"></app-alert>
+<div>
+    <clr-input-container>
+        <label>Минимальная скорость</label>
+        <input clrInput type="number" [(ngModel)]="filter.minSpeed"
+               (change)="filterProfiles()">
+    </clr-input-container>
+
+    <clr-range-container>
+        <label>Вместимость:</label>
+        <input clrRange type="range" [min]="minCapacity" [max]="maxCapacity"
+               [(ngModel)]="filter.capacity"
+               (change)="filterProfiles()"/>
+    </clr-range-container>
+
+    <clr-range-container>
+        <label>Минимальный рейтинг:</label>
+        <input clrRange type="range" [min]="minRates" [max]="maxRates"
+               [(ngModel)]="filter.minRates"
+               (change)="filterProfiles()"/>
+    </clr-range-container>
+</div>
+<div id="profiles-list">
+    <div *ngFor="let profile of filteredProfiles"
+         class="profile card clickable"
+         (click)="selectedProfileId = profile">
+        <div class="card-header">
+            {{profile.ship.title}}
+            <app-rating [rating]="profile.ship.rates"></app-rating>
+        </div>
+        <div class="card-block">
+            <div class="card-media-block">
+                <img [src]="profile.ship.photo" [alt]="defaultShipPhotoUrl"/>
+            </div>
+
+            <div class="card-text">
+                Капитан: {{profile.name}} {{profile.surname}}
+                <app-pirate-label [isPirate]="profile?.isPirate"></app-pirate-label>
+
+                <br>
+                Почта: {{profile.email || "****"}}
+                <br>
+                Телефон: {{profile.email || "****"}}
+                <br>
+                Скорость: {{profile.ship.speed}}
+                <br>
+                Вместимость: {{profile.ship.capacity}}
+                <br>
+                Описание: {{profile.ship.description}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-view-ship-profile *ngIf="selectedProfileId"
+                       [modalOpen]="!!selectedProfileId"
+                       [shipProfile]="selectedProfileId"
+                       (closeModal)="selectedProfileId = undefined">
+</app-view-ship-profile>
