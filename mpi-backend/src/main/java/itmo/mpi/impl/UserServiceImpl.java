@@ -21,7 +21,6 @@ import java.util.Locale;
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
 
     private final UserRoleRepository userRoleRepository;
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public List<UserInfo> findAllNotActivatedUsers() {
-        List<User> allUsers =  userRepository.findUsersByIsActivated(false);
+        List<User> allUsers = userRepository.findUsersByIsActivated(false);
         List<UserInfo> result = new ArrayList<>();
         allUsers.forEach(user -> {
             UserInfo userInfo = new UserInfo();
@@ -70,6 +69,4 @@ public class UserServiceImpl implements UserService {
         newUser.setIsPirate(false);
         return userRepository.save(newUser);
     }
-
-
 }

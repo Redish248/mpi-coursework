@@ -1,8 +1,6 @@
 package itmo.mpi.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 
@@ -21,11 +19,6 @@ public class Ship {
     @ManyToOne(optional = false)
     @JoinColumn(name = "owner", nullable = false)
     private User owner;
-
-    @Lob
-    @Type(type = "org.hibernate.type.TextType")
-    @Column(name = "description")
-    private String description;
 
     @Column(name = "speed")
     private Integer speed;
@@ -51,4 +44,28 @@ public class Ship {
     @Column(name = "rates_average", nullable = false)
     private Double ratesAverage;
 
+    @Column(name = "photo")
+    private String photo;
+
+    @Column(name = "description")
+    private String description;
+
+
+    public Ship(String name, User owner, Integer speed, Integer capacity, Integer fuelConsumption, Integer length, Integer width, Integer pricePerDay, String photo, String description) {
+        this.name = name;
+        this.owner = owner;
+        this.speed = speed;
+        this.capacity = capacity;
+        this.fuelConsumption = fuelConsumption;
+        this.length = length;
+        this.width = width;
+        this.pricePerDay = pricePerDay;
+        this.ratesNumber = 0;
+        this.ratesAverage = 0.0;
+        this.photo = photo;
+        this.description = description;
+    }
+
+    public Ship() {
+    }
 }

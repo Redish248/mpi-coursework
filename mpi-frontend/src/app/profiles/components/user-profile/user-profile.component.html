@@ -1,0 +1,51 @@
+<app-alert [errorMessage]="errorMessage"></app-alert>
+<clr-spinner *ngIf="loading"></clr-spinner>
+
+<form clrForm [formGroup]="userProfileForm">
+    Мой профиль
+    <span *ngIf="!user?.activated" class="label label-danger">Акаунт не подтвержден администратором</span>
+    <clr-icon *ngIf="user?.isVip" shape="crown"></clr-icon>
+
+    <clr-input-container>
+        <label>Имя</label>
+        <input clrInput formControlName="name" type="text">
+    </clr-input-container>
+    <clr-input-container>
+        <label>Фамилия</label>
+        <input clrInput formControlName="surname" type="text">
+    </clr-input-container>
+    <clr-checkbox-wrapper>
+        <label>Делиться конактами</label>
+        <input type="checkbox" clrCheckbox formControlName="shareContacts"/>
+    </clr-checkbox-wrapper>
+    <clr-input-container>
+        <label>Почта</label>
+        <input clrInput formControlName="email" type="text">
+    </clr-input-container>
+    <clr-input-container>
+        <label>Телефон</label>
+        <input clrInput formControlName="phone" type="text">
+    </clr-input-container>
+    <clr-input-container>
+        <label>Дата рождения</label>
+        <input clrInput formControlName="birthDate" type="text">
+    </clr-input-container>
+
+    <button *ngIf="shipOwner" (click)="openShipProfile()" class="btn btn-outline">Профиль корабля</button>
+    <button *ngIf="crewManager" (click)="openCrewProfile()" class="btn btn-outline">Профиль команды</button>
+
+    <button [disabled]="!userProfileForm.touched" (click)="updateUser()" class="btn btn-outline">Сохранить изменения
+    </button>
+</form>
+
+<app-edit-crew-profile *ngIf="openCrewProfileModal"
+                       [modalOpen]="openCrewProfileModal"
+                       [crewProfile]="crew"
+                       (modalClose)="openCrewProfileModal=false">
+</app-edit-crew-profile>
+
+<app-edit-ship-profile *ngIf="openShipProfileModal"
+                       [modalOpen]="openShipProfileModal"
+                       [shipProfile]="ship"
+                       (modalClose)="openShipProfileModal=false"
+></app-edit-ship-profile>

@@ -1,0 +1,60 @@
+<form clrForm [formGroup]="crewProfileForm">
+    <clr-modal [(clrModalOpen)]="modalOpen" (clrModalOpenChange)="modalClose.emit()">
+        <h3 class="modal-title">Мой профиль</h3>
+        <div class="modal-body">
+            <clr-input-container>
+                <label>название</label>
+                <input clrInput formControlName="teamName" type="text">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Фотография</label>
+                <input clrInput formControlName="photo" type="text">
+            </clr-input-container>
+            <img *ngIf="photo" [src]="photo" id="photo" alt="">
+            <clr-input-container>
+                <label>Цена за день</label>
+                <input clrInput formControlName="pricePerDay" type="number">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Описание</label>
+                <input clrInput formControlName="description" type="text">
+            </clr-input-container>
+
+            <div formArrayName="members">
+                <hr>
+                <div *ngFor="let member of getMembersArr().controls; let i = index"
+                     [formGroupName]="i">
+                    <clr-input-container>
+                        <label [for]="'fullName'+i">Имя
+                            <span>
+                                <button class="btn btn-link" (click)="deleteCrewMember(i)">(Х)</button>
+                            </span>
+                        </label>
+                        <input clrInput [id]="'fullName'+i" formControlName="fullName" type="text">
+                    </clr-input-container>
+                    <clr-input-container>
+                        <label [for]="'exp'+i">Опыт</label>
+                        <input [id]="'exp'+i" clrInput formControlName="experience" type="number">
+                    </clr-input-container>
+
+                    <button class="btn btn-info-outline" (click)="addNewMember()">добавить</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+            <button *ngIf="crewProfile"
+                    class="btn btn-outline"
+                    [disabled]="crewProfileForm.invalid"
+                    (click)="updateCrewProfile()">
+                обновить данные
+            </button>
+            <button *ngIf="!crewProfile"
+                    class="btn btn-outline"
+                    [disabled]="crewProfileForm.invalid"
+                    (click)="registerNewCrew()">
+                зарегистрировать команду
+            </button>
+        </div>
+    </clr-modal>
+</form>

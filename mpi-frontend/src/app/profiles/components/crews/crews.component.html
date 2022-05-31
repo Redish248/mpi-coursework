@@ -1,0 +1,56 @@
+<app-alert [errorMessage]="errorMessage"></app-alert>
+<div>
+    <clr-input-container>
+        <label>min</label>
+        <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
+               (change)="filterProfiles()">
+    </clr-input-container>
+
+    <clr-input-container>
+        <label>max</label>
+        <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
+               (change)="filterProfiles()">
+    </clr-input-container>
+
+    <clr-range-container>
+        <label>Минимальный рейтинг:</label>
+        <input clrRange type="range" [min]="minRates" [max]="maxRates"
+               [(ngModel)]="filter.minRates"
+               (change)="filterProfiles()"/>
+    </clr-range-container>
+</div>
+<div id="profiles-list">
+    <div *ngFor="let profile of filteredProfiles"
+         class="profile card clickable"
+         (click)="selectedProfileId = profile">
+        <div class="card-header">
+            {{profile.crew.teamName}}
+            <app-rating [rating]="profile.crew.rates"></app-rating>
+        </div>
+        <div class="card-block">
+            <div class="card-media-block">
+                <img [src]="profile.crew.photo" [alt]="defaultCrewPhotoUrl"/>
+            </div>
+
+            <div class="card-text">
+                Капитан: {{profile.name}} {{profile.surname}}
+                <app-pirate-label [isPirate]="profile?.isPirate"></app-pirate-label>
+
+                <br>
+                Почта: {{profile.email || "****"}}
+                <br>
+                Телефон: {{profile.email || "****"}}
+                <br>
+                Численность команды: {{profile.crew.membersNumber}}
+                <br>
+                Описание: {{profile.crew.description}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<app-view-crew-profile *ngIf="selectedProfileId"
+                       [modalOpen]="!!selectedProfileId"
+                       [crewProfile]="selectedProfileId"
+                       (closeModal)="selectedProfileId = undefined"
+></app-view-crew-profile>

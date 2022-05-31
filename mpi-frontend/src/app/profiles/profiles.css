@@ -1,0 +1,20 @@
+#profiles-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.item-photo {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+#profiles-list div{
+    min-width: 300px;
+    max-width: fit-content;
+}
+
+#photo {
+    max-width: 400px;
+    max-height: 400px;
+}

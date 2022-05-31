@@ -18,5 +18,6 @@ public interface ShipRepository extends JpaRepository<Ship, Long> {
             ":startDate AND tr.status IN ('COMPLETE','APPROVED_BY_SHIP','APPROVED_BY_BOTH') where tr.uid is null;", nativeQuery = true)
     List<Ship> getFreeShipsForTrip(@Param("startDate") LocalDate startDate, @Param("distance") int distance);
 
+    Ship getShipByOwnerId(int ownerUid);
     List<Ship> findByOwner(User owner);
 }

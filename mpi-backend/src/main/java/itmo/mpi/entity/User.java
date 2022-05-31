@@ -31,6 +31,9 @@ public class User {
     @Column(name = "birth_date")
     private LocalDate birthDate;
 
+    @Column(name = "share_contacts")
+    private boolean shareContactInfo;
+
     @ManyToOne
     @JoinColumn(name = "user_type", nullable = false)
     private UserRole userType;

@@ -17,8 +17,19 @@ public class CrewMember {
     @JoinColumn(name = "crew", nullable = false)
     private Crew crew;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "member_id", nullable = false)
-    private User member;
+    @Column(name = "full_name")
+    private String fullName;
 
+    @Column(name = "experience")
+    private int experience;
+
+    public CrewMember(Crew crew, String fullName, int experience) {
+        this.crew = crew;
+        this.fullName = fullName;
+        this.experience = experience;
+    }
+
+    public CrewMember() {
+
+    }
 }

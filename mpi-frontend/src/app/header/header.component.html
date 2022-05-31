@@ -1,4 +1,4 @@
-<header class="header-6" *ngIf="authService.isLoggedIn()">
+<header class="header-6">
     <div class="branding">
         <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
       <span class="clr-icon logo title">
@@ -10,12 +10,20 @@
         <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
             <span class="nav-text">Карта</span>
         </a>
-      <a class="nav-link" [routerLink]="['requests']" routerLinkActive="active">
-        <span class="nav-text">Заявки</span>
-      </a>
-      <a class="nav-link" *ngIf="authService.isAdmin()" [routerLink]="['approvals']" routerLinkActive="active">
-        <span class="nav-text">Регистрации</span>
-      </a>
+        <a *ngIf="isCrewManager() || isShipOwner()"
+           class="nav-link" [routerLink]="['requests']"
+           routerLinkActive="active">
+            <span class=" nav-text">Заявки</span>
+        </a>
+        <a *ngIf="isAdmin()" class="nav-link" [routerLink]="['approvals']" routerLinkActive="active">
+            <span class="nav-text">Регистрации</span>
+        </a>
+        <a class="nav-link" [routerLink]="['ships']" routerLinkActive="active">
+            <span class="nav-text">Корабли</span>
+        </a>
+        <a class="nav-link" [routerLink]="['crews']" routerLinkActive="active">
+            <span class="nav-text">Экипажи</span>
+        </a>
     </div>
     <div class="header-actions header-actions--overflow" *ngIf="user">
         <clr-dropdown>
@@ -25,7 +33,7 @@
                 <clr-icon shape="caret down"></clr-icon>
             </button>
             <div class="dropdown-menu">
-                <a clrDropdownItem>Мой профиль</a>
+                <a clrDropdownItem (click)="openUserProfile()">Мой профиль</a>
                 <a (click)="logout()" clrDropdownItem>Выйти</a>
             </div>
         </clr-dropdown>

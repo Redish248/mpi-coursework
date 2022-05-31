@@ -19,4 +19,5 @@ public interface CrewRepository extends JpaRepository<Crew, Long> {
 
     List<Crew> findByCrewOwner(User crewOwner);
 
+    Crew getCrewByCrewOwner(User crewOwner);
 }

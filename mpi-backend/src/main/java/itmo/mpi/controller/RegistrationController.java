@@ -3,7 +3,10 @@ package itmo.mpi.controller;
 import itmo.mpi.entity.Admin;
 import itmo.mpi.entity.User;
 import itmo.mpi.model.UserInfo;
+import itmo.mpi.model.profiles.CrewRequest;
+import itmo.mpi.model.profiles.ShipRequest;
 import itmo.mpi.service.AdminService;
+import itmo.mpi.service.ProfilesService;
 import itmo.mpi.service.UserService;
 import itmo.mpi.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +24,8 @@ public class RegistrationController {
 
     private final CommonUtils commonUtils;
 
+    private final ProfilesService profilesService;
+
     @PostMapping("/registerUser")
     public @ResponseBody
     ResponseEntity<User> registerUser(@RequestBody UserInfo newUser) {
@@ -34,7 +39,8 @@ public class RegistrationController {
     }
 
     @GetMapping("/roles")
-    public @ResponseBody String getPermissions() {
+    public @ResponseBody
+    String getPermissions() {
         return commonUtils.getCurrentUser().getAuthorities().stream().findFirst().get().getAuthority();
     }
 }

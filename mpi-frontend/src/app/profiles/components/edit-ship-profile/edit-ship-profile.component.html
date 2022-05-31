@@ -1,0 +1,59 @@
+<form clrForm [formGroup]="shipProfileForm">
+    <clr-modal [(clrModalOpen)]="modalOpen" (clrModalOpenChange)="modalClose.emit()">
+        <h3 class="modal-title">Мой профиль</h3>
+        <div class="modal-body">
+            <clr-input-container>
+                <label>название</label>
+                <input clrInput formControlName="name" type="text">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Фотография</label>
+                <input clrInput formControlName="photo" type="text">
+            </clr-input-container>
+            <img *ngIf="photo" [src]="photo" id="photo" alt="">
+            <clr-input-container>
+                <label>Цена за день</label>
+                <input clrInput formControlName="pricePerDay" type="number">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Описание</label>
+                <input clrInput formControlName="description" type="text">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Длина</label>
+                <input clrInput formControlName="length" type="number">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Ширина</label>
+                <input clrInput formControlName="width" type="number">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Расход топлива</label>
+                <input clrInput formControlName="fuelConsumption" type="number">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Скорость</label>
+                <input clrInput formControlName="speed" type="number">
+            </clr-input-container>
+            <clr-input-container>
+                <label>Вместимость</label>
+                <input clrInput formControlName="capacity" type="number">
+            </clr-input-container>
+        </div>
+
+        <div class="modal-footer">
+            <button *ngIf="shipProfile"
+                    class="btn btn-outline"
+                    [disabled]="shipProfileForm.invalid"
+                    (click)="updateShipProfile()">
+                обновить данные
+            </button>
+            <button *ngIf="!shipProfile"
+                    class="btn btn-outline"
+                    [disabled]="shipProfileForm.invalid"
+                    (click)="registerNewShip()">
+                зарегистрировать корабль
+            </button>
+        </div>
+    </clr-modal>
+</form>
