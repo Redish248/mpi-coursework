@@ -13,3 +13,5 @@ databaseChangeLog:
       file: /db/changelog/updates/0.6.0-crew_member.sql
   - include:
       file: /db/changelog/updates/0.7.0-insert_user_data.sql
+  - include:
+      file: /db/changelog/updates/0.8.0-insert_ship_and_crew.sql

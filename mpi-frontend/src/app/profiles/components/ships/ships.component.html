@@ -30,7 +30,10 @@
         </div>
         <div class="card-block">
             <div class="card-media-block">
-                <img [src]="profile.ship.photo" [alt]="defaultShipPhotoUrl"/>
+              <img *ngIf="profile.ship.photo; else elseBlock" [src]="profile.ship.photo" class="item-photo"/>
+              <ng-template #elseBlock>
+                <img [src]="defaultShipPhotoUrl" class="item-photo"/>
+              </ng-template>
             </div>
 
             <div class="card-text">

@@ -14,7 +14,10 @@
         <br>
         Скорость: {{shipProfile.ship.speed}}
         <br>
-        <img [src]="shipProfile.ship.photo" [alt]="defaultShipPhotoUrl" class="photo"/>
+        <img *ngIf="shipProfile.ship.photo; else elseBlock" [src]="shipProfile.ship.photo" class="item-photo"/>
+        <ng-template #elseBlock>
+          <img [src]="defaultShipPhotoUrl" class="item-photo"/>
+        </ng-template>
         <br>
         Характеристика
         {{shipProfile.ship.description}}

@@ -6,7 +6,7 @@ import { Ship } from '../../model/ShipProfile'
 @Component({
   selector: 'app-edit-ship-profile',
   templateUrl: './edit-ship-profile.component.html',
-  styleUrls: ['./edit-ship-profile.component.css']
+  styleUrls: ['../../profiles.css', './edit-ship-profile.component.css']
 })
 export class EditShipProfileComponent implements OnInit {
 

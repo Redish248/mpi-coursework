@@ -22,6 +22,12 @@ values ('Irina', 'Redkina', 'irina', '$2a$10$HOv2CBTpqghVhgiptz7K4u1jBjQlqRW5ofR
 insert into users (name, surname, nick, password, birth_date, user_type, email, phone, is_pirate, is_activated, is_vip)
 values ('David', 'White', 'david', '$2a$10$HOv2CBTpqghVhgiptz7K4u1jBjQlqRW5ofRAUNvqHAsSq1uIA8meu', '1999-12-12', 2, 'david@ya.ru', '+7-905-123-75-67', true, false, false);
 
+insert into users (name, surname, nick, password, birth_date, user_type, email, phone, is_pirate, is_activated, is_vip)
+values ('Vasilii', 'Arsenev', 'crew_manager', '$2a$10$HOv2CBTpqghVhgiptz7K4u1jBjQlqRW5ofRAUNvqHAsSq1uIA8meu', '1992-09-09', 3, 'crew_manager@ya.ru', '+7-921-123-00-67', false, true, false);
+
+insert into users (name, surname, nick, password, birth_date, user_type, email, phone, is_pirate, is_activated, is_vip)
+values ('Pavel', 'Kot', 'shipper', '$2a$10$HOv2CBTpqghVhgiptz7K4u1jBjQlqRW5ofRAUNvqHAsSq1uIA8meu', '1990-10-10', 2, 'shipper@ya.ru', '+7-911-777-45-88', false, true, false);
+
 insert into admin (name, surname, salary, nick, password) VALUES ('Irina', 'Redkina', 150000, 'redish', '$2a$10$HOv2CBTpqghVhgiptz7K4u1jBjQlqRW5ofRAUNvqHAsSq1uIA8meu');
 
 insert into admin (name, surname, salary, nick, password) VALUES ('Anastasia', 'Smirnova', 150000, 'nastya', '$2a$10$HOv2CBTpqghVhgiptz7K4u1jBjQlqRW5ofRAUNvqHAsSq1uIA8meu');

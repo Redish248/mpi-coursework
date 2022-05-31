@@ -114,6 +114,7 @@ public class ProfilesServiceImpl implements ProfilesService {
                             ship
                     );
                 })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 
@@ -142,6 +143,7 @@ public class ProfilesServiceImpl implements ProfilesService {
                             members
                     );
                 })
+                .filter(Objects::nonNull)
                 .collect(Collectors.toList());
     }
 

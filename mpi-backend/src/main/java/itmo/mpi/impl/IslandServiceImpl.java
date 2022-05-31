@@ -1,7 +1,9 @@
 package itmo.mpi.impl;
 
+import itmo.mpi.entity.Admin;
 import itmo.mpi.entity.Island;
 import itmo.mpi.entity.User;
+import itmo.mpi.repository.AdminRepository;
 import itmo.mpi.repository.IslandRepository;
 import itmo.mpi.repository.UserRepository;
 import itmo.mpi.service.IslandService;
@@ -19,21 +21,28 @@ public class IslandServiceImpl implements IslandService {
 
     private final IslandRepository repository;
     private final UserRepository userRepository;
+    private final AdminRepository adminRepository;
 
     @Override
     public List<Island> getIslands() {
-        User user = getUser();
         return repository.findAll().stream().sorted(Comparator.comparingInt(Island::getId))
                 .peek(island -> {
-                    if (!user.getIsVip()) {
+                    if (!checkIsVip()) {
                         island.setHasPirates(false);
                     }
                 })
                 .collect(Collectors.toList());
     }
 
-    private User getUser() {
-        return userRepository.findByNick(SecurityContextHolder.getContext().getAuthentication().getName());
+    private boolean checkIsVip() {
+        String nick = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = userRepository.findByNick(nick);
+        if (user != null) {
+            return user.getIsVip();
+        } else {
+            Admin admin = adminRepository.findAdminByNick(nick);
+            return admin != null;
+        }
     }
 
 }

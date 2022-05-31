@@ -6,11 +6,11 @@
       </span>
         </a>
     </div>
-    <div class="header-nav">
-        <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
+    <div class="header-nav" *ngIf="user">
+        <a *ngIf="user" class="nav-link" [routerLink]="['map']" routerLinkActive="active">
             <span class="nav-text">Карта</span>
         </a>
-        <a *ngIf="isCrewManager() || isShipOwner()"
+        <a *ngIf="!isAdmin()"
            class="nav-link" [routerLink]="['requests']"
            routerLinkActive="active">
             <span class=" nav-text">Заявки</span>
@@ -18,10 +18,10 @@
         <a *ngIf="isAdmin()" class="nav-link" [routerLink]="['approvals']" routerLinkActive="active">
             <span class="nav-text">Регистрации</span>
         </a>
-        <a class="nav-link" [routerLink]="['ships']" routerLinkActive="active">
+        <a *ngIf="!isAdmin()" class="nav-link" [routerLink]="['ships']" routerLinkActive="active">
             <span class="nav-text">Корабли</span>
         </a>
-        <a class="nav-link" [routerLink]="['crews']" routerLinkActive="active">
+        <a *ngIf="!isAdmin()" class="nav-link" [routerLink]="['crews']" routerLinkActive="active">
             <span class="nav-text">Экипажи</span>
         </a>
     </div>
@@ -33,7 +33,7 @@
                 <clr-icon shape="caret down"></clr-icon>
             </button>
             <div class="dropdown-menu">
-                <a clrDropdownItem (click)="openUserProfile()">Мой профиль</a>
+                <a *ngIf="!isAdmin()" clrDropdownItem (click)="openUserProfile()">Мой профиль</a>
                 <a (click)="logout()" clrDropdownItem>Выйти</a>
             </div>
         </clr-dropdown>

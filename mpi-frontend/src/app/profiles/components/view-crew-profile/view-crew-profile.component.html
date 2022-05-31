@@ -12,7 +12,10 @@
         <br>
         Цена за день: {{crewProfile.crew.pricePerDay}}
         <br>
-        <img [src]="crewProfile.crew.photo" [alt]="defaultCrewPhotoUrl" class="photo"/>
+        <img *ngIf="crewProfile.crew.photo; else elseBlock" [src]="crewProfile.crew.photo" class="item-photo"/>
+        <ng-template #elseBlock>
+          <img [src]="defaultCrewPhotoUrl" class="item-photo"/>
+        </ng-template>
         <br>
         Характеристика
         {{crewProfile.crew.description}}
