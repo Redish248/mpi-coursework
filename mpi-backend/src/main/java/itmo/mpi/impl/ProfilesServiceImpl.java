@@ -5,6 +5,8 @@ import itmo.mpi.entity.CrewMember;
 import itmo.mpi.entity.Ship;
 import itmo.mpi.entity.User;
 import itmo.mpi.exception.IllegalRequestParamsException;
+import itmo.mpi.exception.UserAlreadyHasCrewException;
+import itmo.mpi.exception.UserAlreadyHasShipException;
 import itmo.mpi.model.profiles.*;
 import itmo.mpi.repository.CrewMemberRepository;
 import itmo.mpi.repository.CrewRepository;
@@ -33,6 +35,8 @@ public class ProfilesServiceImpl implements ProfilesService {
     public CrewResponse registerCrew(String nickName, CrewRequest newCrew) {
         User user = userRepository.findByNick(nickName);
         if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER)) throw new IllegalRequestParamsException("");
+        if (getCrew(user) != null) throw new UserAlreadyHasCrewException();
+
         Crew crewEntity = new Crew(
                 newCrew.getTeamName(),
                 user,
@@ -54,6 +58,7 @@ public class ProfilesServiceImpl implements ProfilesService {
         User user = userRepository.findByNick(nickName);
         if (!Objects.equals(user.getUserType().getName(), SHIP_OWNER)) throw new IllegalRequestParamsException("");
 
+        if (getShip(user) != null) throw new UserAlreadyHasShipException();
         Ship shipEntity = new Ship(
                 newShip.getName(),
                 user,
@@ -160,8 +165,7 @@ public class ProfilesServiceImpl implements ProfilesService {
             throw new IllegalRequestParamsException("incorrect user type");
 
         Ship ship = getShip(user);
-
-        return new ShipResponse(ship);
+        return ship == null ? null : new ShipResponse(ship);
     }
 
     private Crew getCrew(User user) {

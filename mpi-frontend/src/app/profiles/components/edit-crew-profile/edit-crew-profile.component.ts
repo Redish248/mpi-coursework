@@ -37,14 +37,10 @@ export class EditCrewProfileComponent implements OnInit {
       teamName: this.crewProfile?.teamName,
       photo: this.crewProfile?.photo,
       description: this.crewProfile?.description,
-      pricePerDay: this.crewProfile?.pricePerDay,
-      members: this.formBuilder.array(
-        this.crewProfile?.members.map((m) => this.formBuilder.group({
-          fullName: m.fullName,
-          experience: m.experience
-        })) || []
-      )
+      pricePerDay: this.crewProfile?.pricePerDay
     })
+
+    this.crewProfileForm.setControl("members", this.fillCrewMembers())
     console.log(this.crewProfileForm)
   }
 
@@ -55,8 +51,8 @@ export class EditCrewProfileComponent implements OnInit {
     })
   }
 
-  private fillCrewMembers(members: CrewMember[]): FormArray {
-    console.log(members)
+  private fillCrewMembers(): FormArray {
+    const members = this.crewProfile?.members || []
     return this.formBuilder.array(
       members.map((m) => this.formBuilder.group({
         fullName: m.fullName,

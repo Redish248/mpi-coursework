@@ -1,7 +1,6 @@
 package itmo.mpi.model.profiles;
 
 import itmo.mpi.entity.Crew;
-import itmo.mpi.entity.CrewMember;
 import lombok.Data;
 
 

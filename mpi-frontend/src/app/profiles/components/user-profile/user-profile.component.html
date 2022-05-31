@@ -20,11 +20,15 @@
     </clr-checkbox-wrapper>
     <clr-input-container>
         <label>Почта</label>
-        <input clrInput formControlName="surname" type="text">
+        <input clrInput formControlName="email" type="text">
     </clr-input-container>
     <clr-input-container>
         <label>Телефон</label>
-        <input clrInput formControlName="surname" type="text">
+        <input clrInput formControlName="phone" type="text">
+    </clr-input-container>
+    <clr-input-container>
+        <label>Дата рождения</label>
+        <input clrInput formControlName="birthDate" type="text">
     </clr-input-container>
 
     <button *ngIf="shipOwner" class="btn btn-outline">Профиль корабля</button>
