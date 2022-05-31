@@ -10,7 +10,7 @@
         <a class="nav-link" [routerLink]="['map']" routerLinkActive="active">
             <span class="nav-text">Карта</span>
         </a>
-        <a *ngIf="isCrewManager() || isShipOwner"
+        <a *ngIf="isCrewManager() || isShipOwner()"
            class="nav-link" [routerLink]="['requests']"
            routerLinkActive="active">
             <span class=" nav-text">Заявки</span>
