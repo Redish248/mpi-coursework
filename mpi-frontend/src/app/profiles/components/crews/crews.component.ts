@@ -38,6 +38,13 @@ export class CrewsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCrews()
+    this.filter = {
+      maxMembersNumber: 10,
+      minMembersNumber: 0,
+      // minTripNumber: this.minTripNumber,
+      minRates: 0
+
+    }
   }
 
   getCrews() {

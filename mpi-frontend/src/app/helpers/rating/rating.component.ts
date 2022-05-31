@@ -22,13 +22,13 @@ export class RatingComponent implements OnInit {
     const third = this.maxRating / 3
     switch (true) {
       case this.rating < this.minRating + third :
-        return "label-danger"
+        return "label label-danger"
       case this.rating >= this.minRating + third && this.rating < this.minRating + 2 * third :
-        return "label-warning"
+        return "label label-warning"
       case this.rating >= this.minRating + 2 * third:
-        return "label-success"
+        return "label label-success"
       default:
-        return "label-info"
+        return "label label-info"
     }
   }
 }

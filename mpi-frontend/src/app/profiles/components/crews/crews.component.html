@@ -27,21 +27,24 @@
             {{profile.crew.teamName}}
             <app-rating [rating]="profile.crew.rates"></app-rating>
         </div>
-        <div class="card-img">
-            <img [src]="profile.crew.photo" [alt]="defaultCrewPhotoUrl" class="photo"/>
-        </div>
         <div class="card-block">
-            <p class="card-text">
+            <div class="card-media-block">
+                <img [src]="profile.crew.photo" [alt]="defaultCrewPhotoUrl"/>
+            </div>
+
+            <div class="card-text">
                 Капитан: {{profile.name}} {{profile.surname}}
-                <span *ngIf="profile.isPirate" class="label label-danger">ПИРАТ</span>
-                <span *ngIf="profile.isPirate" class="label label-danger">Безопасная личность</span>
+                <app-pirate-label [isPirate]="profile?.isPirate"></app-pirate-label>
 
+                <br>
                 Почта: {{profile.email || "****"}}
+                <br>
                 Телефон: {{profile.email || "****"}}
-
+                <br>
                 Численность команды: {{profile.crew.membersNumber}}
+                <br>
                 Описание: {{profile.crew.description}}
-            </p>
+            </div>
         </div>
     </div>
 </div>

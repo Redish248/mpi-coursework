@@ -28,7 +28,6 @@ export class EditCrewProfileComponent implements OnInit {
   crewProfileForm: FormGroup
 
   ngOnInit(): void {
-    console.log(this.crewProfile)
     if (this.crewProfile) this.fillForm()
   }
 
@@ -41,7 +40,6 @@ export class EditCrewProfileComponent implements OnInit {
     })
 
     this.crewProfileForm.setControl("members", this.fillCrewMembers())
-    console.log(this.crewProfileForm)
   }
 
   private get crewMember(): FormGroup {

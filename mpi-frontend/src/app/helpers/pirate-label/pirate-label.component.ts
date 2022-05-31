@@ -7,9 +7,10 @@ import { Component, Input, OnInit } from '@angular/core'
 })
 export class PirateLabelComponent implements OnInit {
 
-  constructor() { }
+  constructor() {
+  }
 
-  @Input() isPirate: boolean
+  @Input() isPirate: boolean | undefined
 
   ngOnInit(): void {
   }
