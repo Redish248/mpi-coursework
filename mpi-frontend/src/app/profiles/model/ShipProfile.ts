@@ -13,6 +13,10 @@ export interface Ship {
   title: string
   speed: number
   capacity: number
+  fuelConsumption: number
+  length: number
+  width: number
+  pricePerDay: number
   photo: string
   description: string
   rates: number

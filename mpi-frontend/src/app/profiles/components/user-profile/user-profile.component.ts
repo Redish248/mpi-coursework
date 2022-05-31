@@ -30,7 +30,7 @@ export class UserProfileComponent implements OnInit {
   user: UserProfile
   openCrewProfileModal = false
   crew: Crew | undefined = undefined
-  openShipProfile = false
+  openShipProfileModal = false
   ship: Ship | undefined = undefined
 
   loading = false
@@ -91,6 +91,22 @@ export class UserProfileComponent implements OnInit {
       err => {
         this.loading = false
         this.crew = undefined
+        this.errorMessage = err
+      }
+    )
+  }
+
+  openShipProfile() {
+    this.loading = true
+    this.profileService.getCurrentUserShip().subscribe(
+      (data) => {
+        this.loading = false
+        this.ship = data // nullable
+        this.openShipProfileModal = true
+      },
+      err => {
+        this.loading = false
+        this.ship = undefined
         this.errorMessage = err
       }
     )

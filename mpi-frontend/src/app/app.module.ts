@@ -73,7 +73,6 @@ const appRoutes: Routes = [
     EditCrewProfileComponent,
     PirateLabelComponent,
     UserProfileComponent,
-    EditShipComponent,
     EditShipProfileComponent,
     ViewShipProfileComponent
   ],

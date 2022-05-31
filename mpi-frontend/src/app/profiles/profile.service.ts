@@ -27,6 +27,10 @@ export class ProfileService {
     return this.http.get<Crew>(`${this.apiUrl}/crew`)
   }
 
+  getCurrentUserShip(): Observable<Ship> {
+    return this.http.get<Ship>(`${this.apiUrl}/ship`)
+  }
+
   getShips(): Observable<ShipProfile[]> {
     return this.http.get<ShipProfile[]>(`${this.apiUrl}/ships`)
   }
@@ -39,7 +43,7 @@ export class ProfileService {
     return this.http.post<Crew>(`${this.apiUrl}/crew`, JSON.stringify(newCrew), {headers: {'Content-Type': 'application/json'}})
   }
 
-  addShip(newShip: any) {
-    return this.http.post(`${this.apiUrl}/crew`, JSON.stringify(newShip), {headers: {'Content-Type': 'application/json'}})
+  addShip(newShip: any): Observable<Ship> {
+    return this.http.post<Ship>(`${this.apiUrl}/ship`, JSON.stringify(newShip), {headers: {'Content-Type': 'application/json'}})
   }
 }

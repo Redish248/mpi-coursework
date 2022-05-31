@@ -49,7 +49,7 @@ export class ShipsComponent implements OnInit {
         this.errorMessage = undefined
         this.ships = data.sort((el1, el2) => el1.ship.rates > el2.ship.rates ? 1 : -1)
         this.filteredProfiles = this.ships
-        this.countDefaultParams()
+        if (this.ships.length > 0) this.countDefaultParams()
       },
       err => {
         this.loading = false

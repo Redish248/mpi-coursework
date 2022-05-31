@@ -31,7 +31,7 @@
         <input clrInput formControlName="birthDate" type="text">
     </clr-input-container>
 
-    <button *ngIf="shipOwner" class="btn btn-outline">Профиль корабля</button>
+    <button *ngIf="shipOwner" (click)="openShipProfile()" class="btn btn-outline">Профиль корабля</button>
     <button *ngIf="crewManager" (click)="openCrewProfile()" class="btn btn-outline">Профиль команды</button>
 
     <button [disabled]="!userProfileForm.touched" (click)="updateUser()" class="btn btn-outline">Сохранить изменения
@@ -43,3 +43,9 @@
                        [crewProfile]="crew"
                        (modalClose)="openCrewProfileModal=false">
 </app-edit-crew-profile>
+
+<app-edit-ship-profile *ngIf="openShipProfileModal"
+                       [modalOpen]="openShipProfileModal"
+                       [shipProfile]="ship"
+                       (modalClose)="openShipProfileModal=false"
+></app-edit-ship-profile>
