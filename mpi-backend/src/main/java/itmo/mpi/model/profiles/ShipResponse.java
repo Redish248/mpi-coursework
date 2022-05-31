@@ -11,6 +11,10 @@ public class ShipResponse {
     private String title;
     private int speed;
     private int capacity;
+    private int fuelConsumption;
+    private int length;
+    private int width;
+    private int pricePerDay;
     private String photo;
     private String description;
 
@@ -19,6 +23,10 @@ public class ShipResponse {
         this.title = ship.getName();
         this.speed = ship.getSpeed();
         this.capacity = ship.getCapacity();
+        this.fuelConsumption = ship.getFuelConsumption();
+        this.width = ship.getWidth();
+        this.length = ship.getLength();
+        this.pricePerDay = ship.getPricePerDay();
         this.photo = ship.getPhoto();
         this.description = ship.getDescription();
     }
