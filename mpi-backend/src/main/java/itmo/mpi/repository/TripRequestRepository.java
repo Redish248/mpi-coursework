@@ -1,6 +1,10 @@
 package itmo.mpi.repository;
 
-import itmo.mpi.entity.*;
+import itmo.mpi.entity.Crew;
+import itmo.mpi.entity.Ship;
+import itmo.mpi.entity.TripRequest;
+import itmo.mpi.entity.TripRequestStatus;
+import itmo.mpi.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

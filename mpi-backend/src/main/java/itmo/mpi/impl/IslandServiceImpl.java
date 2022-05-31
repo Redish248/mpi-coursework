@@ -1,4 +1,4 @@
-package itmo.mpi.service.impl;
+package itmo.mpi.impl;
 
 import itmo.mpi.entity.Island;
 import itmo.mpi.entity.User;
@@ -6,7 +6,6 @@ import itmo.mpi.repository.IslandRepository;
 import itmo.mpi.repository.UserRepository;
 import itmo.mpi.service.IslandService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 

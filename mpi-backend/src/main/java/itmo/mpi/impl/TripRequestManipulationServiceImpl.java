@@ -1,4 +1,4 @@
-package itmo.mpi.service.impl;
+package itmo.mpi.impl;
 
 import itmo.mpi.entity.TripRequest;
 import itmo.mpi.entity.TripRequestStatus;
@@ -9,7 +9,10 @@ import itmo.mpi.service.TripRequestManipulationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import static itmo.mpi.entity.TripRequestStatus.*;
+import static itmo.mpi.entity.TripRequestStatus.CANCELLED;
+import static itmo.mpi.entity.TripRequestStatus.COMPLETE;
+import static itmo.mpi.entity.TripRequestStatus.PENDING;
+import static itmo.mpi.entity.TripRequestStatus.REJECTED;
 
 @RequiredArgsConstructor
 @Service

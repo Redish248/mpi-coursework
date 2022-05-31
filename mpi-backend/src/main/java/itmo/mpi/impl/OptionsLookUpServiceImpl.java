@@ -1,8 +1,8 @@
-package itmo.mpi.service.impl;
+package itmo.mpi.impl;
 
+import itmo.mpi.dto.ShipOption;
 import itmo.mpi.dto.TripOption;
 import itmo.mpi.dto.TripRequestDto;
-import itmo.mpi.dto.ShipOption;
 import itmo.mpi.entity.Crew;
 import itmo.mpi.entity.Island;
 import itmo.mpi.entity.Ship;
