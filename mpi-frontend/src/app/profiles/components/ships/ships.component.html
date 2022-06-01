@@ -7,17 +7,19 @@
     </clr-input-container>
 
     <clr-range-container>
-        <label>Вместимость:</label>
+        <label>Вместимость: {{filter.capacity}}</label>
         <input clrRange type="range" [min]="minCapacity" [max]="maxCapacity"
                [(ngModel)]="filter.capacity"
                (change)="filterProfiles()"/>
+        <clr-control-helper>от {{minCapacity}} до {{maxCapacity}}</clr-control-helper>
     </clr-range-container>
 
     <clr-range-container>
-        <label>Минимальный рейтинг:</label>
+        <label>Минимальный рейтинг: {{filter.minRates}}</label>
         <input clrRange type="range" [min]="minRates" [max]="maxRates"
                [(ngModel)]="filter.minRates"
                (change)="filterProfiles()"/>
+        <clr-control-helper>от {{minRates}} до {{maxRates}}</clr-control-helper>
     </clr-range-container>
 </div>
 <div id="profiles-list">
@@ -30,10 +32,10 @@
         </div>
         <div class="card-block">
             <div class="card-media-block">
-              <img *ngIf="profile.ship.photo; else elseBlock" [src]="profile.ship.photo" class="item-photo"/>
-              <ng-template #elseBlock>
-                <img [src]="defaultShipPhotoUrl" class="item-photo"/>
-              </ng-template>
+                <img *ngIf="profile.ship.photo; else elseBlock" [src]="profile.ship.photo" class="item-photo"/>
+                <ng-template #elseBlock>
+                    <img [src]="defaultShipPhotoUrl" class="item-photo"/>
+                </ng-template>
             </div>
 
             <div class="card-text">

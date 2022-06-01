@@ -1,22 +1,24 @@
 <app-alert [errorMessage]="errorMessage"></app-alert>
 <div>
+    <label>Численность экипажа</label>
     <clr-input-container>
-        <label>min</label>
+        <label>от</label>
         <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
                (change)="filterProfiles()">
     </clr-input-container>
 
     <clr-input-container>
-        <label>max</label>
+        <label>до</label>
         <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
                (change)="filterProfiles()">
     </clr-input-container>
 
     <clr-range-container>
-        <label>Минимальный рейтинг:</label>
+        <label>Минимальный рейтинг: {{filter.minRates}}</label>
         <input clrRange type="range" [min]="minRates" [max]="maxRates"
                [(ngModel)]="filter.minRates"
                (change)="filterProfiles()"/>
+        <clr-control-helper>от {{minRates}} до {{maxRates}}</clr-control-helper>
     </clr-range-container>
 </div>
 <div id="profiles-list">
@@ -29,10 +31,10 @@
         </div>
         <div class="card-block">
             <div class="card-media-block">
-              <img *ngIf="profile.crew.photo; else elseBlock" [src]="profile.crew.photo" class="item-photo"/>
-              <ng-template #elseBlock>
-                <img [src]="defaultCrewPhotoUrl" class="item-photo"/>
-              </ng-template>
+                <img *ngIf="profile.crew.photo; else elseBlock" [src]="profile.crew.photo" class="item-photo"/>
+                <ng-template #elseBlock>
+                    <img [src]="defaultCrewPhotoUrl" class="item-photo"/>
+                </ng-template>
             </div>
 
             <div class="card-text">

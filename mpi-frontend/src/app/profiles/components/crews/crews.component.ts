@@ -65,8 +65,8 @@ export class CrewsComponent implements OnInit {
     // this.maxTripNumber = CommonService.getMax(this.crews, "tripNumber")
     // this.minTripNumber = CommonService.getMin(this.crews, "tripNumber")
 
-    this.maxRates = CommonService.getMax(this.crews, "rates")
-    this.minRates = CommonService.getMin(this.crews, "rates")
+    this.maxRates = CommonService.getMax_2(this.crews, "crew", "rates")
+    this.minRates = CommonService.getMin_2(this.crews, "crew", "rates")
 
     this.initFilter()
   }
