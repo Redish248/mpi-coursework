@@ -2,11 +2,17 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
+    background: url("./../../assets/backgroundProfile.jpg") no-repeat fixed center center;
+    background-size: 100% auto;
 }
 
 .item-photo {
     max-width: 300px;
     max-height: 300px;
+}
+
+.card {
+  border: 1px solid #0072a2;
 }
 
 #profiles-list div {

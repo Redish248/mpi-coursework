@@ -1,0 +1,25 @@
+.filter-ship {
+  border: 1px solid #0072a2;
+  border-radius: 10px;
+  background: white;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  padding: 10px;
+}
+
+table td {
+  padding-right: 70px;
+}
+
+.ship-flex {
+  border: 4px solid #0072a2;
+  border-radius: 10px;
+  background: white;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 70%;
+  padding: 20px;
+}
