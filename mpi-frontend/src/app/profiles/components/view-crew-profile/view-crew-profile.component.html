@@ -3,24 +3,24 @@
         <app-rating [rating]="crewProfile.crew.rates"></app-rating>
     </h3>
     <div class="modal-body">
-        Капитан {{crewProfile.name}} {{crewProfile.surname}}
+        <b>Капитан</b> {{crewProfile.name}} {{crewProfile.surname}}
         <app-pirate-label [isPirate]="crewProfile.isPirate"></app-pirate-label>
         <br>
-        Почта: {{crewProfile.email || "****"}}
+        <b>Почта:</b> {{crewProfile.email || "****"}}
         <br>
-        Телефон: {{crewProfile.phone || "****"}}
+        <b>Телефон:</b> {{crewProfile.phone || "****"}}
         <br>
-        Цена за день: {{crewProfile.crew.pricePerDay}}
+        <b>Цена за день:</b> {{crewProfile.crew.pricePerDay}}
         <br>
         <img *ngIf="crewProfile.crew.photo; else elseBlock" [src]="crewProfile.crew.photo" class="item-photo"/>
         <ng-template #elseBlock>
-          <img [src]="defaultCrewPhotoUrl" class="item-photo"/>
+            <img [src]="defaultCrewPhotoUrl" class="item-photo"/>
         </ng-template>
         <br>
-        Характеристика
+        <b>Характеристика:</b>
         {{crewProfile.crew.description}}
 
-        <h6>Состав</h6>
+        <h5><b>Состав команды:</b></h5>
         <table class="table table-compact">
             <thead>
             <tr>

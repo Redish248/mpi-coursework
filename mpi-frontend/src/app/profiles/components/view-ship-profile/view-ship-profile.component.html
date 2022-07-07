@@ -3,23 +3,23 @@
         <app-rating [rating]="shipProfile.ship.rates"></app-rating>
     </h3>
     <div class="modal-body">
-        Капитан {{shipProfile.name}} {{shipProfile.surname}}
+        <b>Капитан</b> {{shipProfile.name}} {{shipProfile.surname}}
         <app-pirate-label [isPirate]="shipProfile.isPirate"></app-pirate-label>
         <br>
-        Почта: {{shipProfile.email || "****"}}
+        <b>Почта:</b> {{shipProfile.email || "****"}}
         <br>
-        Телефон: {{shipProfile.phone || "****"}}
+        <b>Телефон:</b> {{shipProfile.phone || "****"}}
         <br>
-        Вместимость: {{shipProfile.ship.capacity}}
+        <b>Вместимость:</b> {{shipProfile.ship.capacity}}
         <br>
-        Скорость: {{shipProfile.ship.speed}}
+        <b>Скорость:</b> {{shipProfile.ship.speed}}
         <br>
         <img *ngIf="shipProfile.ship.photo; else elseBlock" [src]="shipProfile.ship.photo" class="item-photo"/>
         <ng-template #elseBlock>
-          <img [src]="defaultShipPhotoUrl" class="item-photo"/>
+            <img [src]="defaultShipPhotoUrl" class="item-photo"/>
         </ng-template>
         <br>
-        Характеристика
+        <b>Характеристика:</b>
         {{shipProfile.ship.description}}
     </div>
 </clr-modal>
