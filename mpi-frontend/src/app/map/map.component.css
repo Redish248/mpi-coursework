@@ -1,18 +1,26 @@
 .map-container {
     width: 80%;
-    margin: auto;
-}
-
-.grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    width: 80%;
-    margin: auto;
+    border: 5px solid #0072a2;
+    background: #48d0cb;
+    margin: 30px auto auto;
 }
 
 .grid-cell {
-    margin: 0px auto;
-    width: 100%;
+    flex-direction: inherit;
+}
+
+.map-label {
+  padding-right: 20px;
+  font-size: 15px;
+  width: 200px;
+}
+
+.map-input {
+  width: 200px;
+}
+
+.map-input-date {
+  width: 165px;
 }
 
 .selected {
@@ -27,4 +35,25 @@
     display: none;
     width: 50%;
     margin: 5px 10px 0px auto;
+}
+
+.map-form {
+  width: 80%;
+  background: white;
+  border: 1px solid #0072a2;
+  border-radius: 10px;
+  margin-top: 30px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.btn-find {
+  padding-left: 50px;
+  padding-top: 50px;
+}
+
+.map-form table td {
+  padding: 5px;
 }

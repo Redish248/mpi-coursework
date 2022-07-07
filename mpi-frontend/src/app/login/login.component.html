@@ -15,17 +15,17 @@
         <div class="login-group">
           <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
             <clr-input-container>
-                <label class="clr-sr-only">Логин</label>
-                <input type="text" name="username" clrInput placeholder="Nickname" formControlName="nick"/>
+                <label class="label-login">Логин</label>
+                <input class="inp-login" type="text" name="username" clrInput placeholder="Nickname" formControlName="nick"/>
             </clr-input-container>
             <clr-password-container>
-                <label class="clr-sr-only">Пароль</label>
-                <input type="password" name="password" clrPassword placeholder="Password" formControlName="pswd"/>
+                <label class="label-login">Пароль</label>
+                <input class="inp-login" type="password" name="password" clrPassword placeholder="Password" formControlName="pswd"/>
             </clr-password-container>
 
-            <button class="btn btn-link" (click)="registrationMode = true">Зарегистрироваться</button>
+            <button [disabled]="loginForm?.invalid" (click)="submitLogin()" class="btn btn-primary btn-log">ВОЙТИ</button>
 
-            <button [disabled]="loginForm?.invalid" (click)="submitLogin()" class="btn btn-primary">ВОЙТИ</button>
+            <button class="btn btn-link btn-signin" (click)="registrationMode = true">Зарегистрироваться</button>
         </div>
     </form>
 </div>

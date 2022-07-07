@@ -2,5 +2,21 @@ table {
   width: 400px !important;
 }
 
-div.user_info {
+.btn-log {
+  border-radius: 8px;
 }
+
+.btn-signin {
+  color: #1c4e64;
+  border: 1px solid #0072a2;
+  border-radius: 8px;
+}
+
+.inp-login {
+  border: 1px solid #0072a2;
+}
+
+.label-login {
+  font-size: 15px;
+}
+

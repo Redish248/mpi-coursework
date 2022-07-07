@@ -1,39 +1,39 @@
 <form clrForm [formGroup]="signupForm">
   <clr-modal [(clrModalOpen)]="modalOpened" clrModalSize="xl">
-    <h3 class="modal-title">Регистрация</h3>
+    <h1 class="modal-title">Регистрация</h1>
     <div class="modal-body">
       <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
       <clr-input-container>
-        <label>Имя</label>
-        <input clrInput formControlName="name" type="text">
+        <label class="label-signup">Имя</label>
+        <input class="input-signup" clrInput formControlName="name" type="text">
       </clr-input-container>
       <clr-input-container>
-        <label>Фамилия</label>
-        <input clrInput formControlName="surname" type="text">
+        <label class="label-signup">Фамилия</label>
+        <input class="input-signup" clrInput formControlName="surname" type="text">
       </clr-input-container>
       <clr-input-container>
-        <label>Имя пользователя</label>
-        <input clrInput formControlName="nick" type="text">
+        <label class="label-signup">Имя пользователя</label>
+        <input class="input-signup" clrInput formControlName="nick" type="text">
       </clr-input-container>
       <clr-input-container>
-        <label>Пароль</label>
-        <input clrInput formControlName="password" type="password">
+        <label class="label-signup">Пароль</label>
+        <input class="input-signup" clrInput formControlName="password" type="password">
       </clr-input-container>
       <clr-input-container>
-        <label>Электронная почта</label>
-        <input clrInput formControlName="email" type="email" pattern=".+@.+">
+        <label class="label-signup">Электронная почта</label>
+        <input class="input-signup" clrInput formControlName="email" type="email" pattern=".+@.+">
       </clr-input-container>
       <clr-input-container>
-        <label>Телефон</label>
-        <input clrInput formControlName="phone" type="text" required pattern="\d{3}-\d{3}-\d{2}-\d{2}" placeholder="911-234-56-78">
+        <label class="label-signup">Телефон</label>
+        <input class="input-signup" clrInput formControlName="phone" type="text" required pattern="\d{3}-\d{3}-\d{2}-\d{2}" placeholder="911-234-56-78">
       </clr-input-container>
       <clr-date-container>
-        <label>Дата рождения</label>
-        <input type="date" clrDate formControlName="birthDate"/>
+        <label class="label-signup">Дата рождения</label>
+        <input class="input-signup-date" type="date" clrDate formControlName="birthDate"/>
       </clr-date-container>
       <clr-select-container>
-        <label>Тип пользователя</label>
-        <select clrSelect formControlName="userType">
+        <label class="label-signup">Тип пользователя</label>
+        <select class="input-signup" clrSelect formControlName="userType">
           <option [value]="Roles.TRAVELER">Путешественник</option>
           <option [value]="Roles.SHIP_OWNER">Капитан корабля</option>
           <option [value]="Roles.CREW_MANAGER">Владелец экипажа</option>
@@ -41,7 +41,7 @@
       </clr-select-container>
     </div>
     <div class="modal-footer">
-      <button [disabled]="signupForm.invalid" type="button" class="btn btn-outline" (click)="signup()">Зарегистрироваться</button>
+      <button [disabled]="signupForm.invalid" type="button" class="btn btn-outline btn-signin" (click)="signup()">Зарегистрироваться</button>
     </div>
   </clr-modal>
 </form>
