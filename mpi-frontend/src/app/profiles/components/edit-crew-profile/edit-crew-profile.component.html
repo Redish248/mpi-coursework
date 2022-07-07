@@ -26,19 +26,21 @@
                 <hr>
                 <div *ngFor="let member of getMembersArr().controls; let i = index"
                      [formGroupName]="i">
-                  <div class="member-info">
-                      <clr-input-container>
-                          <label [for]="'fullName'+i"  class="label-crew">Имя</label>
-                          <input class="input-crew" clrInput [id]="'fullName'+i" formControlName="fullName" type="text">
-                      </clr-input-container>
-                      <clr-input-container>
-                          <label class="label-crew" [for]="'exp'+i">Опыт</label>
-                          <input class="input-crew" [id]="'exp'+i" clrInput formControlName="experience" type="number">
-                      </clr-input-container>
-                    <span>
+                    <div class="member-info">
+                        <clr-input-container>
+                            <label [for]="'fullName'+i" class="label-crew">Имя</label>
+                            <input class="input-crew" clrInput [id]="'fullName'+i" formControlName="fullName"
+                                   type="text">
+                        </clr-input-container>
+                        <clr-input-container>
+                            <label class="label-crew" [for]="'exp'+i">Опыт</label>
+                            <input class="input-crew" [id]="'exp'+i" clrInput formControlName="experience"
+                                   type="number">
+                        </clr-input-container>
+                        <span>
                         <button class="btn btn-link" (click)="deleteCrewMember(i)">Удалить</button>
                     </span>
-                  </div>
+                    </div>
                 </div>
                 <button class="btn btn-info-outline btn-crew marginTop20" (click)="addNewMember()">Добавить</button>
             </div>

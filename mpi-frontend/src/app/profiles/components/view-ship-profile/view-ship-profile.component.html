@@ -3,7 +3,7 @@
         <app-rating [rating]="shipProfile.ship.rates"></app-rating>
     </h3>
     <div class="modal-body">
-        <b>Капитан</b> {{shipProfile.name}} {{shipProfile.surname}}
+        <b>Капитан:</b> {{shipProfile.name}} {{shipProfile.surname}}
         <app-pirate-label [isPirate]="shipProfile.isPirate"></app-pirate-label>
         <br>
         <b>Почта:</b> {{shipProfile.email || "****"}}

@@ -1,67 +1,67 @@
 <app-alert [errorMessage]="errorMessage"></app-alert>
 <div class="filter-crew">
-  <h3>Фильтрация</h3>
-  <table>
-    <tr>
-      <td>
-        <clr-input-container>
-          <label>Численность (от)</label>
-          <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
-                 (change)="filterProfiles()">
-        </clr-input-container>
-      </td>
+    <h3>Фильтрация</h3>
+    <table>
+        <tr>
+            <td>
+                <clr-input-container>
+                    <label>Численность (от)</label>
+                    <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
+                           (change)="filterProfiles()">
+                </clr-input-container>
+            </td>
 
-      <td>
-        <clr-input-container>
-          <label>Численность (до)</label>
-          <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
-                 (change)="filterProfiles()">
-        </clr-input-container>
-      </td>
-      <td>
-        <clr-range-container>
-          <label>Минимальный рейтинг: {{filter.minRates}}</label>
-          <input clrRange type="range" [min]="minRates" [max]="maxRates"
-                 [(ngModel)]="filter.minRates"
-                 (change)="filterProfiles()"/>
-          <clr-control-helper>от {{minRates}} до {{maxRates}}</clr-control-helper>
-        </clr-range-container>
-      </td>
-    </tr>
-  </table>
+            <td>
+                <clr-input-container>
+                    <label>Численность (до)</label>
+                    <input clrInput type="number" [(ngModel)]="filter.minMembersNumber"
+                           (change)="filterProfiles()">
+                </clr-input-container>
+            </td>
+            <td>
+                <clr-range-container>
+                    <label>Минимальный рейтинг: {{filter.minRates}}</label>
+                    <input clrRange type="range" [min]="minRates" [max]="maxRates"
+                           [(ngModel)]="filter.minRates"
+                           (change)="filterProfiles()"/>
+                    <clr-control-helper>от {{minRates}} до {{maxRates}}</clr-control-helper>
+                </clr-range-container>
+            </td>
+        </tr>
+    </table>
 </div>
 
 <div id="profiles-list" class="crew-flex">
-  <div *ngFor="let profile of filteredProfiles"
-       class="profile card clickable"
-       (click)="selectedProfileId = profile">
-    <div class="card-header">
-      {{profile.crew.teamName}}
-      <app-rating [rating]="profile.crew.rates"></app-rating>
-    </div>
-    <div class="card-block">
-      <div class="card-media-block">
-        <img *ngIf="profile.crew.photo; else elseBlock" [src]="profile.crew.photo" class="item-photo"/>
-        <ng-template #elseBlock>
-          <img [src]="defaultCrewPhotoUrl" class="item-photo"/>
-        </ng-template>
-      </div>
+    <div *ngFor="let profile of filteredProfiles"
+         class="profile card clickable"
+         (click)="selectedProfileId = profile">
+        <div class="card-header">
+            {{profile.crew.teamName}}
+            <app-rating [rating]="profile.crew.rates"></app-rating>
+        </div>
+        <div class="card-block">
+            <div class="card-media-block">
+                <img *ngIf="profile.crew.photo; else elseBlock" [src]="profile.crew.photo" class="item-photo"/>
+                <ng-template #elseBlock>
+                    <img [src]="defaultCrewPhotoUrl" class="item-photo"/>
+                </ng-template>
+            </div>
 
-      <div class="card-text">
-        <b>Капитан:</b> {{profile.name}} {{profile.surname}}
-        <app-pirate-label [isPirate]="profile?.isPirate"></app-pirate-label>
+            <div class="card-text">
+                <b>Капитан:</b> {{profile.name}} {{profile.surname}}
+                <app-pirate-label [isPirate]="profile?.isPirate"></app-pirate-label>
 
-        <br>
-        <b>Почта:</b> {{profile.email || "****"}}
-        <br>
-        <b>Телефон:</b> {{profile.email || "****"}}
-        <br>
-        <b>Численность команды:</b> {{profile.crew.membersNumber}}
-        <br>
-        <b>Описание:</b> {{profile.crew.description}}
-      </div>
+                <br>
+                <b>Почта:</b> {{profile.email || "****"}}
+                <br>
+                <b>Телефон:</b> {{profile.email || "****"}}
+                <br>
+                <b>Численность команды:</b> {{profile.crew.membersNumber}}
+                <br>
+                <b>Описание:</b> {{profile.crew.description}}
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <app-view-crew-profile *ngIf="selectedProfileId"

@@ -30,7 +30,7 @@
                     <div class="value">
                         <span aria-haspopup="true" class="tooltip tooltip-lg">
                         {{request.ship.name}}
-                        <span class="tooltip-content">
+                            <span class="tooltip-content">
                             Скорость: {{request.ship.speed}}<br>
                             Вместимость: {{request.ship.capacity}}<br>
                             Длина: {{request.ship.length}}<br>
@@ -42,7 +42,8 @@
                 </div>
                 <div>
                     Команда
-                    <div class="value">{{request.crew.teamName}} (⭐{{request.crew.ratesAverage | number: '1.1-1'}})</div>
+                    <div class="value">{{request.crew.teamName}} (⭐{{request.crew.ratesAverage | number: '1.1-1'}})
+                    </div>
                 </div>
                 <div>
                     Стоимость
@@ -57,10 +58,15 @@
                     <div class="value">{{request.status | statusPipe}}</div>
                 </div>
                 <div class="btn-group btn-primary">
-                    <button (click)="approve(request)" class="btn btn-success" [disabled]="!canApprove(request)">Принять</button>
-                    <button *ngIf="canReject(request)" (click)="reject(request)" class="btn btn-danger">Отклонить</button>
-                    <button *ngIf="canCancel(request)" (click)="cancel(request)" class="btn btn-danger">Отменить</button>
-                    <button *ngIf="canDelete(request)" (click)="deleteRequest(request)" class="btn btn-danger">Удалить</button>
+                    <button (click)="approve(request)" class="btn btn-success" [disabled]="!canApprove(request)">
+                        Принять
+                    </button>
+                    <button *ngIf="canReject(request)" (click)="reject(request)" class="btn btn-danger">Отклонить
+                    </button>
+                    <button *ngIf="canCancel(request)" (click)="cancel(request)" class="btn btn-danger">Отменить
+                    </button>
+                    <button *ngIf="canDelete(request)" (click)="deleteRequest(request)" class="btn btn-danger">Удалить
+                    </button>
                 </div>
             </div>
         </clr-tab-content>
@@ -83,7 +89,7 @@
                     <div class="value">
                         <span aria-haspopup="true" class="tooltip tooltip-lg">
                         {{request.ship.name}}
-                        <span class="tooltip-content">
+                            <span class="tooltip-content">
                             Скорость: {{request.ship.speed}}<br>
                             Вместимость: {{request.ship.capacity}}<br>
                             Длина: {{request.ship.length}}<br>
@@ -95,7 +101,8 @@
                 </div>
                 <div>
                     Команда
-                    <div class="value">{{request.crew.teamName}} (⭐{{request.crew.ratesAverage | number: '1.1-1'}})</div>
+                    <div class="value">{{request.crew.teamName}} (⭐{{request.crew.ratesAverage | number: '1.1-1'}})
+                    </div>
                 </div>
                 <div>
                     Стоимость
@@ -109,7 +116,8 @@
                     Статус
                     <div class="value">{{request.status | statusPipe}}</div>
                 </div>
-                <button *ngIf="canDelete(request)" (click)="deleteRequest(request)" class="btn btn-danger">Удалить</button>
+                <button *ngIf="canDelete(request)" (click)="deleteRequest(request)" class="btn btn-danger">Удалить
+                </button>
             </div>
         </clr-tab-content>
     </clr-tab>
@@ -131,7 +139,7 @@
                     <div class="value">
                         <span aria-haspopup="true" class="tooltip tooltip-lg">
                         {{request.ship.name}}
-                        <span class="tooltip-content">
+                            <span class="tooltip-content">
                             Скорость: {{request.ship.speed}}<br>
                             Вместимость: {{request.ship.capacity}}<br>
                             Длина: {{request.ship.length}}<br>
@@ -143,7 +151,8 @@
                 </div>
                 <div>
                     Команда
-                    <div class="value">{{request.crew.teamName}} (⭐{{request.crew.ratesAverage | number: '1.1-1'}})</div>
+                    <div class="value">{{request.crew.teamName}} (⭐{{request.crew.ratesAverage | number: '1.1-1'}})
+                    </div>
                 </div>
                 <div>
                     Стоимость

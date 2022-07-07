@@ -1,10 +1,10 @@
 <div cds-layout="vertical gap:sm" *ngIf="alertShow">
-  <cds-alert-group type="banner" status="success">
-    <cds-alert>
-      Пользователь отправлен на обработку
-      <button (click)="hideAlert()" class="btn btn-success" style="background: green">ОК</button>
-    </cds-alert>
-  </cds-alert-group>
+    <cds-alert-group type="banner" status="success">
+        <cds-alert>
+            Пользователь отправлен на обработку
+            <button (click)="hideAlert()" class="btn btn-success" style="background: green">ОК</button>
+        </cds-alert>
+    </cds-alert-group>
 </div>
 <div class="login-wrapper">
     <form clrForm [formGroup]="loginForm" class="login">
@@ -13,17 +13,20 @@
             Treasure Island
         </section>
         <div class="login-group">
-          <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
+            <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
             <clr-input-container>
                 <label class="label-login">Логин</label>
-                <input class="inp-login" type="text" name="username" clrInput placeholder="Nickname" formControlName="nick"/>
+                <input class="inp-login" type="text" name="username" clrInput placeholder="Nickname"
+                       formControlName="nick"/>
             </clr-input-container>
             <clr-password-container>
                 <label class="label-login">Пароль</label>
-                <input class="inp-login" type="password" name="password" clrPassword placeholder="Password" formControlName="pswd"/>
+                <input class="inp-login" type="password" name="password" clrPassword placeholder="Password"
+                       formControlName="pswd"/>
             </clr-password-container>
 
-            <button [disabled]="loginForm?.invalid" (click)="submitLogin()" class="btn btn-primary btn-log">ВОЙТИ</button>
+            <button [disabled]="loginForm?.invalid" (click)="submitLogin()" class="btn btn-primary btn-log">ВОЙТИ
+            </button>
 
             <button class="btn btn-link btn-signin" (click)="registrationMode = true">Зарегистрироваться</button>
         </div>

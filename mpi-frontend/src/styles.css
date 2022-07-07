@@ -2,7 +2,3 @@ html body {
   background: url("assets/background.jpg") no-repeat fixed center center;
   background-size: 100% auto;
 }
-
-/*.modal-body-wrapper {
-  overflow-y: hidden !important;
-}*/
