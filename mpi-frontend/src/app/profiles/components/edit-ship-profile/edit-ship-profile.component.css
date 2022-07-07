@@ -1,0 +1,13 @@
+.label-ship {
+  font-size: 15px;
+}
+
+.btn-save {
+  border: 1px solid #0072a2;
+  border-radius: 8px;
+}
+
+.input-ship {
+  width: 300px;
+  margin-left: 30px;
+}

@@ -1,58 +1,58 @@
 <form clrForm [formGroup]="shipProfileForm">
     <clr-modal [(clrModalOpen)]="modalOpen" (clrModalOpenChange)="modalClose.emit()">
-        <h3 class="modal-title">Мой профиль</h3>
+        <h3 class="modal-title">Профиль корабля</h3>
         <div class="modal-body">
             <clr-input-container>
-                <label>название</label>
-                <input clrInput formControlName="name" type="text">
+                <label class="label-ship">Название</label>
+                <input class="input-ship" clrInput formControlName="name" type="text">
             </clr-input-container>
             <clr-input-container>
-                <label>Фотография</label>
-                <input clrInput formControlName="photo" type="text">
+                <label class="label-ship">Фотография</label>
+                <input class="input-ship" clrInput formControlName="photo" type="text">
             </clr-input-container>
             <img *ngIf="photo" [src]="photo" id="photo" alt="">
             <clr-input-container>
-                <label>Цена за день</label>
-                <input clrInput formControlName="pricePerDay" type="number">
+                <label class="label-ship">Цена за день</label>
+                <input class="input-ship" clrInput formControlName="pricePerDay" type="number">
             </clr-input-container>
             <clr-input-container>
-                <label>Описание</label>
-                <input clrInput formControlName="description" type="text">
+                <label class="label-ship">Описание</label>
+                <input class="input-ship" clrInput formControlName="description" type="text">
             </clr-input-container>
             <clr-input-container>
-                <label>Длина</label>
-                <input clrInput formControlName="length" type="number">
+                <label class="label-ship">Длина</label>
+                <input class="input-ship" clrInput formControlName="length" type="number">
             </clr-input-container>
             <clr-input-container>
-                <label>Ширина</label>
-                <input clrInput formControlName="width" type="number">
+                <label class="label-ship">Ширина</label>
+                <input class="input-ship" clrInput formControlName="width" type="number">
             </clr-input-container>
             <clr-input-container>
-                <label>Расход топлива</label>
-                <input clrInput formControlName="fuelConsumption" type="number">
+                <label class="label-ship">Расход топлива</label>
+                <input class="input-ship" clrInput formControlName="fuelConsumption" type="number">
             </clr-input-container>
             <clr-input-container>
-                <label>Скорость</label>
-                <input clrInput formControlName="speed" type="number">
+                <label class="label-ship">Скорость</label>
+                <input class="input-ship" clrInput formControlName="speed" type="number">
             </clr-input-container>
             <clr-input-container>
-                <label>Вместимость</label>
-                <input clrInput formControlName="capacity" type="number">
+                <label class="label-ship">Вместимость</label>
+                <input class="input-ship" clrInput formControlName="capacity" type="number">
             </clr-input-container>
         </div>
 
         <div class="modal-footer">
             <button *ngIf="shipProfile"
-                    class="btn btn-outline"
+                    class="btn btn-outline btn-save"
                     [disabled]="shipProfileForm.invalid"
                     (click)="updateShipProfile()">
-                обновить данные
+                Обновить данные
             </button>
             <button *ngIf="!shipProfile"
-                    class="btn btn-outline"
+                    class="btn btn-outline btn-save"
                     [disabled]="shipProfileForm.invalid"
                     (click)="registerNewShip()">
-                зарегистрировать корабль
+                Зарегистрировать корабль
             </button>
         </div>
     </clr-modal>

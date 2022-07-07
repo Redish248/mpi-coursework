@@ -1,31 +1,33 @@
-<clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
-<clr-datagrid>
-  <clr-dg-column [clrDgField]="'name'">Имя</clr-dg-column>
-  <clr-dg-column [clrDgField]="'surname'">Фамилия</clr-dg-column>
-  <clr-dg-column [clrDgField]="'nick'">Ник</clr-dg-column>
-  <clr-dg-column [clrDgField]="'userType'">Тип пользователя</clr-dg-column>
-  <clr-dg-column [clrDgField]="'birthDate'">Дата рождения</clr-dg-column>
-  <clr-dg-column [clrDgField]="'email'">Почта</clr-dg-column>
-  <clr-dg-column [clrDgField]="'phone'">Телефон</clr-dg-column>
-  <clr-dg-column [clrDgField]="'approve'">Подтвердить</clr-dg-column>
-  <clr-dg-column [clrDgField]="'reject'">Отклонить</clr-dg-column>
+<div class="user-approvals">
+  <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
+  <clr-datagrid>
+    <clr-dg-column [clrDgField]="'name'">Имя</clr-dg-column>
+    <clr-dg-column [clrDgField]="'surname'">Фамилия</clr-dg-column>
+    <clr-dg-column [clrDgField]="'nick'">Ник</clr-dg-column>
+    <clr-dg-column [clrDgField]="'userType'">Тип пользователя</clr-dg-column>
+    <clr-dg-column [clrDgField]="'birthDate'">Дата рождения</clr-dg-column>
+    <clr-dg-column [clrDgField]="'email'">Почта</clr-dg-column>
+    <clr-dg-column [clrDgField]="'phone'">Телефон</clr-dg-column>
+    <clr-dg-column [clrDgField]="'approve'">Подтвердить</clr-dg-column>
+    <clr-dg-column [clrDgField]="'reject'">Отклонить</clr-dg-column>
 
-  <clr-dg-row *clrDgItems="let next of users" >
-    <clr-dg-cell>{{next.name}}</clr-dg-cell>
-    <clr-dg-cell>{{next.surname}}</clr-dg-cell>
-    <clr-dg-cell>{{next.nick}}</clr-dg-cell>
-    <clr-dg-cell>{{parseUserType(next.userType)}}</clr-dg-cell>
-    <clr-dg-cell>{{next.birthDate}}</clr-dg-cell>
-    <clr-dg-cell>{{next.email}}</clr-dg-cell>
-    <clr-dg-cell>{{next.phone}}</clr-dg-cell>
-    <clr-dg-cell><button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, true)">Активировать</button></clr-dg-cell>
-    <clr-dg-cell><button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, false)">Удалить</button></clr-dg-cell>
-  </clr-dg-row>
+    <clr-dg-row *clrDgItems="let next of users" >
+      <clr-dg-cell>{{next.name}}</clr-dg-cell>
+      <clr-dg-cell>{{next.surname}}</clr-dg-cell>
+      <clr-dg-cell>{{next.nick}}</clr-dg-cell>
+      <clr-dg-cell>{{parseUserType(next.userType)}}</clr-dg-cell>
+      <clr-dg-cell>{{next.birthDate}}</clr-dg-cell>
+      <clr-dg-cell>{{next.email}}</clr-dg-cell>
+      <clr-dg-cell>{{next.phone}}</clr-dg-cell>
+      <clr-dg-cell><button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, true)">Активировать</button></clr-dg-cell>
+      <clr-dg-cell><button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, false)">Удалить</button></clr-dg-cell>
+    </clr-dg-row>
 
-  <clr-dg-footer>
-    <clr-dg-pagination #pagination [clrDgPageSize]="5">
-      <clr-dg-page-size [clrPageSizeOptions]="[5,10,20]">Человек на страницу</clr-dg-page-size>
-      {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} из {{pagination.totalItems}} человек
-    </clr-dg-pagination>
-  </clr-dg-footer>
-</clr-datagrid>
+    <clr-dg-footer>
+      <clr-dg-pagination #pagination [clrDgPageSize]="5">
+        <clr-dg-page-size [clrPageSizeOptions]="[5,10,20]">Человек на страницу</clr-dg-page-size>
+        {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} из {{pagination.totalItems}} человек
+      </clr-dg-pagination>
+    </clr-dg-footer>
+  </clr-datagrid>
+</div>
