@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { TripRequest } from '../entity/TripRequest';
 import { AuthService } from '../service/auth.service';
 import { RequestService } from '../service/request.service';
+import {DatePipe} from "@angular/common";
 
 @Component({
   selector: 'app-requests',
@@ -96,6 +97,11 @@ export class RequestsComponent implements OnInit {
 
   hideAlert() {
     document.getElementById('alert')!.style.display='none';
+  }
+
+  formatDate(date: Date) {
+      const datepipe: DatePipe = new DatePipe('ru-RU')
+      return  datepipe.transform(date, 'dd.MM.YYYY');
   }
 
 }

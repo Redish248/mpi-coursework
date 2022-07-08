@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
         newUser.setSurname(requestUser.getSurname());
         newUser.setNick(requestUser.getNick());
         newUser.setPassword(BCrypt.hashpw(requestUser.getPassword(), BCrypt.gensalt()));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.parse(requestUser.getBirthDate(), formatter);
         newUser.setBirthDate(localDate);
         newUser.setUserType(userRoleRepository.findUserRoleByName(requestUser.getUserType().toUpperCase(Locale.ROOT)));

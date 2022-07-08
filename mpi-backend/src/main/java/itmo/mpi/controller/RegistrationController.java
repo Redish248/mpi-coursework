@@ -29,8 +29,6 @@ public class RegistrationController {
 
     private final CommonUtils commonUtils;
 
-    private final ProfilesService profilesService;
-
     @PostMapping("/registerUser")
     public @ResponseBody
     ResponseEntity<User> registerUser(@RequestBody UserInfo newUser) {
