@@ -7,15 +7,20 @@ import itmo.mpi.entity.User;
 import itmo.mpi.exception.IllegalRequestParamsException;
 import itmo.mpi.exception.UserAlreadyHasCrewException;
 import itmo.mpi.exception.UserAlreadyHasShipException;
+import itmo.mpi.model.UserInfo;
+import itmo.mpi.model.UserInfoUpdate;
 import itmo.mpi.model.profiles.*;
 import itmo.mpi.repository.CrewMemberRepository;
 import itmo.mpi.repository.CrewRepository;
 import itmo.mpi.repository.ShipRepository;
 import itmo.mpi.repository.UserRepository;
 import itmo.mpi.service.ProfilesService;
+import itmo.mpi.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -30,6 +35,8 @@ public class ProfilesServiceImpl implements ProfilesService {
     private final ShipRepository shipRepository;
     private final CrewRepository crewRepository;
     private final CrewMemberRepository crewMemberRepository;
+
+    private final CommonUtils commonUtils;
 
     @Override
     public CrewResponse registerCrew(String nickName, CrewRequest newCrew) {
@@ -168,6 +175,22 @@ public class ProfilesServiceImpl implements ProfilesService {
 
         Ship ship = getShip(user);
         return ship == null ? null : new ShipResponse(ship);
+    }
+
+    @Override
+    public User updateUser(UserInfoUpdate userInfo) {
+        User user = userRepository.findByNick(commonUtils.getCurrentUser().getName());
+        user.setName(userInfo.getName());
+        user.setSurname(userInfo.getSurname());
+        user.setShareContactInfo(userInfo.isShareContacts());
+        user.setPhone(userInfo.getPhone());
+        user.setEmail(userInfo.getEmail());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        LocalDate localDate = LocalDate.parse(userInfo.getBirthDate(), formatter);
+        user.setBirthDate(localDate);
+        User userToReturn =  userRepository.save(user);
+        userToReturn.setPassword("");
+        return userToReturn;
     }
 
     private Crew getCrew(User user) {

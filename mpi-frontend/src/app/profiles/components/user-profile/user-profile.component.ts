@@ -5,7 +5,7 @@ import {AuthService} from '../../../service/auth.service'
 import {ProfileService} from '../../profile.service'
 import {Crew} from '../../model/CrewProfile'
 import {Ship} from '../../model/ShipProfile'
-import {DatePipe, formatDate} from "@angular/common";
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-user-profile',
@@ -17,6 +17,7 @@ export class UserProfileComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private authService: AuthService,
                 private profileService: ProfileService) {
+        this.infoUpdated = ""
         this.userProfileForm = this.formBuilder.group({
             name: ['', Validators.required],
             surname: ['', Validators.required],
@@ -27,6 +28,7 @@ export class UserProfileComponent implements OnInit {
         })
     }
 
+    infoUpdated: string
     userProfileForm: FormGroup
     user: UserProfile
     openCrewProfileModal = false
@@ -78,7 +80,11 @@ export class UserProfileComponent implements OnInit {
     }
 
     updateUser() {
-        console.log(`update user ${this.user.uid}, new data: `, this.userProfileForm.getRawValue())
+        this.profileService.updateUser(this.userProfileForm.getRawValue()).subscribe( _ => {
+                console.log(`update user ${this.user.uid}, new data: `, this.userProfileForm.getRawValue())
+            this.infoUpdated = "Данные пользователя обновлены!"
+            }
+        );
     }
 
     openCrewProfile() {

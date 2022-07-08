@@ -3,6 +3,7 @@
 
 <div class="user-div">
     <h1>Мой профиль</h1>
+    <clr-alert clrAlertType="danger" *ngIf="infoUpdated">{{infoUpdated}}</clr-alert>
     <table>
         <tr>
             <td>
@@ -39,11 +40,11 @@
                         <input clrInput formControlName="birthDate" type="text">
                     </clr-input-container>
 
-                    <button *ngIf="shipOwner" (click)="openShipProfile()" class="btn btn-outline btn-bottom">Профиль
-                        корабля
+                    <button *ngIf="shipOwner" (click)="openShipProfile()" class="btn btn-outline btn-bottom">
+                        Профиль корабля
                     </button>
-                    <button *ngIf="crewManager" (click)="openCrewProfile()" class="btn btn-outline btn-bottom">Профиль
-                        команды
+                    <button *ngIf="crewManager" (click)="openCrewProfile()" class="btn btn-outline btn-bottom">
+                        Профиль команды
                     </button>
 
                     <button [disabled]="!userProfileForm.touched" (click)="updateUser()"

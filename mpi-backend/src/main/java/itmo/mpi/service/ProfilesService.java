@@ -1,5 +1,7 @@
 package itmo.mpi.service;
 
+import itmo.mpi.entity.User;
+import itmo.mpi.model.UserInfoUpdate;
 import itmo.mpi.model.profiles.*;
 
 import java.util.List;
@@ -19,4 +21,6 @@ public interface ProfilesService {
     CrewResponse getUserCrew(String nickname);
 
     ShipResponse getUserShip(String nickName);
+
+    User updateUser(UserInfoUpdate userInfo);
 }

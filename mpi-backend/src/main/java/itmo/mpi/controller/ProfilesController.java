@@ -1,9 +1,12 @@
 package itmo.mpi.controller;
 
+import itmo.mpi.entity.User;
+import itmo.mpi.model.UserInfoUpdate;
 import itmo.mpi.model.profiles.*;
 import itmo.mpi.service.ProfilesService;
 import itmo.mpi.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,5 +60,10 @@ public class ProfilesController {
     public CrewResponse registerCrew(@RequestBody CrewRequest request) {
         String nickname = commonUtils.getCurrentUser().getName();
         return profilesService.registerCrew(nickname, request);
+    }
+
+    @PostMapping("/userinfo")
+    public User updateUserInfo(@RequestBody UserInfoUpdate request) {
+        return profilesService.updateUser(request);
     }
 }
