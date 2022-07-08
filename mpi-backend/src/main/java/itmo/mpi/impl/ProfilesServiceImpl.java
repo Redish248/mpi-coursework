@@ -7,7 +7,6 @@ import itmo.mpi.entity.User;
 import itmo.mpi.exception.IllegalRequestParamsException;
 import itmo.mpi.exception.UserAlreadyHasCrewException;
 import itmo.mpi.exception.UserAlreadyHasShipException;
-import itmo.mpi.model.UserInfo;
 import itmo.mpi.model.UserInfoUpdate;
 import itmo.mpi.model.profiles.*;
 import itmo.mpi.repository.CrewMemberRepository;
@@ -81,6 +80,22 @@ public class ProfilesServiceImpl implements ProfilesService {
 
         Ship savedShip = shipRepository.save(shipEntity);
         return new ShipResponse(savedShip);
+    }
+
+    @Override
+    public ShipResponse updateShip(String nickName, ShipRequest newShipInfo) {
+        User user = userRepository.findByNick(nickName);
+        Ship ship = shipRepository.getShipByOwnerId(user.getId());
+        ship.setName(newShipInfo.getName());
+        ship.setPhoto(newShipInfo.getPhoto());
+        ship.setPricePerDay(newShipInfo.getPricePerDay());
+        ship.setDescription(newShipInfo.getDescription());
+        ship.setLength(newShipInfo.getLength());
+        ship.setWidth(newShipInfo.getWidth());
+        ship.setFuelConsumption(newShipInfo.getFuelConsumption());
+        ship.setSpeed(newShipInfo.getSpeed());
+        ship.setCapacity(newShipInfo.getCapacity());
+         return new ShipResponse(shipRepository.save(ship));
     }
 
     @Override

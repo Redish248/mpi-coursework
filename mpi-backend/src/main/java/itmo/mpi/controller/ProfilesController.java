@@ -1,5 +1,6 @@
 package itmo.mpi.controller;
 
+import itmo.mpi.entity.Ship;
 import itmo.mpi.entity.User;
 import itmo.mpi.model.UserInfoUpdate;
 import itmo.mpi.model.profiles.*;
@@ -60,6 +61,12 @@ public class ProfilesController {
     public CrewResponse registerCrew(@RequestBody CrewRequest request) {
         String nickname = commonUtils.getCurrentUser().getName();
         return profilesService.registerCrew(nickname, request);
+    }
+
+    @PostMapping("/shipinfo")
+    public ShipResponse updateShip(@RequestBody ShipRequest request) {
+        String nickname = commonUtils.getCurrentUser().getName();
+        return profilesService.updateShip(nickname, request);
     }
 
     @PostMapping("/userinfo")

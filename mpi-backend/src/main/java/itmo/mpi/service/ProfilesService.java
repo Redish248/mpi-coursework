@@ -12,6 +12,8 @@ public interface ProfilesService {
 
     ShipResponse registerShip(String nickName, ShipRequest newShip);
 
+    ShipResponse updateShip(String nickName, ShipRequest newShipInfo);
+
     UserProfileResponse getCurrentUserProfile(String nickName);
 
     List<ShipProfileResponse> getShipsForCurrentUser(String nickname);
