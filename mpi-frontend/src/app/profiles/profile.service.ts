@@ -47,6 +47,10 @@ export class ProfileService {
         return this.http.post<Ship>(`${this.apiUrl}/ship`, JSON.stringify(newShip), {headers: {'Content-Type': 'application/json'}})
     }
 
+    updateShip(newShip: any): Observable<Ship> {
+        return this.http.post<Ship>(`${this.apiUrl}/shipinfo`, JSON.stringify(newShip), {headers: {'Content-Type': 'application/json'}})
+    }
+
     updateUser(userInfo: any): Observable<UserProfile>  {
         console.log(userInfo)
         return this.http.post<UserProfile>(`${this.apiUrl}/userinfo`, JSON.stringify(userInfo), {headers: {'Content-Type': 'application/json'}})
