@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {TripRequest} from '../entity/TripRequest';
 import {AuthService} from '../service/auth.service';
 import {RequestService} from '../service/request.service';
-import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-requests',
@@ -14,6 +13,8 @@ export class RequestsComponent implements OnInit {
     public activeRequests: TripRequest[];
     public completedRequests: TripRequest[];
     public cancelledRequests: TripRequest[];
+
+    ratingMode: boolean = false
 
     constructor(private requestService: RequestService, private auth: AuthService) {
     }
@@ -33,7 +34,6 @@ export class RequestsComponent implements OnInit {
                 this.refreshRequests();
             },
             err => {
-                console.log("kek");
                 this.showAlert('Это путешествие перескается по датам с другой одобренной или завершенной заявкой');
             });
     }
@@ -48,10 +48,6 @@ export class RequestsComponent implements OnInit {
         this.requestService.cancelRequest(request).subscribe(res => {
             this.refreshRequests();
         })
-    }
-
-    rateTrip(request: TripRequest) {
-      console.log("rated")
     }
 
     refreshRequests() {

@@ -38,6 +38,7 @@ import {EditShipProfileComponent} from './profiles/components/edit-ship-profile/
 import {ViewShipProfileComponent} from './profiles/components/view-ship-profile/view-ship-profile.component'
 import { registerLocaleData } from '@angular/common';
 import localeFr from '@angular/common/locales/ru';
+import {TripRatingComponent} from "./requests/rating/rating.component";
 registerLocaleData(localeFr);
 
 const appRoutes: Routes = [
@@ -77,7 +78,8 @@ const appRoutes: Routes = [
         PirateLabelComponent,
         UserProfileComponent,
         EditShipProfileComponent,
-        ViewShipProfileComponent
+        ViewShipProfileComponent,
+        TripRatingComponent
     ],
     imports: [
         BrowserModule,

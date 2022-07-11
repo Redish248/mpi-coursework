@@ -1,46 +1,52 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { TripRequest } from '../entity/TripRequest';
-import { ConfigService } from './config.service';
+import {HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {TripRequest} from '../entity/TripRequest';
+import {ConfigService} from './config.service';
+import {Crew} from "../profiles/model/CrewProfile";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class RequestService {
 
-  constructor(private http: HttpClient, private config: ConfigService) { }
+    constructor(private http: HttpClient, private config: ConfigService) {
+    }
 
-  public createRequest(req: TripRequest) : Observable<void> {
-    return this.http.post<void>(this.config.baseUrl+'/request/create', req);
-  }
+    public createRequest(req: TripRequest): Observable<void> {
+        return this.http.post<void>(this.config.baseUrl + '/request/create', req);
+    }
 
-  public getPendingRequests(): Observable<TripRequest[]> {
-    return this.http.get<TripRequest[]>(this.config.baseUrl+'/request/pending');
-  }
+    public getPendingRequests(): Observable<TripRequest[]> {
+        return this.http.get<TripRequest[]>(this.config.baseUrl + '/request/pending');
+    }
 
-  public getCompleteRequests(): Observable<TripRequest[]> {
-    return this.http.get<TripRequest[]>(this.config.baseUrl+'/request/complete');
-  }
+    public getCompleteRequests(): Observable<TripRequest[]> {
+        return this.http.get<TripRequest[]>(this.config.baseUrl + '/request/complete');
+    }
 
-  public getCancelledRequests(): Observable<TripRequest[]> {
-    return this.http.get<TripRequest[]>(this.config.baseUrl+'/request/cancelled');
-  }
+    public getCancelledRequests(): Observable<TripRequest[]> {
+        return this.http.get<TripRequest[]>(this.config.baseUrl + '/request/cancelled');
+    }
 
-  public cancelRequest(request: TripRequest) {
-    return this.http.post(this.config.baseUrl+'/request/cancel', request);
-  }
+    public cancelRequest(request: TripRequest) {
+        return this.http.post(this.config.baseUrl + '/request/cancel', request);
+    }
 
-  public rejectRequest(request: TripRequest) {
-    return this.http.post(this.config.baseUrl+'/request/reject', request);
-  }
+    public rejectRequest(request: TripRequest) {
+        return this.http.post(this.config.baseUrl + '/request/reject', request);
+    }
 
-  public approveRequest(request: TripRequest) {
-    return this.http.post(this.config.baseUrl+'/request/approve', request);
-  }
+    public approveRequest(request: TripRequest) {
+        return this.http.post(this.config.baseUrl + '/request/approve', request);
+    }
 
-  public deleteReqeust(request: TripRequest) {
-    return this.http.delete(this.config.baseUrl+'/request', {body: request});
-  }
+    public deleteReqeust(request: TripRequest) {
+        return this.http.delete(this.config.baseUrl + '/request', {body: request});
+    }
+
+    public rateTrip(request: any) {
+        return this.http.post(this.config.baseUrl + '/request/crew/rate', JSON.stringify(request), {headers: {'Content-Type': 'application/json'}});
+    }
 
 }

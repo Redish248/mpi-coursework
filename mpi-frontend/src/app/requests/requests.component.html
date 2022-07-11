@@ -168,10 +168,16 @@
                     <div class="value">{{request.status | statusPipe}}</div>
                 </div>
                 <div *ngIf="!request.isRated">
-                    <button (click)="rateTrip(request)" class="btn btn-success">
+                    <button (click)="ratingMode = true" class="btn btn-success">
                         Выставить рейтинг
                     </button>
                 </div>
+                <app-trip-rating *ngIf="ratingMode"
+                                 [trip]="request"
+                                 [ratingMode]="ratingMode"
+                                 [modalOpened]="ratingMode"
+                                 (closeModal)="ratingMode= false;">
+                </app-trip-rating>
             </div>
         </clr-tab-content>
     </clr-tab>
