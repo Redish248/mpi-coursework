@@ -1,6 +1,8 @@
 package itmo.mpi.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,9 +30,13 @@ public class TripRequest {
     private User traveler;
 
     @Column(name = "date_start")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate dateStart;
 
     @Column(name = "date_end")
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate dateEnd;
 
     @ManyToOne(optional = false)
@@ -55,5 +61,8 @@ public class TripRequest {
 
     @Column(name = "cost")
     private Integer cost;
+
+    @Column(name = "is_rated")
+    private Boolean isRated;
 
 }
