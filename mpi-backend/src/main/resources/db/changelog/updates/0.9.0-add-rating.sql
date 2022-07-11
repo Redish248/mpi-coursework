@@ -1,0 +1,1 @@
+ALTER TABLE trip_request ADD COLUMN is_rated boolean DEFAULT false;

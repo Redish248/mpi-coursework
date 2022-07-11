@@ -81,7 +81,7 @@ public class ProfilesServiceImpl implements ProfilesService {
                 shortModelMembers.add(shortModel);
             }
         });
-
+        //FIXME: тут при сохранении id в базе почти всегда по идее меняется. Может, адекватный способо апдейта найдётся
         newCrew.getMembers().forEach(newMember -> {
             if (!shortModelMembers.contains(newMember)) {
                crewMemberRepository.save(new CrewMember(crew, newMember.getFullName(), newMember.getExperience()));

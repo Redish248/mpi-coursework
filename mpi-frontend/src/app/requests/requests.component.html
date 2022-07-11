@@ -51,7 +51,7 @@
                 </div>
                 <div>
                     Даты путешествия
-                    <div class="value">{{formatDate(request.dateStart)}} - {{formatDate(request.dateEnd)}}</div>
+                    <div class="value">{{request.dateStart}} - {{request.dateEnd}}</div>
                 </div>
                 <div>
                     Статус
@@ -110,13 +110,14 @@
                 </div>
                 <div>
                     Даты путешествия
-                    <div class="value">{{formatDate(request.dateStart)}} - {{formatDate(request.dateEnd)}}</div>
+                    <div class="value">{{request.dateStart}} - {{request.dateEnd}}</div>
                 </div>
                 <div>
                     Статус
                     <div class="value">{{request.status | statusPipe}}</div>
                 </div>
-                <button *ngIf="canDelete(request)" (click)="deleteRequest(request)" class="btn btn-danger">Удалить
+                <button *ngIf="canDelete(request)" (click)="deleteRequest(request)" class="btn btn-danger">
+                    Удалить
                 </button>
             </div>
         </clr-tab-content>
@@ -160,11 +161,16 @@
                 </div>
                 <div>
                     Даты путешествия
-                    <div class="value">{{formatDate(request.dateStart)}} - {{formatDate(request.dateEnd)}}</div>
+                    <div class="value">{{request.dateStart}} - {{request.dateEnd}}</div>
                 </div>
                 <div>
                     Статус
                     <div class="value">{{request.status | statusPipe}}</div>
+                </div>
+                <div *ngIf="!request.isRated">
+                    <button (click)="rateTrip(request)" class="btn btn-success">
+                        Выставить рейтинг
+                    </button>
                 </div>
             </div>
         </clr-tab-content>

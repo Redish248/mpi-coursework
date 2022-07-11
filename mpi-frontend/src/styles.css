@@ -1,4 +1,4 @@
 html body {
-  background: url("assets/background.jpg") no-repeat fixed center center;
-  background-size: 100% auto;
+    background-size: 100% auto;
+    background: #d4fafb url("assets/background.jpg") no-repeat fixed center center;
 }

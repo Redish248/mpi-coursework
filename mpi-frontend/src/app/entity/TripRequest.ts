@@ -15,4 +15,5 @@ export class TripRequest {
     public ship: Ship;
     public crew: Crew;
     public cost: number;
+    public isRated: boolean;
 }
