@@ -2,6 +2,7 @@
     <clr-modal [(clrModalOpen)]="modalOpen" (clrModalOpenChange)="modalClose.emit()">
         <h3 class="modal-title">Профиль команды</h3>
         <div class="modal-body">
+            <clr-alert clrAlertType="danger" *ngIf="infoUpdated">{{infoUpdated}}</clr-alert>
             <clr-input-container>
                 <label class="label-crew">Название</label>
                 <input class="input-crew" clrInput formControlName="teamName" type="text">

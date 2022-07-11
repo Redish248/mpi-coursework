@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -57,6 +58,45 @@ public class ProfilesServiceImpl implements ProfilesService {
         crewMemberRepository.saveAll(members);
 
         return new CrewResponse(savedCrew, members);
+    }
+
+    @Override
+    public CrewResponse updateCrew(String nickName, CrewRequest newCrew) {
+        User user = userRepository.findByNick(nickName);
+        Crew crew = crewRepository.getCrewByCrewOwner(user);
+
+        List<itmo.mpi.model.profiles.CrewMember> shortModelMembers = new ArrayList<>();
+
+        crew.setTeamName(newCrew.getTeamName());
+        crew.setPhoto(newCrew.getPhoto());
+        crew.setDescription(newCrew.getDescription());
+        crew.setPricePerDay(newCrew.getPricePerDay());
+        Crew savedCrew = crewRepository.save(crew);
+
+        crewMemberRepository.getCrewMemberByCrewId(crew.getId()).forEach(oldMember -> {
+            itmo.mpi.model.profiles.CrewMember shortModel = convertToShortModel(oldMember);
+            if (!newCrew.getMembers().contains(shortModel)) {
+                crewMemberRepository.delete(oldMember);
+            } else {
+                shortModelMembers.add(shortModel);
+            }
+        });
+
+        newCrew.getMembers().forEach(newMember -> {
+            if (!shortModelMembers.contains(newMember)) {
+               crewMemberRepository.save(new CrewMember(crew, newMember.getFullName(), newMember.getExperience()));
+               shortModelMembers.add(newMember);
+            }
+        });
+
+        return new CrewResponse(savedCrew, crewMemberRepository.getCrewMemberByCrewId(crew.getId()));
+    }
+
+    private itmo.mpi.model.profiles.CrewMember convertToShortModel(CrewMember oldMember) {
+        itmo.mpi.model.profiles.CrewMember oldModel = new itmo.mpi.model.profiles.CrewMember();
+        oldModel.setFullName(oldMember.getFullName());
+        oldModel.setExperience(oldMember.getExperience());
+        return oldModel;
     }
 
     @Override

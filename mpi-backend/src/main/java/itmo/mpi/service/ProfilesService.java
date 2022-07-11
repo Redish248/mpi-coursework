@@ -10,6 +10,8 @@ public interface ProfilesService {
 
     CrewResponse registerCrew(String nickName, CrewRequest newCrew);
 
+    CrewResponse updateCrew(String nickName, CrewRequest newCrew);
+
     ShipResponse registerShip(String nickName, ShipRequest newShip);
 
     ShipResponse updateShip(String nickName, ShipRequest newShipInfo);

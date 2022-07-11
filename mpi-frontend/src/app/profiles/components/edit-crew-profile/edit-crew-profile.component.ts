@@ -12,6 +12,7 @@ import {ProfileService} from '../../profile.service'
 export class EditCrewProfileComponent implements OnInit {
     constructor(private formBuilder: FormBuilder,
                 private profileService: ProfileService) {
+        this.infoUpdated = ""
         this.crewProfileForm = formBuilder.group({
             teamName: ['', Validators.required],
             photo: [''],
@@ -25,6 +26,7 @@ export class EditCrewProfileComponent implements OnInit {
     @Input() crewProfile: Crew | undefined // obj or null (create new)
     @Output() modalClose = new EventEmitter()
 
+    infoUpdated: string
     crewProfileForm: FormGroup
 
     ngOnInit(): void {
@@ -73,8 +75,14 @@ export class EditCrewProfileComponent implements OnInit {
     }
 
     updateCrewProfile() {
-        if (!this.crewProfile) return
-        console.log(`Update crew to new data: `, this.crewProfileForm.getRawValue())
+        this.profileService.updateCrew(this.crewProfileForm.getRawValue()).subscribe(
+            data => {
+                this.crewProfile = data
+                console.log(`Update crew to new data: `, this.crewProfileForm.getRawValue())
+                this.infoUpdated = "Данные экипажа обновлены"
+            },
+            err => console.log(err)
+        )
     }
 
     registerNewCrew() {

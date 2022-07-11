@@ -69,6 +69,12 @@ public class ProfilesController {
         return profilesService.updateShip(nickname, request);
     }
 
+    @PostMapping("/crewinfo")
+    public CrewResponse updateCrew(@RequestBody CrewRequest request) {
+        String nickname = commonUtils.getCurrentUser().getName();
+        return profilesService.updateCrew(nickname, request);
+    }
+
     @PostMapping("/userinfo")
     public User updateUserInfo(@RequestBody UserInfoUpdate request) {
         return profilesService.updateUser(request);
