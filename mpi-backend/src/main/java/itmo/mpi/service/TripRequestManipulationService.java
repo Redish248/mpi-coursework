@@ -1,6 +1,7 @@
 package itmo.mpi.service;
 
 import itmo.mpi.entity.TripRequest;
+import itmo.mpi.model.TripRatingRequest;
 
 public interface TripRequestManipulationService {
 
@@ -13,5 +14,7 @@ public interface TripRequestManipulationService {
     void deleteRequest(TripRequest request, String username);
 
     void approveRequest(TripRequest request, String username);
+
+    void rateTrip(TripRatingRequest request);
 
 }

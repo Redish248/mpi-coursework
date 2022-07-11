@@ -1,7 +1,12 @@
 package itmo.mpi.impl;
 
+import itmo.mpi.entity.Crew;
+import itmo.mpi.entity.Ship;
 import itmo.mpi.entity.TripRequest;
 import itmo.mpi.entity.TripRequestStatus;
+import itmo.mpi.model.TripRatingRequest;
+import itmo.mpi.repository.CrewRepository;
+import itmo.mpi.repository.ShipRepository;
 import itmo.mpi.repository.TripRequestRepository;
 import itmo.mpi.repository.UserRepository;
 import itmo.mpi.service.TripRequestInfoService;
@@ -18,7 +23,12 @@ import static itmo.mpi.entity.TripRequestStatus.REJECTED;
 @Service
 public class TripRequestManipulationServiceImpl implements TripRequestManipulationService {
 
-    private final TripRequestRepository repository;
+    private final TripRequestRepository tripRequestRepository;
+
+    private final CrewRepository crewRepository;
+
+    private final ShipRepository shipRepository;
+
     private final UserRepository userRepository;
     private final TripRequestInfoService requestInfoService;
 
@@ -28,7 +38,7 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
             request.setTraveler(userRepository.findByNick(username));
             request.setStatus(PENDING);
 
-            repository.save(request);
+            tripRequestRepository.save(request);
         } else {
             throw new IllegalArgumentException("Can't create request for unknown user");
         }
@@ -36,13 +46,13 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
 
     @Override
     public void cancelRequest(TripRequest request, String username) {
-        TripRequest tripRequest = repository.getById(request.getId());
+        TripRequest tripRequest = tripRequestRepository.getById(request.getId());
         if (tripRequest.getTraveler().getNick().equals(username)) {
             if (request.getStatus() == COMPLETE || request.getStatus() == REJECTED) {
                 throw new IllegalArgumentException("Completed and rejected requests can't be cancelled");
             } else {
                 tripRequest.setStatus(TripRequestStatus.CANCELLED);
-                repository.save(tripRequest);
+                tripRequestRepository.save(tripRequest);
             }
         } else {
             throw new IllegalArgumentException("Request can only be cancelled by traveller");
@@ -51,14 +61,14 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
 
     @Override
     public void rejectRequest(TripRequest request, String username) {
-        TripRequest tripRequest = repository.getById(request.getId());
+        TripRequest tripRequest = tripRequestRepository.getById(request.getId());
         if (tripRequest.getCrew().getCrewOwner().getNick().equals(username) ||
                 tripRequest.getShip().getOwner().getNick().equals(username)) {
             if (tripRequest.getStatus() == COMPLETE || tripRequest.getStatus() == CANCELLED) {
                 throw new IllegalArgumentException("Complete and cancelled requests can't be rejected");
             } else {
                 tripRequest.setStatus(TripRequestStatus.REJECTED);
-                repository.save(tripRequest);
+                tripRequestRepository.save(tripRequest);
             }
         } else {
             throw new IllegalArgumentException("Request can only be rejected by ship or crew owner");
@@ -67,9 +77,9 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
 
     @Override
     public void deleteRequest(TripRequest request, String username) {
-        TripRequest tripRequest = repository.getById(request.getId());
+        TripRequest tripRequest = tripRequestRepository.getById(request.getId());
         if (tripRequest.getTraveler().getNick().equals(username)) {
-            repository.delete(tripRequest);
+            tripRequestRepository.delete(tripRequest);
         } else {
             throw new IllegalArgumentException("Request can only be deleted by traveller");
         }
@@ -77,7 +87,7 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
 
     @Override
     public void approveRequest(TripRequest request, String username) {
-        TripRequest tripRequest = repository.getById(request.getId());
+        TripRequest tripRequest = tripRequestRepository.getById(request.getId());
         if (tripRequest.getTraveler().getNick().equals(username)) {
             approveRequestByTraveller(tripRequest);
         } else if (tripRequest.getCrew().getCrewOwner().getNick().equals(username)) {
@@ -87,6 +97,25 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
         } else {
             throw new IllegalArgumentException("Trip request status can only be updated by one of the parties");
         }
+    }
+
+    @Override
+    public void rateTrip(TripRatingRequest request) {
+        TripRequest trip = tripRequestRepository.getById(request.getTripId());
+        Crew crew = trip.getCrew();
+        Ship ship = trip.getShip();
+
+        crew.setRatesNumber(crew.getRatesNumber() + 1);
+        crew.setRatesAverage((crew.getRatesAverage() + request.getCrew())/crew.getRatesNumber());
+
+        ship.setRatesNumber(ship.getRatesNumber() + 1);
+        ship.setRatesAverage((ship.getRatesAverage() + request.getShip())/ship.getRatesNumber());
+
+        trip.setIsRated(true);
+
+        tripRequestRepository.save(trip);
+        shipRepository.save(ship);
+        crewRepository.save(crew);
     }
 
     private void approveRequestByTraveller(TripRequest tripRequest) {
@@ -103,7 +132,7 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
                         " approved by traveller");
             case APPROVED_BY_BOTH:
                 tripRequest.setStatus(TripRequestStatus.COMPLETE);
-                repository.save(tripRequest);
+                tripRequestRepository.save(tripRequest);
         }
     }
 
@@ -131,7 +160,7 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
                     throw new IllegalArgumentException("Crew is occupied by another trip on selected dates");
                 }
         }
-        repository.save(request);
+        tripRequestRepository.save(request);
     }
 
     private void approveRequestByShip(TripRequest request) {
@@ -158,7 +187,7 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
                     throw new IllegalArgumentException("Ship is occupied by another trip in selected dates");
                 }
         }
-        repository.save(request);
+        tripRequestRepository.save(request);
     }
 
     private boolean isShipAvailable(TripRequest request) {
