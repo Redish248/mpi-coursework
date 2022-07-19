@@ -1,17 +1,17 @@
 .btn-signin {
-  color: #1c4e64;
-  border: 1px solid #0072a2;
-  border-radius: 8px;
+    color: #1c4e64;
+    border: 1px solid #0072a2;
+    border-radius: 8px;
 }
 
 .label-signup {
-  font-size: 15px;
+    font-size: 15px;
 }
 
 .input-signup {
-  width: 250px;
+    width: 250px;
 }
 
 .input-signup-date {
-  width: 210px;
+    width: 210px;
 }

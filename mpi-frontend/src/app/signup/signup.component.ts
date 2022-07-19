@@ -12,8 +12,8 @@ import {Permissions} from '../entity/User'
 export class SignupComponent implements OnInit {
     @Input() modalOpened: boolean
     @Input() registrationMode: boolean
-    @Input() alertLogin: boolean
-    @Output() alertLoginChange = new EventEmitter<boolean>();
+    @Input() submitMessage: string | undefined
+    @Output() submitMessageChange = new EventEmitter<string | undefined>();
     @Output() closeModal = new EventEmitter<{ nick: string, pswd: string }>()
 
     constructor(private formBuilder: FormBuilder,
@@ -43,7 +43,7 @@ export class SignupComponent implements OnInit {
     signup() {
         this.loading = true
         this.errorMessage = undefined
-        this.alertLoginChange.emit(false)
+        this.submitMessageChange.emit(undefined)
         if (this.signupForm.getRawValue().birthDate === '' ||
             this.signupForm.getRawValue().email === '' ||
             this.signupForm.getRawValue().name === '' ||
@@ -77,7 +77,7 @@ export class SignupComponent implements OnInit {
                             }
                         )
                     } else {
-                        this.alertLoginChange.emit(true)
+                        this.submitMessageChange.emit("Пользователь отправлен на обработку")
                     }
                 }, error => {
                     this.loading = false

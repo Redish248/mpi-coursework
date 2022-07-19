@@ -80,7 +80,7 @@ export class UserProfileComponent implements OnInit {
     }
 
     updateUser() {
-        this.profileService.updateUser(this.userProfileForm.getRawValue()).subscribe( _ => {
+        this.profileService.updateUser(this.userProfileForm.getRawValue()).subscribe(_ => {
                 console.log(`update user ${this.user.uid}, new data: `, this.userProfileForm.getRawValue())
                 this.infoUpdated = "Данные пользователя обновлены!"
             }

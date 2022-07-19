@@ -1,8 +1,8 @@
 export enum Gender {
-  MALE = "мужской",
-  FEMALE = "женский"
+    MALE = "мужской",
+    FEMALE = "женский"
 }
 
 export enum ViewMode {
-  VIEW, EDIT
+    VIEW, EDIT
 }

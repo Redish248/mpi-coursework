@@ -1,18 +1,18 @@
-import { Injectable } from '@angular/core'
+import {Injectable} from '@angular/core'
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ConfigService {
 
-  constructor() {
-  }
+    constructor() {
+    }
 
-  get baseUrl(): string {
-    return 'http://localhost:8088'
-  }
+    get baseUrl(): string {
+        return 'http://localhost:8088'
+    }
 
-  get appUrl(): string {
-    return 'http://localhost:8088/mpi'
-  }
+    get appUrl(): string {
+        return 'http://localhost:8088/mpi'
+    }
 }

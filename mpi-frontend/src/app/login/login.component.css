@@ -1,22 +1,22 @@
 table {
-  width: 400px !important;
+    width: 400px !important;
 }
 
 .btn-log {
-  border-radius: 8px;
+    border-radius: 8px;
 }
 
 .btn-signin {
-  color: #1c4e64;
-  border: 1px solid #0072a2;
-  border-radius: 8px;
+    color: #1c4e64;
+    border: 1px solid #0072a2;
+    border-radius: 8px;
 }
 
 .inp-login {
-  border: 1px solid #0072a2;
+    border: 1px solid #0072a2;
 }
 
 .label-login {
-  font-size: 15px;
+    font-size: 15px;
 }
 

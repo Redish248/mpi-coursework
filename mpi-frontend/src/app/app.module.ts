@@ -36,9 +36,10 @@ import {UserProfileComponent} from './profiles/components/user-profile/user-prof
 import {AuthAdminGuard} from './helpers/auth-admin.guard';
 import {EditShipProfileComponent} from './profiles/components/edit-ship-profile/edit-ship-profile.component';
 import {ViewShipProfileComponent} from './profiles/components/view-ship-profile/view-ship-profile.component'
-import { registerLocaleData } from '@angular/common';
+import {registerLocaleData} from '@angular/common';
 import localeFr from '@angular/common/locales/ru';
 import {TripRatingComponent} from "./requests/rating/rating.component";
+
 registerLocaleData(localeFr);
 
 const appRoutes: Routes = [
@@ -97,7 +98,7 @@ const appRoutes: Routes = [
         AuthAdminGuard,
         {provide: HTTP_INTERCEPTORS, useClass: AuthBasicInterceptor, multi: true},
         {provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true},
-        { provide: LOCALE_ID, useValue: 'ru-RU'},
+        {provide: LOCALE_ID, useValue: 'ru-RU'},
         DatePipe,
         DecimalPipe
     ],

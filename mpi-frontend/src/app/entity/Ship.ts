@@ -1,7 +1,7 @@
-import { UserInfo } from './UserInfo';
- 
+import {UserInfo} from './UserInfo';
+
 export class Ship {
-    public id? : number;
+    public id?: number;
     public name: string;
     public owner: UserInfo;
     public description: string;

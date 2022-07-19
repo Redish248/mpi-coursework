@@ -24,9 +24,11 @@ export class MapComponent implements OnInit {
 
     public islands: Island[] = [];
     private clickStatus: number = 0;
+    errorMessage: string | undefined
 
     constructor(private islandService: IslandService, private router: Router, private options: OptionsService,
                 private datePipe: DatePipe, private auth: AuthService) {
+        this.errorMessage = undefined
     }
 
     ngOnInit(): void {
@@ -63,10 +65,11 @@ export class MapComponent implements OnInit {
         let startingDate = this.expeditionControl.get('startDate')?.value;
 
         if (from == null || to == null || budget == '' || startingDate == '') {
-            this.showAlert("Заполните все поля");
+            this.errorMessage = "Заполните все поля"
         } else if (from == to) {
-            this.showAlert("Выберите разные острова");
+            this.errorMessage = "Выберите разные острова"
         } else {
+            this.errorMessage = undefined
             this.options.request = this.buildRequestDto(from, to, budget, startingDate);
             this.router.navigateByUrl('/options')
         }
@@ -79,15 +82,6 @@ export class MapComponent implements OnInit {
         request.to = to;
         request.startDate = startingDate.toString();
         return request;
-    }
-
-    showAlert(text: string) {
-        document.getElementById('alertText')!.innerText = text;
-        document.getElementById('alert')!.style.display = 'flex';
-    }
-
-    hideAlert() {
-        document.getElementById('alert')!.style.display = 'none';
     }
 
     updateIslands() {

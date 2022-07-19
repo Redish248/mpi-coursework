@@ -31,7 +31,7 @@
     </table>
 </div>
 
-<div id="profiles-list" class="crew-flex">
+<div id="profiles-list" class="crew-flex" *ngIf="filteredProfiles.length > 0">
     <div *ngFor="let profile of filteredProfiles"
          class="profile card clickable"
          (click)="selectedProfileId = profile">

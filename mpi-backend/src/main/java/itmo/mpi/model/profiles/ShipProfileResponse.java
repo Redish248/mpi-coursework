@@ -11,9 +11,7 @@ public class ShipProfileResponse {
     private String email;
     private String phone;
     private Boolean isPirate;
-
     private ShipResponse ship;
-
 
     public ShipProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, Ship ship) {
         this.uid = uid;

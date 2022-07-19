@@ -1,8 +1,8 @@
-import { Crew } from "./Crew";
-import { Island } from "./island";
-import { Ship } from "./Ship";
-import { TripRequestStatus } from "./TripRequestStatus";
-import { UserInfo } from "./UserInfo";
+import {Crew} from "./Crew";
+import {Island} from "./island";
+import {Ship} from "./Ship";
+import {TripRequestStatus} from "./TripRequestStatus";
+import {UserInfo} from "./UserInfo";
 
 export class TripRequest {
     public id?: number;

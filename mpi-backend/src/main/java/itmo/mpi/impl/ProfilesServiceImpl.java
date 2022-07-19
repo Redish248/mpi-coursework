@@ -54,7 +54,8 @@ public class ProfilesServiceImpl implements ProfilesService {
 
         Crew savedCrew = crewRepository.save(crewEntity);
 
-        List<CrewMember> members = newCrew.getMembers().stream().map(m -> new CrewMember(savedCrew, m.getFullName(), m.getExperience())).collect(Collectors.toList());
+        List<CrewMember> members = newCrew.getMembers().stream().map(m -> new CrewMember(savedCrew, m.getFullName(),
+                m.getExperience())).collect(Collectors.toList());
         crewMemberRepository.saveAll(members);
 
         return new CrewResponse(savedCrew, members);
@@ -81,7 +82,7 @@ public class ProfilesServiceImpl implements ProfilesService {
                 shortModelMembers.add(shortModel);
             }
         });
-        //FIXME: тут при сохранении id в базе почти всегда по идее меняется. Может, адекватный способо апдейта найдётся
+        //FIXME: тут при сохранении id в базе почти всегда по идее меняется. Может, адекватный способ апдейта найдётся
         newCrew.getMembers().forEach(newMember -> {
             if (!shortModelMembers.contains(newMember)) {
                crewMemberRepository.save(new CrewMember(crew, newMember.getFullName(), newMember.getExperience()));

@@ -23,7 +23,8 @@ public class CrewProfileResponse {
     // crew info
     private CrewResponse crew;
 
-    public CrewProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, Crew crew, List<itmo.mpi.entity.CrewMember> members) {
+    public CrewProfileResponse(int uid, String name, String surname, String email, String phone,
+                               Boolean isPirate, Crew crew, List<itmo.mpi.entity.CrewMember> members) {
         this.uid = uid;
         this.name = name;
         this.surname = surname;

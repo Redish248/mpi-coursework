@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-crew-history',
-  templateUrl: './crew-history.component.html',
-  styleUrls: ['./crew-history.component.css']
+    selector: 'app-crew-history',
+    templateUrl: './crew-history.component.html',
+    styleUrls: ['./crew-history.component.css']
 })
 export class CrewHistoryComponent implements OnInit {
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit(): void {
-  }
+    ngOnInit(): void {
+    }
 
 }

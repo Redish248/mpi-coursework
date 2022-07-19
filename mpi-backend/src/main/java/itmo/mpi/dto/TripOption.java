@@ -16,9 +16,11 @@ public class TripOption {
     private Ship ship;
     private Crew crew;
     private int price;
+
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate startDate;
+
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate finishDate;

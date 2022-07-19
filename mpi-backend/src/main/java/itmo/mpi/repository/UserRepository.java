@@ -12,6 +12,4 @@ public interface UserRepository extends JpaRepository<User, Long> {
     List<User> findUsersByIsActivated(boolean isActivated);
 
     User findByNick(String nick);
-
-    User findById(int uid);
 }

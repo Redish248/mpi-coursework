@@ -1,4 +1,4 @@
-<app-alert [errorMessage]="errorMessage"></app-alert>
+<clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
 <div class="filter-ship">
     <h3>Фильтрация</h3>
     <table>
@@ -34,7 +34,7 @@
     </table>
 </div>
 
-<div id="profiles-list" class="ship-flex">
+<div id="profiles-list" class="ship-flex" *ngIf="filteredProfiles.length > 0">
     <div *ngFor="let profile of filteredProfiles"
          class="profile card clickable"
          (click)="selectedProfileId = profile">

@@ -17,6 +17,7 @@ public class TripRequestDto {
     private Island from;
     private Island to;
     private long budget;
+
     @DateTimeFormat(pattern = "dd.MM.yyyy")
     @JsonFormat(pattern = "dd.MM.yyyy")
     private LocalDate startDate;

@@ -1,11 +1,4 @@
-<div cds-layout="vertical gap:sm" *ngIf="alertShow">
-    <cds-alert-group type="banner" status="success">
-        <cds-alert>
-            Пользователь отправлен на обработку
-            <button (click)="hideAlert()" class="btn btn-success" style="background: green">ОК</button>
-        </cds-alert>
-    </cds-alert-group>
-</div>
+<clr-alert clrAlertType="danger" *ngIf="submitMessage">{{submitMessage}}</clr-alert>
 <div class="login-wrapper">
     <form clrForm [formGroup]="loginForm" class="login">
         <section class="title">
@@ -36,6 +29,6 @@
 <app-signup *ngIf="registrationMode"
             [registrationMode]="registrationMode"
             [modalOpened]="registrationMode"
-            [(alertLogin)]="alertShow"
+            [(submitMessage)]="submitMessage"
             (closeModal)="registrationMode= false; signup()">
 </app-signup>

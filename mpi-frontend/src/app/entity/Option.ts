@@ -1,5 +1,5 @@
-import { Crew } from "./Crew";
-import { Ship } from "./Ship";
+import {Crew} from "./Crew";
+import {Ship} from "./Ship";
 
 export class Option {
     public ship: Ship;

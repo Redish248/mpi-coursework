@@ -1,25 +1,25 @@
 .btn-crew {
-  border: 1px solid #0072a2;
-  border-radius: 8px;
+    border: 1px solid #0072a2;
+    border-radius: 8px;
 }
 
 .label-crew {
-  font-size: 15px;
+    font-size: 15px;
 }
 
 .input-crew {
-  width: 300px;
-  margin-left: 30px;
+    width: 300px;
+    margin-left: 30px;
 }
 
 .marginTop20 {
-  margin-top: 20px;
+    margin-top: 20px;
 }
 
 .member-info {
-  margin-top: 20px;
-  border: 1px solid #0072a2;
-  border-radius: 10px;
-  padding: 10px;
+    margin-top: 20px;
+    border: 1px solid #0072a2;
+    border-radius: 10px;
+    padding: 10px;
 }
 

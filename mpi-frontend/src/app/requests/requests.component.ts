@@ -15,8 +15,10 @@ export class RequestsComponent implements OnInit {
     public cancelledRequests: TripRequest[];
 
     ratingMode: boolean = false
+    errorMessage: string | undefined
 
     constructor(private requestService: RequestService, private auth: AuthService) {
+        this.errorMessage = undefined
     }
 
     ngOnInit(): void {
@@ -33,19 +35,19 @@ export class RequestsComponent implements OnInit {
         this.requestService.approveRequest(request).subscribe(res => {
                 this.refreshRequests();
             },
-            err => {
-                this.showAlert('Это путешествие перескается по датам с другой одобренной или завершенной заявкой');
+            _ => {
+                this.errorMessage = "Это путешествие перескается по датам с другой одобренной или завершенной заявкой"
             });
     }
 
     deleteRequest(request: TripRequest) {
-        this.requestService.deleteReqeust(request).subscribe(res => {
+        this.requestService.deleteReqeust(request).subscribe(_ => {
             this.refreshRequests();
         });
     }
 
     cancel(request: TripRequest) {
-        this.requestService.cancelRequest(request).subscribe(res => {
+        this.requestService.cancelRequest(request).subscribe(_ => {
             this.refreshRequests();
         })
     }
@@ -89,15 +91,6 @@ export class RequestsComponent implements OnInit {
 
     canBeApprovedByShip(request: TripRequest): boolean {
         return request.status.toString() == 'PENDING' || request.status.toString() == 'APPROVED_BY_CREW';
-    }
-
-    showAlert(text: string) {
-        document.getElementById('alertText')!.innerText = text;
-        document.getElementById('alert')!.style.display = 'flex';
-    }
-
-    hideAlert() {
-        document.getElementById('alert')!.style.display = 'none';
     }
 
 }
