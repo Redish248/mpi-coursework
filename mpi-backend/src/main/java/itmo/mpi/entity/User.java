@@ -60,4 +60,7 @@ public class User {
     @Column(name = "is_vip")
     private Boolean isVip;
 
+    @Column(name = "registration_date")
+    private LocalDate registrationDate;
+
 }

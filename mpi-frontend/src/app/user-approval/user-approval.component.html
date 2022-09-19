@@ -8,6 +8,7 @@
         <clr-dg-column [clrDgField]="'birthDate'">Дата рождения</clr-dg-column>
         <clr-dg-column [clrDgField]="'email'">Почта</clr-dg-column>
         <clr-dg-column [clrDgField]="'phone'">Телефон</clr-dg-column>
+        <clr-dg-column [clrDgField]="'registrationDate'">Дата регистрации</clr-dg-column>
         <clr-dg-column [clrDgField]="'approve'">Подтвердить</clr-dg-column>
         <clr-dg-column [clrDgField]="'reject'">Отклонить</clr-dg-column>
 
@@ -19,6 +20,7 @@
             <clr-dg-cell>{{next.birthDate}}</clr-dg-cell>
             <clr-dg-cell>{{next.email}}</clr-dg-cell>
             <clr-dg-cell>{{next.phone}}</clr-dg-cell>
+            <clr-dg-cell>{{next.registrationDate}}</clr-dg-cell>
             <clr-dg-cell>
                 <button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, true)">Активировать
                 </button>

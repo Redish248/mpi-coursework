@@ -7,4 +7,5 @@ export interface UserInfo {
     userType: string,
     email: string,
     phone: string
+    registrationDate: string
 }

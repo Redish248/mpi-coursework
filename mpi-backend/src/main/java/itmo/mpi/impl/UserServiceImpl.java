@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
             userInfo.setBirthDate(user.getBirthDate().format(formatter));
             userInfo.setPhone(user.getPhone());
             userInfo.setUserType(user.getUserType().getName());
+            userInfo.setRegistrationDate(user.getRegistrationDate().format(formatter));
             result.add(userInfo);
         });
         return result;
@@ -67,6 +68,13 @@ public class UserServiceImpl implements UserService {
         newUser.setIsActivated(requestUser.getUserType().equalsIgnoreCase("traveler"));
         newUser.setIsVip(false);
         newUser.setIsPirate(false);
+        newUser.setRegistrationDate(LocalDate.now());
         return userRepository.save(newUser);
+    }
+
+    @Override
+    public void removeOldRegistrationRequests(LocalDate date) {
+        List<User> usersToRemove = userRepository.findAllByRegistrationDateBefore(date.minusDays(7));
+        userRepository.deleteAll(usersToRemove);
     }
 }
