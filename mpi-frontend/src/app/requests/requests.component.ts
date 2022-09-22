@@ -13,6 +13,7 @@ export class RequestsComponent implements OnInit {
     public activeRequests: TripRequest[];
     public completedRequests: TripRequest[];
     public cancelledRequests: TripRequest[];
+    public endedRequests: TripRequest[];
 
     ratingMode: boolean = false
     errorMessage: string | undefined
@@ -52,6 +53,12 @@ export class RequestsComponent implements OnInit {
         })
     }
 
+    endTrip(request: TripRequest) {
+        this.requestService.endRequest(request).subscribe(_ => {
+            this.refreshRequests();
+        })
+    }
+
     refreshRequests() {
         this.requestService.getPendingRequests().subscribe(res => {
             this.activeRequests = res;
@@ -61,6 +68,9 @@ export class RequestsComponent implements OnInit {
         })
         this.requestService.getCompleteRequests().subscribe(res => {
             this.completedRequests = res;
+        });
+        this.requestService.getEndedRequests().subscribe(res => {
+            this.endedRequests = res;
         });
     }
 

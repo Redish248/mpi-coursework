@@ -111,7 +111,7 @@
     </clr-tab>
 
     <clr-tab>
-        <button clrTabLink>Завершенные путешествия</button>
+        <button clrTabLink>Согласованные путешествия</button>
         <clr-tab-content id="completed" *clrIfActive>
             <div *ngFor="let request of completedRequests" class="request-block">
                 <div>
@@ -154,7 +154,60 @@
                     Статус
                     <div class="value">{{request.status | statusPipe}}</div>
                 </div>
-                <div *ngIf="!request.isRated">
+                <div>
+                    <button *ngIf="canDelete(request)"  (click)="endTrip(request)" class="btn btn-success">
+                        Завершить
+                    </button>
+                </div>
+            </div>
+        </clr-tab-content>
+    </clr-tab>
+
+    <clr-tab>
+        <button clrTabLink>Законченные путешествия</button>
+        <clr-tab-content id="ended" *clrIfActive>
+            <div *ngFor="let request of endedRequests" class="request-block">
+                <div>
+                    Из
+                    <div class="value">{{request.islandStart.name | islandPipe}}</div>
+                </div>
+                <div>
+                    До
+                    <div class="value">{{request.islandEnd.name | islandPipe}}</div>
+                </div>
+                <div>
+                    Корабль
+                    <div class="value">
+                        <span aria-haspopup="true" class="tooltip tooltip-lg">
+                        {{request.ship.name}}
+                            <span class="tooltip-content">
+                            Скорость: {{request.ship.speed}}<br>
+                            Вместимость: {{request.ship.capacity}}<br>
+                            Длина: {{request.ship.length}}<br>
+                            Ширина: {{request.ship.width}}<br>
+                            Описание: {{request.ship.description}}
+                        </span>
+                    </span> (⭐{{request.ship.ratesAverage | number: '1.1-1'}})
+                    </div>
+                </div>
+                <div>
+                    Команда
+                    <div class="value">{{request.crew.teamName}} (⭐{{request.crew.ratesAverage | number: '1.1-1'}})
+                    </div>
+                </div>
+                <div>
+                    Стоимость
+                    <div class="value">{{request.cost}}</div>
+                </div>
+                <div>
+                    Даты путешествия
+                    <div class="value">{{request.dateStart}} - {{request.dateEnd}}</div>
+                </div>
+                <div>
+                    Статус
+                    <div class="value">{{request.status | statusPipe}}</div>
+                </div>
+                <div *ngIf="!request.isRated && canDelete(request)">
                     <button (click)="ratingMode = true" class="btn btn-success">
                         Выставить рейтинг
                     </button>
@@ -168,4 +221,5 @@
             </div>
         </clr-tab-content>
     </clr-tab>
+
 </clr-tabs>

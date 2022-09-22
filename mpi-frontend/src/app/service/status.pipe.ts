@@ -24,10 +24,13 @@ export class StatusPipe implements PipeTransform {
             return 'Отменено';
         }
         if (value.toString() == 'COMPLETE') {
-            return 'Завершено';
+            return 'Согласована';
         }
         if (value.toString() == 'REJECTED') {
             return 'Отказано';
+        }
+        if (value.toString() == 'ENDED') {
+            return 'Закончена';
         }
 
         return '';

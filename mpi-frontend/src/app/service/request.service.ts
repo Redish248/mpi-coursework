@@ -29,8 +29,16 @@ export class RequestService {
         return this.http.get<TripRequest[]>(this.config.baseUrl + '/request/cancelled');
     }
 
+    public getEndedRequests(): Observable<TripRequest[]> {
+        return this.http.get<TripRequest[]>(this.config.baseUrl + '/request/ended');
+    }
+
     public cancelRequest(request: TripRequest) {
         return this.http.post(this.config.baseUrl + '/request/cancel', request);
+    }
+
+    public endRequest(request: TripRequest) {
+        return this.http.post(this.config.baseUrl + '/request/end', request);
     }
 
     public rejectRequest(request: TripRequest) {
