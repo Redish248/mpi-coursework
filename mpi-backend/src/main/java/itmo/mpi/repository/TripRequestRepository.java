@@ -22,4 +22,6 @@ public interface TripRequestRepository extends JpaRepository<TripRequest, Intege
     List<TripRequest> findByShipInAndStatusIn(List<Ship> ships, List<TripRequestStatus> statuses);
 
     List<TripRequest> findByCrewInAndStatusIn(List<Crew> crews, List<TripRequestStatus> statuses);
+
+    List<TripRequest> findAllByStatus(TripRequestStatus status);
 }

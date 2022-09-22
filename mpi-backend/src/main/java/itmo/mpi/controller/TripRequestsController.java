@@ -72,6 +72,11 @@ public class TripRequestsController {
         return tripRequestInfoService.getCancelledRequestsForUser(getCurrentUsername());
     }
 
+    @GetMapping("/ended")
+    public List<TripRequest> getEndedTrips() {
+        return tripRequestInfoService.getEndedRequestsForUser(getCurrentUsername());
+    }
+
     @PostMapping("/ship/pending")
     public List<TripRequest> getPendingTripsForShip(@RequestBody Ship ship) {
         return tripRequestInfoService.getPendingRequestsForShip(ship);
@@ -100,6 +105,11 @@ public class TripRequestsController {
     @PostMapping("/crew/rate")
     public void rateTrip(@RequestBody TripRatingRequest request) {
         tripRequestManipulationService.rateTrip(request);
+    }
+
+    @PostMapping("/end")
+    public void endTrip(@RequestBody TripRequest request) {
+        tripRequestManipulationService.endTrip(request);
     }
 
     private String getCurrentUsername() {

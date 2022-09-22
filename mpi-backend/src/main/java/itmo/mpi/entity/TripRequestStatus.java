@@ -5,6 +5,8 @@ package itmo.mpi.entity;
  * CANCELLED - cancelled by organizer
  * REJECTED - rejected by crew leader or ship captain
  * APPROVED - approved by all parties
+ * COMPLETE - completed
+ * ENDED - ended by date
  */
 public enum TripRequestStatus {
     PENDING,
@@ -13,5 +15,6 @@ public enum TripRequestStatus {
     APPROVED_BY_CREW,
     APPROVED_BY_SHIP,
     APPROVED_BY_BOTH,
-    COMPLETE
+    COMPLETE,
+    ENDED
 }

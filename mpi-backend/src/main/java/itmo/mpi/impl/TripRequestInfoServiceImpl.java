@@ -22,6 +22,7 @@ import static itmo.mpi.entity.TripRequestStatus.APPROVED_BY_CREW;
 import static itmo.mpi.entity.TripRequestStatus.APPROVED_BY_SHIP;
 import static itmo.mpi.entity.TripRequestStatus.CANCELLED;
 import static itmo.mpi.entity.TripRequestStatus.COMPLETE;
+import static itmo.mpi.entity.TripRequestStatus.ENDED;
 import static itmo.mpi.entity.TripRequestStatus.PENDING;
 import static itmo.mpi.entity.TripRequestStatus.REJECTED;
 import static itmo.mpi.util.Const.CREW_ROLE;
@@ -88,6 +89,21 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
     }
 
     @Override
+    public List<TripRequest> getEndedRequestsForUser(String username) {
+        User user = userRepository.findByNick(username);
+        switch (user.getUserType().getName()) {
+            case TRAVELLER_ROLE:
+                return getRequestsForUserWithStatuses(user, getEndedStatuses());
+            case CREW_ROLE:
+                return getEndedRequestsForCrewOwner(user);
+            case SHIP_ROLE:
+                return getEndedRequestsForShipOwner(user);
+            default:
+                throw new IllegalArgumentException("User has no role");
+        }
+    }
+
+    @Override
     public List<TripRequest> getCancelledRequestsForUser(String username) {
         User user = userRepository.findByNick(username);
         switch (user.getUserType().getName()) {
@@ -110,6 +126,11 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
     @Override
     public List<TripRequest> getApprovedRequestsForCrew(Crew crew) {
         return cleanPasswords(requestRepository.findByCrewAndStatusIn(crew, getApprovedCrewStatuses()));
+    }
+
+    @Override
+    public List<TripRequest> getTripsByStatus(TripRequestStatus status) {
+        return requestRepository.findAllByStatus(status);
     }
 
     private List<TripRequest> getPendingRequestsForCrewOwner(User crewOwner) {
@@ -142,6 +163,16 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
         return cleanPasswords(requestRepository.findByShipInAndStatusIn(ships, getCancelledStatuses()));
     }
 
+    private List<TripRequest> getEndedRequestsForCrewOwner(User crewOwner) {
+        List<Crew> crews = crewRepository.findByCrewOwner(crewOwner);
+        return cleanPasswords(requestRepository.findByCrewInAndStatusIn(crews, getEndedStatuses()));
+    }
+
+    private List<TripRequest> getEndedRequestsForShipOwner(User shipOwner) {
+        List<Ship> ships = shipRepository.findByOwner(shipOwner);
+        return cleanPasswords(requestRepository.findByShipInAndStatusIn(ships, getEndedStatuses()));
+    }
+
     private List<TripRequest> getRequestsForUserWithStatuses(User user, List<TripRequestStatus> statuses) {
         if (user.getUserType().getName().equals(TRAVELLER_ROLE)) {
             return cleanPasswords(requestRepository.findByTravelerAndStatusIn(user, statuses));
@@ -161,6 +192,10 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
 
     private List<TripRequestStatus> getCompleteStatuses() {
         return Stream.of(COMPLETE).collect(Collectors.toList());
+    }
+
+    private List<TripRequestStatus> getEndedStatuses() {
+        return Stream.of(ENDED).collect(Collectors.toList());
     }
 
     private List<TripRequestStatus> getApprovedShipStatuses() {

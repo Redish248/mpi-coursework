@@ -17,4 +17,6 @@ public interface TripRequestManipulationService {
 
     void rateTrip(TripRatingRequest request);
 
+    void endTrip(TripRequest request);
+
 }

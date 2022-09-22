@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import static itmo.mpi.entity.TripRequestStatus.CANCELLED;
 import static itmo.mpi.entity.TripRequestStatus.COMPLETE;
+import static itmo.mpi.entity.TripRequestStatus.ENDED;
 import static itmo.mpi.entity.TripRequestStatus.PENDING;
 import static itmo.mpi.entity.TripRequestStatus.REJECTED;
 
@@ -116,6 +117,12 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
         tripRequestRepository.save(trip);
         shipRepository.save(ship);
         crewRepository.save(crew);
+    }
+
+    @Override
+    public void endTrip(TripRequest request) {
+        request.setStatus(ENDED);
+        tripRequestRepository.save(request);
     }
 
     private void approveRequestByTraveller(TripRequest tripRequest) {
