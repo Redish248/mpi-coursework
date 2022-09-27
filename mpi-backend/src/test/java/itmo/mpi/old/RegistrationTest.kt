@@ -1,4 +1,4 @@
-package itmo.mpi.registration
+package itmo.mpi.old
 
 import itmo.mpi.model.UserInfo
 import itmo.mpi.service.UserService

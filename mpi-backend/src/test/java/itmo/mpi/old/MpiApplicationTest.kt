@@ -1,4 +1,4 @@
-package itmo.mpi
+package itmo.mpi.old
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration

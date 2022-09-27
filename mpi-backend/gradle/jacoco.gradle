@@ -5,22 +5,35 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.00 //FIXME: set to 80%
+                minimum = 0.80
             }
             excludes = [
                     'itmo.mpi.MpiApplication',
                     'itmo.mpi.security.config.**',
                     'itmo.mpi.exception.**',
-
+                    'itmo.mpi.dto.**',
+                    'itmo.mpi.entity.**',
+                    'itmo.mpi.model.**',
+                    'itmo.mpi.repository.**',
+                    'itmo.mpi.service.**',
+                    'itmo.mpi.util.**',
+                    'itmo.mpi.utils.**',
             ]
         }
     }
 }
 
 def coverageExclusions = [
-        '**/itmo/mpi/MpiApplication.java',
+        '**/itmo/mpi/MpiApplication',
         '**/itmo/mpi/security/config/**',
         '**/itmo/mpi/exception/**',
+        '**/itmo/mpi/dto/**',
+        '**/itmo/mpi/entity/**',
+        '**/itmo/mpi/model/**',
+        '**/itmo/mpi/repository/**',
+        '**/itmo/mpi/service/**',
+        '**/itmo/mpi/util/**',
+        '**/itmo/mpi/utils/**',
 ]
 
 jacocoTestReport {
