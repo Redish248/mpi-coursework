@@ -1,0 +1,47 @@
+jacocoTestCoverageVerification {
+    violationRules {
+        rule {
+            element = 'CLASS'
+            limit {
+                counter = 'LINE'
+                value = 'COVEREDRATIO'
+                minimum = 0.00 //FIXME: set to 80%
+            }
+            excludes = [
+                    'itmo.mpi.MpiApplication',
+                    'itmo.mpi.security.config.**',
+                    'itmo.mpi.exception.**',
+
+            ]
+        }
+    }
+}
+
+def coverageExclusions = [
+        '**/itmo/mpi/MpiApplication.java',
+        '**/itmo/mpi/security/config/**',
+        '**/itmo/mpi/exception/**',
+]
+
+jacocoTestReport {
+    dependsOn(jacocoTestCoverageVerification)
+    reports {
+        xml.enabled true
+        csv.enabled false
+        html.enabled true
+        html.destination file("${buildDir}/reports/coverage")
+        xml.destination file("${buildDir}/reports/jacoco.xml")
+    }
+    afterEvaluate {
+        classDirectories.setFrom(files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: coverageExclusions)
+        }))
+    }
+}
+
+task testWithCoverage {
+    check.dependsOn jacocoTestCoverageVerification
+    dependsOn test
+    dependsOn jacocoTestReport
+    dependsOn check
+}

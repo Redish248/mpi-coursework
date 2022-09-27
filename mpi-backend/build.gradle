@@ -8,9 +8,11 @@ plugins {
     id 'java'
     id 'io.spring.dependency-management' version "1.0.11.RELEASE"
     id 'org.springframework.boot' version "2.6.3"
-
+    id 'jacoco'
     id 'org.jetbrains.kotlin.jvm' version '1.4.32'
 }
+
+apply from: 'gradle/jacoco.gradle'
 
 group 'itmo.mpi'
 version '1.0-SNAPSHOT'
@@ -86,3 +88,5 @@ compileTestKotlin {
         jvmTarget = "1.8"
     }
 }
+
+tasks.build.dependsOn testWithCoverage
