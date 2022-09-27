@@ -30,6 +30,8 @@ public class SchedulerService {
     @Scheduled(cron = "0 00 01 * * *")
     public void endRequestsByDate() {
         List<TripRequest> needToEnd = tripRequestInfoService.getTripsByStatus(TripRequestStatus.COMPLETE);
-        needToEnd.forEach(tripRequestManipulationService::endTrip);
+        needToEnd.stream().filter(tripRequest ->
+            LocalDate.now().isAfter(tripRequest.getDateEnd())
+        ).forEach(tripRequestManipulationService::endTrip);
     }
 }
