@@ -1,11 +1,13 @@
 package itmo.mpi.controller
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
 import itmo.mpi.entity.User
 import itmo.mpi.entity.UserRole
+import itmo.mpi.model.UserInfo
 import itmo.mpi.service.AdminService
 import itmo.mpi.service.UserService
 import itmo.mpi.utils.CommonUtils
@@ -14,15 +16,20 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.http.MediaType
+import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.post
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 import java.time.LocalDate
 
 @ExtendWith(MockKExtension::class)
 @AutoConfigureTestDatabase
 @WebMvcTest(RegistrationController::class)
-class RegistrationControllerTest(@Autowired val mockMvc: MockMvc)  {
+@AutoConfigureMockMvc(addFilters = false)
+class RegistrationControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val objectMapper: ObjectMapper)  {
 
     @MockkBean
     lateinit var userService: UserService
@@ -41,14 +48,12 @@ class RegistrationControllerTest(@Autowired val mockMvc: MockMvc)  {
 
     @Test
     fun `Check that user registration endpoint is available`() {
-        mockMvc.post("/mpi/signup/registerUser") {
-            param("value", "test value")
-        }.andExpect {
-            status { isOk() }
-            content {
-                string("test value")
-            }
-        }
+        val userInfo = UserInfo()
+        mockMvc.perform(MockMvcRequestBuilders.post("/mpi/signup/registerUser")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(userInfo)))
+                .andExpect(MockMvcResultMatchers.status().isOk)
+
     }
 
     private val mockedUser = User().apply {
