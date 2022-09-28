@@ -1,10 +1,8 @@
 package itmo.mpi.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
+import com.ninjasquad.springmockk.MockkBean
 import io.mockk.MockKAnnotations
 import io.mockk.every
-import io.mockk.impl.annotations.InjectMockKs
-import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
 import itmo.mpi.entity.User
 import itmo.mpi.entity.UserRole
@@ -15,30 +13,25 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.test.context.junit.jupiter.SpringExtension
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.post
 import java.time.LocalDate
-import kotlin.test.assertEquals
 
 @ExtendWith(MockKExtension::class)
-//@WebMvcTest(RegistrationController::class)
-class RegistrationControllerTest {
+@AutoConfigureTestDatabase
+@WebMvcTest(RegistrationController::class)
+class RegistrationControllerTest(@Autowired val mockMvc: MockMvc)  {
 
-   // @Autowired
-   // private lateinit var mockMvc: MockMvc
-
-    @MockK
+    @MockkBean
     lateinit var userService: UserService
 
-    @MockK
+    @MockkBean
     lateinit var adminService: AdminService
 
-    @MockK
+    @MockkBean
     lateinit var commonUtils: CommonUtils
-
-    @InjectMockKs
-    private lateinit var controller: RegistrationController
 
     @BeforeEach
     fun setUp() {
@@ -48,7 +41,14 @@ class RegistrationControllerTest {
 
     @Test
     fun `Check that user registration endpoint is available`() {
-        assertEquals(1,1);
+        mockMvc.post("/mpi/signup/registerUser") {
+            param("value", "test value")
+        }.andExpect {
+            status { isOk() }
+            content {
+                string("test value")
+            }
+        }
     }
 
     private val mockedUser = User().apply {
