@@ -37,20 +37,20 @@ class UserServiceImplTest {
     fun setUp() {
         MockKAnnotations.init(this)
         every { userRepository.findAllByRegistrationDateBefore(any()) } returns Lists.newArrayList(mockedUser)
-        every { userRepository.deleteAll(any()) } answers {nothing}
+        every { userRepository.deleteAll(any()) } answers { nothing }
     }
 
     @Test
     fun `Test removing old registration requests`() {
         userServiceImpl.removeOldRegistrationRequests(LocalDate.now());
-        verify { userRepository.findAllByRegistrationDateBefore(LocalDate.now().minusDays(7))}
+        verify { userRepository.findAllByRegistrationDateBefore(LocalDate.now().minusDays(7)) }
+        verify { userRepository.deleteAll(Lists.newArrayList(mockedUser)) }
     }
 
     private val mockedUser = User().apply {
         val role = UserRole()
         role.id = 1
         role.name = "TRAVELER"
-
 
         id = 1;
         email = "tst@ya.ru"
