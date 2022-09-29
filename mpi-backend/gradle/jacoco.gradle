@@ -5,11 +5,11 @@ jacocoTestCoverageVerification {
             limit {
                 counter = 'LINE'
                 value = 'COVEREDRATIO'
-                minimum = 0.00
+                minimum = 0.80
             }
             excludes = [
                     'itmo.mpi.MpiApplication',
-                    'itmo.mpi.security.config.**',
+                    'itmo.mpi.config.security.**',
                     'itmo.mpi.exception.**',
                     'itmo.mpi.dto.**',
                     'itmo.mpi.entity.**',
