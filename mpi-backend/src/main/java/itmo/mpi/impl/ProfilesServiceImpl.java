@@ -35,7 +35,6 @@ public class ProfilesServiceImpl implements ProfilesService {
     private final ShipRepository shipRepository;
     private final CrewRepository crewRepository;
     private final CrewMemberRepository crewMemberRepository;
-
     private final CommonUtils commonUtils;
 
     @Override
