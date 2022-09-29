@@ -13,7 +13,6 @@ import itmo.mpi.service.AdminService
 import itmo.mpi.service.UserService
 import itmo.mpi.utils.CommonUtils
 import org.hamcrest.CoreMatchers
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,8 +22,6 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import org.springframework.http.MediaType
 import org.springframework.security.authentication.TestingAuthenticationToken
-import org.springframework.security.core.Authentication
-import org.springframework.test.context.ActiveProfiles
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
@@ -34,7 +31,7 @@ import java.time.LocalDate
 @AutoConfigureTestDatabase
 @WebMvcTest(RegistrationController::class)
 @AutoConfigureMockMvc(addFilters = false)
-class RegistrationControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val objectMapper: ObjectMapper)  {
+class RegistrationControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val objectMapper: ObjectMapper) {
 
     @MockkBean
     lateinit var userService: UserService

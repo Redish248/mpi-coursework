@@ -40,14 +40,18 @@ class AdminServiceImplTest {
     @Test
     fun `Test activating user`() {
         every { userRepository.findByNick(any()) } answers { User() }
+
         adminServiceImpl.processUser("nick", true)
+
         verify { userRepository.save(any()) }
     }
 
     @Test
     fun `Test saving user`() {
         every { userRepository.findByNick(any()) } answers { User() }
+
         adminServiceImpl.processUser("nick", false)
+
         verify { userRepository.delete(any()) }
     }
 
@@ -56,8 +60,10 @@ class AdminServiceImplTest {
         every { userRepository.findByNick(any()) } answers { null }
         every { adminRepository.findAdminByNick(any()) } answers { null }
         every { adminRepository.save(any()) } answers { mockedAdmin }
+
         val admin = adminServiceImpl.createAdmin("name", "surname",
-                "nick",  "password", 100)
+                "nick", "password", 100)
+
         assertAll(
                 { assertEquals("name", admin.name) },
                 { assertEquals("surname", admin.surname) },
@@ -71,16 +77,22 @@ class AdminServiceImplTest {
     fun `Test creating admin when user with the same nick exists`() {
         every { userRepository.findByNick(any()) } answers { User() }
         every { adminRepository.findAdminByNick(any()) } answers { null }
-        assertThrows<UserAlreadyExistException> { adminServiceImpl.createAdmin("name", "surname",
-                "nick",  "password", 100) }
+
+        assertThrows<UserAlreadyExistException> {
+            adminServiceImpl.createAdmin("name", "surname",
+                    "nick", "password", 100)
+        }
     }
 
     @Test
     fun `Test creating admin when admin with the same nick exists`() {
         every { userRepository.findByNick(any()) } answers { null }
         every { adminRepository.findAdminByNick(any()) } answers { Admin() }
-        assertThrows<UserAlreadyExistException> { adminServiceImpl.createAdmin("name", "surname",
-                "nick",  "password", 100) }
+
+        assertThrows<UserAlreadyExistException> {
+            adminServiceImpl.createAdmin("name", "surname",
+                    "nick", "password", 100)
+        }
     }
 
     private val mockedAdmin = Admin().apply {

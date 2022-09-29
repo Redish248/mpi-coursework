@@ -47,7 +47,7 @@ class UserServiceImplTest {
         every { userRepository.findAllByRegistrationDateBefore(any()) } returns Lists.newArrayList(mockedUser)
         every { userRepository.deleteAll(any()) } answers { nothing }
         every { userRoleRepository.findUserRoleByName(any()) } answers { mockedRole }
-        every { userRepository.findUsersByIsActivated(any()) }  returns Lists.newArrayList(mockedUser)
+        every { userRepository.findUsersByIsActivated(any()) } returns Lists.newArrayList(mockedUser)
     }
 
     @Test
@@ -72,7 +72,9 @@ class UserServiceImplTest {
         every { adminRepository.findAdminByNick(any()) } answers { null }
         every { userRepository.findByNick(any()) } answers { null }
         every { userRepository.save(any()) } answers { mockedUser }
+
         userServiceImpl.createUser(userRequest)
+
         verify { userRepository.save(any()) }
         verify { userRoleRepository.findUserRoleByName("TRAVELER") }
     }
@@ -81,6 +83,7 @@ class UserServiceImplTest {
     fun `Test creating user when user with the same nick exists`() {
         every { adminRepository.findAdminByNick(any()) } answers { null }
         every { userRepository.findByNick(any()) } answers { mockedUser }
+
         assertThrows<UserAlreadyExistException> { userServiceImpl.createUser(userRequest) }
     }
 
@@ -88,12 +91,14 @@ class UserServiceImplTest {
     fun `Test creating user when admin with the same nick exists`() {
         every { adminRepository.findAdminByNick(any()) } answers { mockedAdmin }
         every { userRepository.findByNick(any()) } answers { null }
+
         assertThrows<UserAlreadyExistException> { userServiceImpl.createUser(userRequest) }
     }
 
     @Test
     fun `Test removing old registration requests`() {
-        userServiceImpl.removeOldRegistrationRequests(LocalDate.now());
+        userServiceImpl.removeOldRegistrationRequests(LocalDate.now())
+
         verify { userRepository.findAllByRegistrationDateBefore(LocalDate.now().minusDays(7)) }
         verify { userRepository.deleteAll(Lists.newArrayList(mockedUser)) }
     }

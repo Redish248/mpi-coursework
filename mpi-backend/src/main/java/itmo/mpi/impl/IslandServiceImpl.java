@@ -19,13 +19,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class IslandServiceImpl implements IslandService {
 
-    private final IslandRepository repository;
+    private final IslandRepository islandRepository;
     private final UserRepository userRepository;
     private final AdminRepository adminRepository;
 
     @Override
     public List<Island> getIslands() {
-        return repository.findAll().stream().sorted(Comparator.comparingInt(Island::getId))
+        return islandRepository.findAll().stream().sorted(Comparator.comparingInt(Island::getId))
                 .peek(island -> {
                     if (!checkIsVip()) {
                         island.setHasPirates(false);

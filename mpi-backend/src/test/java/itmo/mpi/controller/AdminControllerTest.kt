@@ -1,6 +1,5 @@
 package itmo.mpi.controller
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import com.ninjasquad.springmockk.MockkBean
 import io.mockk.MockKAnnotations
 import io.mockk.every
@@ -25,7 +24,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 @AutoConfigureTestDatabase
 @WebMvcTest(AdminController::class)
 @AutoConfigureMockMvc(addFilters = false)
-class AdminControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val objectMapper: ObjectMapper) {
+class AdminControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean
     lateinit var userService: UserService
