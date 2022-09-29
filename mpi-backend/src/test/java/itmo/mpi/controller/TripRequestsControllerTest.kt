@@ -36,14 +36,15 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 @WebMvcTest(TripRequestsController::class)
 @AutoConfigureMockMvc(addFilters = false)
 class TripRequestsControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val objectMapper: ObjectMapper) {
-    @MockkBean
-    lateinit var optionsLookUpServiceImpl: OptionsLookUpServiceImpl
 
     @MockkBean
-    lateinit var tripRequestManipulationServiceImpl: TripRequestManipulationServiceImpl
+    private lateinit var optionsLookUpServiceImpl: OptionsLookUpServiceImpl
 
     @MockkBean
-    lateinit var tripRequestInfoServiceImpl: TripRequestInfoServiceImpl
+    private lateinit var tripRequestManipulationServiceImpl: TripRequestManipulationServiceImpl
+
+    @MockkBean
+    private lateinit var tripRequestInfoServiceImpl: TripRequestInfoServiceImpl
 
     @BeforeEach
     fun setUp() {

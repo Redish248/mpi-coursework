@@ -26,7 +26,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 class IslandControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean
-    lateinit var islandServiceImpl: IslandServiceImpl
+    private lateinit var islandServiceImpl: IslandServiceImpl
 
     @BeforeEach
     fun setUp() {

@@ -30,13 +30,13 @@ import kotlin.test.assertNull
 class UserServiceImplTest {
 
     @MockK
-    lateinit var userRepository: UserRepository
+    private lateinit var userRepository: UserRepository
 
     @MockK
-    lateinit var userRoleRepository: UserRoleRepository
+    private lateinit var userRoleRepository: UserRoleRepository
 
     @MockK
-    lateinit var adminRepository: AdminRepository
+    private lateinit var adminRepository: AdminRepository
 
     @InjectMockKs
     private lateinit var userServiceImpl: UserServiceImpl

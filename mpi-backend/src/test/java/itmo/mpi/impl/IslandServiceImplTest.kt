@@ -22,18 +22,17 @@ import org.springframework.security.core.Authentication
 import org.springframework.security.core.context.SecurityContext
 import org.springframework.security.core.context.SecurityContextHolder
 
-
 @ExtendWith(MockKExtension::class)
 class IslandServiceImplTest {
 
     @MockK
-    lateinit var userRepository: UserRepository
+    private lateinit var userRepository: UserRepository
 
     @MockK
-    lateinit var adminRepository: AdminRepository
+    private lateinit var adminRepository: AdminRepository
 
     @MockK
-    lateinit var islandRepository: IslandRepository
+    private lateinit var islandRepository: IslandRepository
 
     @InjectMockKs
     private lateinit var islandServiceImpl: IslandServiceImpl

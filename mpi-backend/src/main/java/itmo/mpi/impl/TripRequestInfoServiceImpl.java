@@ -33,149 +33,133 @@ import static itmo.mpi.util.Const.TRAVELLER_ROLE;
 @Service
 public class TripRequestInfoServiceImpl implements TripRequestInfoService {
 
-    private final TripRequestRepository requestRepository;
+    private final TripRequestRepository tripRequestRepository;
     private final UserRepository userRepository;
     private final ShipRepository shipRepository;
     private final CrewRepository crewRepository;
 
     @Override
     public List<TripRequest> getPendingRequestsForShip(Ship ship) {
-        return cleanPasswords(requestRepository.findByShipAndStatusIn(ship, getPendingStatuses()));
+        return cleanPasswords(tripRequestRepository.findByShipAndStatusIn(ship, getPendingStatuses()));
     }
 
     @Override
     public List<TripRequest> getPendingRequestsForCrew(Crew crew) {
-        return cleanPasswords(requestRepository.findByCrewAndStatusIn(crew, getPendingStatuses()));
+        return cleanPasswords(tripRequestRepository.findByCrewAndStatusIn(crew, getPendingStatuses()));
     }
 
     @Override
     public List<TripRequest> getCompleteRequestsForShip(Ship ship) {
-        return cleanPasswords(requestRepository.findByShipAndStatusIn(ship, getCompleteStatuses()));
+        return cleanPasswords(tripRequestRepository.findByShipAndStatusIn(ship, getCompleteStatuses()));
     }
 
     @Override
     public List<TripRequest> getCompleteRequestsForCrew(Crew crew) {
-        return cleanPasswords(requestRepository.findByCrewAndStatusIn(crew, getCompleteStatuses()));
+        return cleanPasswords(tripRequestRepository.findByCrewAndStatusIn(crew, getCompleteStatuses()));
     }
 
     @Override
     public List<TripRequest> getPendingRequestsForUser(String username) {
         User user = userRepository.findByNick(username);
-        switch (user.getUserType().getName()) {
-            case TRAVELLER_ROLE:
-                return getRequestsForUserWithStatuses(user, getPendingStatuses());
-            case CREW_ROLE:
-                return getPendingRequestsForCrewOwner(user);
-            case SHIP_ROLE:
-                return getPendingRequestsForShipOwner(user);
-            default:
-                throw new IllegalArgumentException("User has no role");
-        }
+        return switch (user.getUserType().getName()) {
+            case TRAVELLER_ROLE -> getRequestsForUserWithStatuses(user, getPendingStatuses());
+            case CREW_ROLE -> getPendingRequestsForCrewOwner(user);
+            case SHIP_ROLE -> getPendingRequestsForShipOwner(user);
+            default -> throw new IllegalArgumentException("User has no role");
+        };
     }
 
     @Override
     public List<TripRequest> getCompleteRequestsForUser(String username) {
         User user = userRepository.findByNick(username);
-        switch (user.getUserType().getName()) {
-            case TRAVELLER_ROLE:
-                return getRequestsForUserWithStatuses(user, getCompleteStatuses());
-            case CREW_ROLE:
-                return getCompleteRequestsForCrewOwner(user);
-            case SHIP_ROLE:
-                return getCompleteRequestsForShipOwner(user);
-            default:
-                throw new IllegalArgumentException("User has no role");
-        }
+        return switch (user.getUserType().getName()) {
+            case TRAVELLER_ROLE -> getRequestsForUserWithStatuses(user, getCompleteStatuses());
+            case CREW_ROLE -> getCompleteRequestsForCrewOwner(user);
+            case SHIP_ROLE -> getCompleteRequestsForShipOwner(user);
+            default -> throw new IllegalArgumentException("User has no role");
+        };
     }
 
     @Override
     public List<TripRequest> getEndedRequestsForUser(String username) {
         User user = userRepository.findByNick(username);
-        switch (user.getUserType().getName()) {
-            case TRAVELLER_ROLE:
-                return getRequestsForUserWithStatuses(user, getEndedStatuses());
-            case CREW_ROLE:
-                return getEndedRequestsForCrewOwner(user);
-            case SHIP_ROLE:
-                return getEndedRequestsForShipOwner(user);
-            default:
-                throw new IllegalArgumentException("User has no role");
-        }
+        return switch (user.getUserType().getName()) {
+            case TRAVELLER_ROLE -> getRequestsForUserWithStatuses(user, getEndedStatuses());
+            case CREW_ROLE -> getEndedRequestsForCrewOwner(user);
+            case SHIP_ROLE -> getEndedRequestsForShipOwner(user);
+            default -> throw new IllegalArgumentException("User has no role");
+        };
     }
 
     @Override
     public List<TripRequest> getCancelledRequestsForUser(String username) {
         User user = userRepository.findByNick(username);
-        switch (user.getUserType().getName()) {
-            case TRAVELLER_ROLE:
-                return getRequestsForUserWithStatuses(user, getCancelledStatuses());
-            case CREW_ROLE:
-                return getCancelledRequestsForCrewOwner(user);
-            case SHIP_ROLE:
-                return getCancelledRequestsForShipOwner(user);
-            default:
-                throw new IllegalArgumentException("User has no role");
-        }
+        return switch (user.getUserType().getName()) {
+            case TRAVELLER_ROLE -> getRequestsForUserWithStatuses(user, getCancelledStatuses());
+            case CREW_ROLE -> getCancelledRequestsForCrewOwner(user);
+            case SHIP_ROLE -> getCancelledRequestsForShipOwner(user);
+            default -> throw new IllegalArgumentException("User has no role");
+        };
     }
 
     @Override
     public List<TripRequest> getApprovedRequestsForShip(Ship ship) {
-        return cleanPasswords(requestRepository.findByShipAndStatusIn(ship, getApprovedShipStatuses()));
+        return cleanPasswords(tripRequestRepository.findByShipAndStatusIn(ship, getApprovedShipStatuses()));
     }
 
     @Override
     public List<TripRequest> getApprovedRequestsForCrew(Crew crew) {
-        return cleanPasswords(requestRepository.findByCrewAndStatusIn(crew, getApprovedCrewStatuses()));
+        return cleanPasswords(tripRequestRepository.findByCrewAndStatusIn(crew, getApprovedCrewStatuses()));
     }
 
     @Override
     public List<TripRequest> getTripsByStatus(TripRequestStatus status) {
-        return requestRepository.findAllByStatus(status);
+        return tripRequestRepository.findAllByStatus(status);
     }
 
     private List<TripRequest> getPendingRequestsForCrewOwner(User crewOwner) {
         List<Crew> crews = crewRepository.findByCrewOwner(crewOwner);
-        return cleanPasswords(requestRepository.findByCrewInAndStatusIn(crews, getPendingStatuses()));
+        return cleanPasswords(tripRequestRepository.findByCrewInAndStatusIn(crews, getPendingStatuses()));
     }
 
     private List<TripRequest> getPendingRequestsForShipOwner(User shipOwner) {
         List<Ship> ships = shipRepository.findByOwner(shipOwner);
-        return cleanPasswords(requestRepository.findByShipInAndStatusIn(ships, getPendingStatuses()));
+        return cleanPasswords(tripRequestRepository.findByShipInAndStatusIn(ships, getPendingStatuses()));
     }
 
     private List<TripRequest> getCompleteRequestsForCrewOwner(User crewOwner) {
         List<Crew> crews = crewRepository.findByCrewOwner(crewOwner);
-        return cleanPasswords(requestRepository.findByCrewInAndStatusIn(crews, getCompleteStatuses()));
+        return cleanPasswords(tripRequestRepository.findByCrewInAndStatusIn(crews, getCompleteStatuses()));
     }
 
     private List<TripRequest> getCompleteRequestsForShipOwner(User shipOwner) {
         List<Ship> ships = shipRepository.findByOwner(shipOwner);
-        return cleanPasswords(requestRepository.findByShipInAndStatusIn(ships, getCompleteStatuses()));
+        return cleanPasswords(tripRequestRepository.findByShipInAndStatusIn(ships, getCompleteStatuses()));
     }
 
     private List<TripRequest> getCancelledRequestsForCrewOwner(User crewOwner) {
         List<Crew> crews = crewRepository.findByCrewOwner(crewOwner);
-        return cleanPasswords(requestRepository.findByCrewInAndStatusIn(crews, getCancelledStatuses()));
+        return cleanPasswords(tripRequestRepository.findByCrewInAndStatusIn(crews, getCancelledStatuses()));
     }
 
     private List<TripRequest> getCancelledRequestsForShipOwner(User crewOwner) {
         List<Ship> ships = shipRepository.findByOwner(crewOwner);
-        return cleanPasswords(requestRepository.findByShipInAndStatusIn(ships, getCancelledStatuses()));
+        return cleanPasswords(tripRequestRepository.findByShipInAndStatusIn(ships, getCancelledStatuses()));
     }
 
     private List<TripRequest> getEndedRequestsForCrewOwner(User crewOwner) {
         List<Crew> crews = crewRepository.findByCrewOwner(crewOwner);
-        return cleanPasswords(requestRepository.findByCrewInAndStatusIn(crews, getEndedStatuses()));
+        return cleanPasswords(tripRequestRepository.findByCrewInAndStatusIn(crews, getEndedStatuses()));
     }
 
     private List<TripRequest> getEndedRequestsForShipOwner(User shipOwner) {
         List<Ship> ships = shipRepository.findByOwner(shipOwner);
-        return cleanPasswords(requestRepository.findByShipInAndStatusIn(ships, getEndedStatuses()));
+        return cleanPasswords(tripRequestRepository.findByShipInAndStatusIn(ships, getEndedStatuses()));
     }
 
     private List<TripRequest> getRequestsForUserWithStatuses(User user, List<TripRequestStatus> statuses) {
         if (user.getUserType().getName().equals(TRAVELLER_ROLE)) {
-            return cleanPasswords(requestRepository.findByTravelerAndStatusIn(user, statuses));
+            return cleanPasswords(tripRequestRepository.findByTravelerAndStatusIn(user, statuses));
         } else {
             throw new IllegalArgumentException(String.format("User %s is not a traveller", user.getNick()));
         }

@@ -34,13 +34,13 @@ import java.time.LocalDate
 class RegistrationControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val objectMapper: ObjectMapper) {
 
     @MockkBean
-    lateinit var userService: UserService
+    private lateinit var userService: UserService
 
     @MockkBean
-    lateinit var adminService: AdminService
+    private lateinit var adminService: AdminService
 
     @MockkBean
-    lateinit var commonUtils: CommonUtils
+    private lateinit var commonUtils: CommonUtils
 
     @BeforeEach
     fun setUp() {

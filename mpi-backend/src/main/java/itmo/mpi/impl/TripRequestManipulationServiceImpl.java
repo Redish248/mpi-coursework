@@ -25,11 +25,8 @@ import static itmo.mpi.entity.TripRequestStatus.REJECTED;
 public class TripRequestManipulationServiceImpl implements TripRequestManipulationService {
 
     private final TripRequestRepository tripRequestRepository;
-
     private final CrewRepository crewRepository;
-
     private final ShipRepository shipRepository;
-
     private final UserRepository userRepository;
     private final TripRequestInfoService requestInfoService;
 
@@ -127,19 +124,16 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
 
     private void approveRequestByTraveller(TripRequest tripRequest) {
         switch (tripRequest.getStatus()) {
-            case REJECTED:
-            case CANCELLED:
-                throw new IllegalArgumentException("Cancelled and rejected requests can't be approved");
-            case COMPLETE:
-                throw new IllegalArgumentException("This request is already approved");
-            case PENDING:
-            case APPROVED_BY_CREW:
-            case APPROVED_BY_SHIP:
-                throw new IllegalArgumentException("Request must be approved both by ship and crew before being" +
-                        " approved by traveller");
-            case APPROVED_BY_BOTH:
+            case REJECTED, CANCELLED ->
+                    throw new IllegalArgumentException("Cancelled and rejected requests can't be approved");
+            case COMPLETE -> throw new IllegalArgumentException("This request is already approved");
+            case PENDING, APPROVED_BY_CREW, APPROVED_BY_SHIP ->
+                    throw new IllegalArgumentException("Request must be approved both by ship and crew before being" +
+                            " approved by traveller");
+            case APPROVED_BY_BOTH -> {
                 tripRequest.setStatus(TripRequestStatus.COMPLETE);
                 tripRequestRepository.save(tripRequest);
+            }
         }
     }
 

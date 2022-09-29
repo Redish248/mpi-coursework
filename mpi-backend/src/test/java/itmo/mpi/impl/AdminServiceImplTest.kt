@@ -22,10 +22,10 @@ import org.junit.jupiter.api.extension.ExtendWith
 class AdminServiceImplTest {
 
     @MockK
-    lateinit var userRepository: UserRepository
+    private lateinit var userRepository: UserRepository
 
     @MockK
-    lateinit var adminRepository: AdminRepository
+    private lateinit var adminRepository: AdminRepository
 
     @InjectMockKs
     private lateinit var adminServiceImpl: AdminServiceImpl

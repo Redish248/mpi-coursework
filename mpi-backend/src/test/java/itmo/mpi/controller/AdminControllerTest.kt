@@ -27,10 +27,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 class AdminControllerTest(@Autowired val mockMvc: MockMvc) {
 
     @MockkBean
-    lateinit var userService: UserService
+    private lateinit var userService: UserService
 
     @MockkBean
-    lateinit var adminService: AdminService
+    private lateinit var adminService: AdminService
 
     @BeforeEach
     fun setUp() {

@@ -69,11 +69,11 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
                 .collect(Collectors.toList());
     }
 
-    int travelDurationInDays(int distance, int speed) {
+    private int travelDurationInDays(int distance, int speed) {
         return (int) Math.ceil((float) distance / speed);
     }
 
-    int calculateDistance(Island from, Island to) {
+    private int calculateDistance(Island from, Island to) {
         return (int) Math.ceil(Math.sqrt(Math.pow(from.getXCoordinate() - to.getXCoordinate(), 2) +
                 Math.pow(from.getYCoordinate() - to.getYCoordinate(), 2)));
     }
