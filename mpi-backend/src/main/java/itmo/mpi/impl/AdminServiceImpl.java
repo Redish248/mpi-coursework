@@ -42,7 +42,6 @@ public class AdminServiceImpl implements AdminService {
         newAdmin.setNick(nick);
         newAdmin.setPassword(BCrypt.hashpw(password, BCrypt.gensalt()));
         newAdmin.setSalary(salary);
-        newAdmin = adminRepository.save(newAdmin);
-        return newAdmin;
+        return adminRepository.save(newAdmin);
     }
 }
