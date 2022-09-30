@@ -8,7 +8,14 @@ import itmo.mpi.exception.IllegalRequestParamsException;
 import itmo.mpi.exception.UserAlreadyHasCrewException;
 import itmo.mpi.exception.UserAlreadyHasShipException;
 import itmo.mpi.model.UserInfoUpdate;
-import itmo.mpi.model.profiles.*;
+import itmo.mpi.model.profiles.CrewMemberRequest;
+import itmo.mpi.model.profiles.CrewProfileResponse;
+import itmo.mpi.model.profiles.CrewRequest;
+import itmo.mpi.model.profiles.CrewResponse;
+import itmo.mpi.model.profiles.ShipProfileResponse;
+import itmo.mpi.model.profiles.ShipRequest;
+import itmo.mpi.model.profiles.ShipResponse;
+import itmo.mpi.model.profiles.UserProfileResponse;
 import itmo.mpi.repository.CrewMemberRepository;
 import itmo.mpi.repository.CrewRepository;
 import itmo.mpi.repository.ShipRepository;
@@ -40,8 +47,12 @@ public class ProfilesServiceImpl implements ProfilesService {
     @Override
     public CrewResponse registerCrew(String nickName, CrewRequest newCrew) {
         User user = userRepository.findByNick(nickName);
-        if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER)) throw new IllegalRequestParamsException("");
-        if (getCrew(user) != null) throw new UserAlreadyHasCrewException();
+        if (!Objects.equals(user.getUserType().getName(), CREW_MANAGER)) {
+            throw new IllegalRequestParamsException("Incorrect role type");
+        }
+        if (getCrew(user) != null) {
+            throw new UserAlreadyHasCrewException();
+        }
 
         Crew crewEntity = new Crew(
                 newCrew.getTeamName(),
@@ -55,7 +66,7 @@ public class ProfilesServiceImpl implements ProfilesService {
 
         List<CrewMember> members = newCrew.getMembers().stream().map(m -> new CrewMember(savedCrew, m.getFullName(),
                 m.getExperience())).collect(Collectors.toList());
-        crewMemberRepository.saveAll(members);
+        members = crewMemberRepository.saveAll(members);
 
         return new CrewResponse(savedCrew, members);
     }
@@ -65,7 +76,7 @@ public class ProfilesServiceImpl implements ProfilesService {
         User user = userRepository.findByNick(nickName);
         Crew crew = crewRepository.getCrewByCrewOwner(user);
 
-        List<itmo.mpi.model.profiles.CrewMember> shortModelMembers = new ArrayList<>();
+        List<CrewMemberRequest> shortModelMembers = new ArrayList<>();
 
         crew.setTeamName(newCrew.getTeamName());
         crew.setPhoto(newCrew.getPhoto());
@@ -73,27 +84,29 @@ public class ProfilesServiceImpl implements ProfilesService {
         crew.setPricePerDay(newCrew.getPricePerDay());
         Crew savedCrew = crewRepository.save(crew);
 
-        crewMemberRepository.getCrewMemberByCrewId(crew.getId()).forEach(oldMember -> {
-            itmo.mpi.model.profiles.CrewMember shortModel = convertToShortModel(oldMember);
+        crewMemberRepository.getCrewMembersByCrewId(crew.getId()).forEach(oldMember -> {
+            CrewMemberRequest shortModel = convertToShortModel(oldMember);
             if (!newCrew.getMembers().contains(shortModel)) {
                 crewMemberRepository.delete(oldMember);
             } else {
                 shortModelMembers.add(shortModel);
             }
         });
-        //FIXME: тут при сохранении id в базе почти всегда по идее меняется. Может, адекватный способ апдейта найдётся
+        //FIXME: тут при сохранении id в базе почти всегда по идее меняется.
+        // Может, адекватный способ апдейта найдётся
         newCrew.getMembers().forEach(newMember -> {
             if (!shortModelMembers.contains(newMember)) {
-               crewMemberRepository.save(new CrewMember(crew, newMember.getFullName(), newMember.getExperience()));
-               shortModelMembers.add(newMember);
+                crewMemberRepository.save(new CrewMember(crew, newMember.getFullName(),
+                        newMember.getExperience()));
+                shortModelMembers.add(newMember);
             }
         });
 
-        return new CrewResponse(savedCrew, crewMemberRepository.getCrewMemberByCrewId(crew.getId()));
+        return new CrewResponse(savedCrew, crewMemberRepository.getCrewMembersByCrewId(crew.getId()));
     }
 
-    private itmo.mpi.model.profiles.CrewMember convertToShortModel(CrewMember oldMember) {
-        itmo.mpi.model.profiles.CrewMember oldModel = new itmo.mpi.model.profiles.CrewMember();
+    private CrewMemberRequest convertToShortModel(CrewMember oldMember) {
+        CrewMemberRequest oldModel = new CrewMemberRequest();
         oldModel.setFullName(oldMember.getFullName());
         oldModel.setExperience(oldMember.getExperience());
         return oldModel;
@@ -102,9 +115,12 @@ public class ProfilesServiceImpl implements ProfilesService {
     @Override
     public ShipResponse registerShip(String nickName, ShipRequest newShip) {
         User user = userRepository.findByNick(nickName);
-        if (!Objects.equals(user.getUserType().getName(), SHIP_OWNER)) throw new IllegalRequestParamsException("");
+        if (!Objects.equals(user.getUserType().getName(), SHIP_OWNER)) {
+            throw new IllegalRequestParamsException("incorrect role");
+        }
 
         if (getShip(user) != null) throw new UserAlreadyHasShipException();
+
         Ship shipEntity = new Ship(
                 newShip.getName(),
                 user,
@@ -135,7 +151,7 @@ public class ProfilesServiceImpl implements ProfilesService {
         ship.setFuelConsumption(newShipInfo.getFuelConsumption());
         ship.setSpeed(newShipInfo.getSpeed());
         ship.setCapacity(newShipInfo.getCapacity());
-         return new ShipResponse(shipRepository.save(ship));
+        return new ShipResponse(shipRepository.save(ship));
     }
 
     @Override
@@ -186,12 +202,13 @@ public class ProfilesServiceImpl implements ProfilesService {
 
         return userRepository
                 .findAll().stream()
-                .filter(el -> Objects.equals(el.getUserType().getName(), CREW_MANAGER) && el.getIsActivated())
+                .filter(el -> Objects.equals(el.getUserType().getName(), CREW_MANAGER)
+                        && el.getIsActivated())
                 .map(el -> {
                     Crew crew = getCrew(el);
                     if (crew == null) return null;
 
-                    List<CrewMember> members = crewMemberRepository.getCrewMemberByCrewId(crew.getId());
+                    List<CrewMember> members = crewMemberRepository.getCrewMembersByCrewId(crew.getId());
 
                     return new CrewProfileResponse(
                             el.getId(),
@@ -200,7 +217,6 @@ public class ProfilesServiceImpl implements ProfilesService {
                             el.isShareContactInfo() ? el.getEmail() : null,
                             el.isShareContactInfo() ? el.getPhone() : null,
                             currentUser.getIsVip() ? el.getIsPirate() : null,
-
                             crew,
                             members
                     );
@@ -218,7 +234,7 @@ public class ProfilesServiceImpl implements ProfilesService {
         Crew crew = getCrew(user);
         if (crew == null) return null;
 
-        List<CrewMember> members = crewMemberRepository.getCrewMemberByCrewId(crew.getId());
+        List<CrewMember> members = crewMemberRepository.getCrewMembersByCrewId(crew.getId());
         return new CrewResponse(crew, members);
     }
 
@@ -243,7 +259,7 @@ public class ProfilesServiceImpl implements ProfilesService {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         LocalDate localDate = LocalDate.parse(userInfo.getBirthDate(), formatter);
         user.setBirthDate(localDate);
-        User userToReturn =  userRepository.save(user);
+        User userToReturn = userRepository.save(user);
         userToReturn.setPassword("");
         return userToReturn;
     }

@@ -1,6 +1,7 @@
 package itmo.mpi.model.profiles;
 
 import itmo.mpi.entity.Crew;
+import itmo.mpi.entity.CrewMember;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -17,17 +18,17 @@ public class CrewResponse {
     private String description;
     private int pricePerDay;
     private int membersNumber;
-    private List<CrewMember> members;
+    private List<CrewMemberResponse> members;
 
     @Data
     @AllArgsConstructor
-    static class CrewMember {
+    public static class CrewMemberResponse {
         private int uid;
         private String fullName;
         private int experience;
     }
 
-    public CrewResponse(Crew crew, List<itmo.mpi.entity.CrewMember> members) {
+    public CrewResponse(Crew crew, List<CrewMember> members) {
         this.uid = crew.getId();
         this.teamName = crew.getTeamName();
         this.rates = crew.getRatesAverage();
@@ -35,6 +36,6 @@ public class CrewResponse {
         this.description = crew.getDescription();
         this.pricePerDay = crew.getPricePerDay();
         this.membersNumber = members.size();
-        this.members = members.stream().map(el -> new CrewMember(el.getId(), el.getFullName(), el.getExperience())).collect(Collectors.toList());
+        this.members = members.stream().map(el -> new CrewMemberResponse(el.getId(), el.getFullName(), el.getExperience())).collect(Collectors.toList());
     }
 }

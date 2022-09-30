@@ -36,7 +36,7 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
                 .flatMap(shipOption -> {
                     int days = shipOption.getDays();
                     Ship ship = shipOption.getShip();
-                    int shipCost = (ship.getFuelConsumption()+ship.getPricePerDay()) * days;
+                    int shipCost = (ship.getFuelConsumption() + ship.getPricePerDay()) * days;
                     LocalDate finishDate = tripRequestDto.getStartDate().plus(days, ChronoUnit.DAYS);
 
                     List<Crew> crewsForShip = crewRepository.getFreeCrewsForDates(tripRequestDto.getStartDate(),
@@ -44,11 +44,11 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
 
                     return crewsForShip.stream()
                             .filter(crew -> crew.getCrewOwner().getIsActivated() &&
-                                    crew.getPricePerDay()*days + shipCost <= tripRequestDto.getBudget())
+                                    (long) crew.getPricePerDay() * days + shipCost <= tripRequestDto.getBudget())
                             .map(crew -> TripOption.builder()
                                     .crew(crew)
                                     .ship(ship)
-                                    .price(crew.getPricePerDay()*days + shipCost)
+                                    .price(crew.getPricePerDay() * days + shipCost)
                                     .startDate(tripRequestDto.getStartDate())
                                     .finishDate(tripRequestDto.getStartDate().plus(days, ChronoUnit.DAYS))
                                     .build());
@@ -60,8 +60,8 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
         int distance = calculateDistance(tripRequestDto.getFrom(), tripRequestDto.getTo());
         return shipRepository.getFreeShipsForTrip(tripRequestDto.getStartDate(), distance)
                 .stream()
-                .filter(ship -> (travelDurationInDays(distance, ship.getSpeed()))
-                        * (ship.getPricePerDay()+ship.getFuelConsumption()) <= tripRequestDto.getBudget())
+                .filter(ship -> (long) (travelDurationInDays(distance, ship.getSpeed()))
+                        * (ship.getPricePerDay() + ship.getFuelConsumption()) <= tripRequestDto.getBudget())
                 .map(ship -> ShipOption.builder()
                         .ship(ship)
                         .days(travelDurationInDays(distance, ship.getSpeed()))

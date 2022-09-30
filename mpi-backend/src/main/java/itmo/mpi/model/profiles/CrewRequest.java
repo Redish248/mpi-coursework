@@ -10,5 +10,5 @@ public class CrewRequest {
     private String photo;
     private String description;
     private int pricePerDay;
-    private List<CrewMember> members;
+    private List<CrewMemberRequest> members;
 }

@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface CrewMemberRepository extends JpaRepository<CrewMember, Long> {
 
-    List<CrewMember> getCrewMemberByCrewId(int crewId);
+    List<CrewMember> getCrewMembersByCrewId(int crewId);
 }

@@ -104,10 +104,10 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
         Ship ship = trip.getShip();
 
         crew.setRatesNumber(crew.getRatesNumber() + 1);
-        crew.setRatesAverage((crew.getRatesAverage() + request.getCrew())/crew.getRatesNumber());
+        crew.setRatesAverage((crew.getRatesAverage() + request.getCrew()) / crew.getRatesNumber());
 
         ship.setRatesNumber(ship.getRatesNumber() + 1);
-        ship.setRatesAverage((ship.getRatesAverage() + request.getShip())/ship.getRatesNumber());
+        ship.setRatesAverage((ship.getRatesAverage() + request.getShip()) / ship.getRatesNumber());
 
         trip.setIsRated(true);
 
@@ -203,7 +203,7 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
 
     private boolean tripsOverlap(TripRequest existing, TripRequest newRequest) {
         return (existing.getDateStart().isBefore(newRequest.getDateEnd()) ||
-                    existing.getDateStart().isEqual(newRequest.getDateEnd())) &&
+                existing.getDateStart().isEqual(newRequest.getDateEnd())) &&
                 (existing.getDateEnd().isAfter(newRequest.getDateStart()) ||
                         existing.getDateEnd().isEqual(newRequest.getDateStart()));
     }

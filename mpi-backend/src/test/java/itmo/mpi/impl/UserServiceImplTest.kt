@@ -54,6 +54,7 @@ class UserServiceImplTest {
     fun `Test with finding all not activated users`() {
         val result = userServiceImpl.findAllNotActivatedUsers();
         val formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
+
         assertAll(
                 { assertEquals(mockedUser.name, result[0].name) },
                 { assertEquals(mockedUser.surname, result[0].surname) },
@@ -63,7 +64,7 @@ class UserServiceImplTest {
                 { assertEquals(mockedRole.name, result[0].userType) },
                 { assertEquals(mockedUser.email, result[0].email) },
                 { assertEquals(mockedUser.phone, result[0].phone) },
-                { assertNotNull(LocalDate.now().format(formatter), result[0].registrationDate) },
+                { assertNotNull(LocalDate.now().format(formatter), result[0].registrationDate) }
         )
     }
 
