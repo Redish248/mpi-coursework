@@ -99,7 +99,26 @@ class ProfilesServiceImplTest {
 
     @Test
     fun `Test for updating crew`() {
+        every { userRepository.findByNick(any()) } returns mockedUser
+        every { crewRepository.getCrewByCrewOwner(any()) } returns mockedCrew
+        every { crewRepository.save(any()) } returns mockedCrew
+        every { crewMemberRepository.delete(any()) } answers  { nothing }
+        every { crewMemberRepository.save(any()) } answers  { nothing }
+        every { crewMemberRepository.getCrewMembersByCrewId(any()) } answers { Lists.newArrayList(mockedCrewMember) }
 
+        val result = profileServiceImpl.updateCrew("nick", mockedCrewRequest)
+
+        assertAll(
+                { assertEquals(1, result.uid) },
+                { assertEquals("team", result.teamName) },
+                { assertEquals(5.0, result.rates) },
+                { assertEquals("hash", result.photo) },
+                { assertEquals("test", result.description) },
+                { assertEquals(1, result.membersNumber) },
+                { assertEquals(1, result.members[0].uid) },
+                { assertEquals("Name", result.members[0].fullName) },
+                { assertEquals(3, result.members[0].experience) }
+        )
     }
 
     @Test
