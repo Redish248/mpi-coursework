@@ -114,7 +114,7 @@ public class TripRequestInfoServiceImpl implements TripRequestInfoService {
 
     @Override
     public List<TripRequest> getTripsByStatus(TripRequestStatus status) {
-        return tripRequestRepository.findAllByStatus(status);
+        return cleanPasswords(tripRequestRepository.findAllByStatus(status));
     }
 
     private List<TripRequest> getPendingRequestsForCrewOwner(User crewOwner) {
