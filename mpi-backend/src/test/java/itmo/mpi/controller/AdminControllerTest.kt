@@ -4,6 +4,7 @@ import com.ninjasquad.springmockk.MockkBean
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
+import io.mockk.justRun
 import itmo.mpi.model.UserInfo
 import itmo.mpi.service.AdminService
 import itmo.mpi.service.UserService
@@ -36,7 +37,7 @@ class AdminControllerTest(@Autowired val mockMvc: MockMvc) {
     fun setUp() {
         MockKAnnotations.init(this)
         every { userService.findAllNotActivatedUsers() } returns mockedUsersList
-        every { adminService.processUser(any(), any()) } answers { nothing }
+        justRun { adminService.processUser(any(), any()) }
     }
 
     @Test

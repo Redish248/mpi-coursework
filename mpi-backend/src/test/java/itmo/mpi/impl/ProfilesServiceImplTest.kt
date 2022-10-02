@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.justRun
 import io.mockk.mockk
 import itmo.mpi.entity.*
 import itmo.mpi.exception.IllegalRequestParamsException
@@ -64,7 +65,7 @@ class ProfilesServiceImplTest {
         every { userRepository.findByNick(any()) } returns mockedUser
         every { crewRepository.getCrewByCrewOwner(any()) } returns null
         every { crewRepository.save(any()) } returns mockedCrew
-        every { crewMemberRepository.saveAll<CrewMember>(any()) } answers { Lists.newArrayList(mockedCrewMember) }
+        every { crewMemberRepository.saveAll<CrewMember>(any()) } returns listOf(mockedCrewMember)
 
         val result = profileServiceImpl.registerCrew("nick", mockedCrewRequest)
 
@@ -102,9 +103,9 @@ class ProfilesServiceImplTest {
         every { userRepository.findByNick(any()) } returns mockedUser
         every { crewRepository.getCrewByCrewOwner(any()) } returns mockedCrew
         every { crewRepository.save(any()) } returns mockedCrew
-        every { crewMemberRepository.delete(any()) } answers  { nothing }
-        every { crewMemberRepository.save(any()) } answers  { nothing }
-        every { crewMemberRepository.getCrewMembersByCrewId(any()) } answers { Lists.newArrayList(mockedCrewMember) }
+        justRun { crewMemberRepository.delete(any()) }
+        justRun { crewMemberRepository.save(any()) }
+        every { crewMemberRepository.getCrewMembersByCrewId(any()) } returns listOf(mockedCrewMember)
 
         val result = profileServiceImpl.updateCrew("nick", mockedCrewRequest)
 
@@ -209,7 +210,7 @@ class ProfilesServiceImplTest {
         mockedUser.userType.name = "SHIP_OWNER"
         every { userRepository.findByNick(any()) } returns mockedUser
         every { shipRepository.getShipByOwnerId(any()) } returns mockedShip
-        every { userRepository.findAll() } answers { Lists.newArrayList(mockedUser) }
+        every { userRepository.findAll() } returns listOf(mockedUser)
 
         val result = profileServiceImpl.getShipsForCurrentUser("nick")
 
@@ -237,7 +238,7 @@ class ProfilesServiceImplTest {
     @Test
     fun `Test getting ships for current user - null`() {
         every { userRepository.findByNick(any()) } returns mockedUser
-        every { userRepository.findAll() } answers { Lists.newArrayList(mockedUser) }
+        every { userRepository.findAll() } returns listOf(mockedUser)
         every { shipRepository.getShipByOwnerId(any()) } returns null
 
         assertEquals(0, profileServiceImpl.getShipsForCurrentUser("nick").size)
@@ -250,7 +251,7 @@ class ProfilesServiceImplTest {
         mockedUser.isVip = false
         every { userRepository.findByNick(any()) } returns mockedUser
         every { shipRepository.getShipByOwnerId(any()) } returns mockedShip
-        every { userRepository.findAll() } answers { Lists.newArrayList(mockedUser) }
+        every { userRepository.findAll() } returns listOf(mockedUser)
 
         val result = profileServiceImpl.getShipsForCurrentUser("nick")
 
@@ -265,7 +266,7 @@ class ProfilesServiceImplTest {
     fun `Test getting crews for current user`() {
         every { userRepository.findByNick(any()) } returns mockedUser
         every { crewRepository.getCrewByCrewOwner(any()) } returns mockedCrew
-        every { userRepository.findAll() } answers { Lists.newArrayList(mockedUser) }
+        every { userRepository.findAll() } returns listOf(mockedUser)
         every { crewMemberRepository.getCrewMembersByCrewId(any()) } answers { Lists.newArrayList(mockedCrewMember) }
 
         val result = profileServiceImpl.getCrewsForCurrentUser("nick")
@@ -293,7 +294,7 @@ class ProfilesServiceImplTest {
     @Test
     fun `Test getting crews for current user - null`() {
         every { userRepository.findByNick(any()) } returns mockedUser
-        every { userRepository.findAll() } answers { Lists.newArrayList(mockedUser) }
+        every { userRepository.findAll() } returns listOf(mockedUser)
         every { crewRepository.getCrewByCrewOwner(any()) } returns null
 
         assertEquals(0, profileServiceImpl.getCrewsForCurrentUser("nick").size)
@@ -305,8 +306,8 @@ class ProfilesServiceImplTest {
         mockedUser.isVip = false
         every { userRepository.findByNick(any()) } returns mockedUser
         every { crewRepository.getCrewByCrewOwner(any()) } returns mockedCrew
-        every { userRepository.findAll() } answers { Lists.newArrayList(mockedUser) }
-        every { crewMemberRepository.getCrewMembersByCrewId(any()) } answers { Lists.newArrayList(mockedCrewMember) }
+        every { userRepository.findAll() } returns listOf(mockedUser)
+        every { crewMemberRepository.getCrewMembersByCrewId(any()) } returns listOf(mockedCrewMember)
 
         val result = profileServiceImpl.getCrewsForCurrentUser("nick")
 
@@ -321,7 +322,7 @@ class ProfilesServiceImplTest {
     fun `Test getting user crew`() {
         every { userRepository.findByNick(any()) } returns mockedUser
         every { crewRepository.getCrewByCrewOwner(any()) } returns mockedCrew
-        every { crewMemberRepository.getCrewMembersByCrewId(any()) } answers { Lists.newArrayList(mockedCrewMember) }
+        every { crewMemberRepository.getCrewMembersByCrewId(any()) } returns listOf(mockedCrewMember)
 
         val result = profileServiceImpl.getUserCrew("nick")
 

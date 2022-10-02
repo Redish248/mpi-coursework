@@ -5,6 +5,7 @@ import com.ninjasquad.springmockk.MockkBean
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.junit5.MockKExtension
+import io.mockk.justRun
 import io.mockk.mockk
 import itmo.mpi.dto.TripOption
 import itmo.mpi.dto.TripRequestDto
@@ -14,7 +15,6 @@ import itmo.mpi.entity.TripRequest
 import itmo.mpi.impl.OptionsLookUpServiceImpl
 import itmo.mpi.impl.TripRequestInfoServiceImpl
 import itmo.mpi.impl.TripRequestManipulationServiceImpl
-import org.assertj.core.util.Lists
 import org.hamcrest.CoreMatchers
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -49,24 +49,24 @@ class TripRequestsControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
-        every { optionsLookUpServiceImpl.lookUpOptions(any()) } returns Lists.newArrayList(mockedTripOption)
-        every { tripRequestManipulationServiceImpl.createTripRequest(any(), any()) } answers { nothing }
-        every { tripRequestManipulationServiceImpl.cancelRequest(any(), any()) } answers { nothing }
-        every { tripRequestManipulationServiceImpl.rejectRequest(any(), any()) } answers { nothing }
-        every { tripRequestManipulationServiceImpl.approveRequest(any(), any()) } answers { nothing }
-        every { tripRequestManipulationServiceImpl.deleteRequest(any(), any()) } answers { nothing }
-        every { tripRequestManipulationServiceImpl.rateTrip(any()) } answers { nothing }
-        every { tripRequestManipulationServiceImpl.endTrip(any()) } answers { nothing }
+        every { optionsLookUpServiceImpl.lookUpOptions(any()) } returns listOf(mockedTripOption)
+        justRun { tripRequestManipulationServiceImpl.createTripRequest(any(), any()) }
+        justRun { tripRequestManipulationServiceImpl.cancelRequest(any(), any()) }
+        justRun { tripRequestManipulationServiceImpl.rejectRequest(any(), any()) }
+        justRun { tripRequestManipulationServiceImpl.approveRequest(any(), any()) }
+        justRun { tripRequestManipulationServiceImpl.deleteRequest(any(), any()) }
+        justRun { tripRequestManipulationServiceImpl.rateTrip(any()) }
+        justRun { tripRequestManipulationServiceImpl.endTrip(any()) }
 
-        every { tripRequestInfoServiceImpl.getCompleteRequestsForUser(any()) } answers { Lists.newArrayList(mockedTripRequest) }
-        every { tripRequestInfoServiceImpl.getPendingRequestsForUser(any()) } answers { Lists.newArrayList(mockedTripRequest) }
-        every { tripRequestInfoServiceImpl.getCancelledRequestsForUser(any()) } answers { Lists.newArrayList(mockedTripRequest) }
-        every { tripRequestInfoServiceImpl.getEndedRequestsForUser(any()) } answers { Lists.newArrayList(mockedTripRequest) }
+        every { tripRequestInfoServiceImpl.getCompleteRequestsForUser(any()) } returns listOf(mockedTripRequest)
+        every { tripRequestInfoServiceImpl.getPendingRequestsForUser(any()) } returns listOf(mockedTripRequest)
+        every { tripRequestInfoServiceImpl.getCancelledRequestsForUser(any()) } returns listOf(mockedTripRequest)
+        every { tripRequestInfoServiceImpl.getEndedRequestsForUser(any()) } returns listOf(mockedTripRequest)
 
-        every { tripRequestInfoServiceImpl.getPendingRequestsForShip(any()) } answers { Lists.newArrayList(mockedTripRequest) }
-        every { tripRequestInfoServiceImpl.getCompleteRequestsForShip(any()) } answers { Lists.newArrayList(mockedTripRequest) }
-        every { tripRequestInfoServiceImpl.getPendingRequestsForCrew(any()) } answers { Lists.newArrayList(mockedTripRequest) }
-        every { tripRequestInfoServiceImpl.getCompleteRequestsForCrew(any()) } answers { Lists.newArrayList(mockedTripRequest) }
+        every { tripRequestInfoServiceImpl.getPendingRequestsForShip(any()) } returns listOf(mockedTripRequest)
+        every { tripRequestInfoServiceImpl.getCompleteRequestsForShip(any()) } returns listOf(mockedTripRequest)
+        every { tripRequestInfoServiceImpl.getPendingRequestsForCrew(any()) } returns listOf(mockedTripRequest)
+        every { tripRequestInfoServiceImpl.getCompleteRequestsForCrew(any()) } returns listOf(mockedTripRequest)
 
 
         val authentication: Authentication = mockk()

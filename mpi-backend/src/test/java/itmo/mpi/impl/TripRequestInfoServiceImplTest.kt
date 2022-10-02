@@ -53,10 +53,10 @@ class TripRequestInfoServiceImplTest {
     fun `Test getting pending requests for ship`() {
         val result = tripRequestInfoServiceImpl.getPendingRequestsForShip(mockedShip)[0]
         assertAll(
-                    { assertEquals(mockedTripRequest, result) },
-                    { assertEquals("", result.traveler.password) },
-                    { assertEquals("", result.crew.crewOwner.password) },
-                )
+                { assertEquals(mockedTripRequest, result) },
+                { assertEquals("", result.traveler.password) },
+                { assertEquals("", result.crew.crewOwner.password) },
+        )
     }
 
     @Test

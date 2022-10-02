@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.justRun
 import io.mockk.verify
 import itmo.mpi.entity.Admin
 import itmo.mpi.entity.User
@@ -44,10 +45,10 @@ class UserServiceImplTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
-        every { userRepository.findAllByRegistrationDateBefore(any()) } returns Lists.newArrayList(mockedUser)
-        every { userRepository.deleteAll(any()) } answers { nothing }
-        every { userRoleRepository.findUserRoleByName(any()) } answers { mockedRole }
-        every { userRepository.findUsersByIsActivated(any()) } returns Lists.newArrayList(mockedUser)
+        every { userRepository.findAllByRegistrationDateBefore(any()) } returns listOf(mockedUser)
+        justRun { userRepository.deleteAll(any()) }
+        every { userRoleRepository.findUserRoleByName(any()) } returns mockedRole
+        every { userRepository.findUsersByIsActivated(any()) } returns listOf(mockedUser)
     }
 
     @Test
@@ -70,9 +71,9 @@ class UserServiceImplTest {
 
     @Test
     fun `Test creating user`() {
-        every { adminRepository.findAdminByNick(any()) } answers { null }
-        every { userRepository.findByNick(any()) } answers { null }
-        every { userRepository.save(any()) } answers { mockedUser }
+        every { adminRepository.findAdminByNick(any()) } returns null
+        every { userRepository.findByNick(any()) } returns null
+        every { userRepository.save(any()) } returns mockedUser
 
         userServiceImpl.createUser(userRequest)
 
@@ -82,16 +83,16 @@ class UserServiceImplTest {
 
     @Test
     fun `Test creating user when user with the same nick exists`() {
-        every { adminRepository.findAdminByNick(any()) } answers { null }
-        every { userRepository.findByNick(any()) } answers { mockedUser }
+        every { adminRepository.findAdminByNick(any()) } returns null
+        every { userRepository.findByNick(any()) } returns mockedUser
 
         assertThrows<UserAlreadyExistException> { userServiceImpl.createUser(userRequest) }
     }
 
     @Test
     fun `Test creating user when admin with the same nick exists`() {
-        every { adminRepository.findAdminByNick(any()) } answers { mockedAdmin }
-        every { userRepository.findByNick(any()) } answers { null }
+        every { adminRepository.findAdminByNick(any()) } returns mockedAdmin
+        every { userRepository.findByNick(any()) } returns null
 
         assertThrows<UserAlreadyExistException> { userServiceImpl.createUser(userRequest) }
     }

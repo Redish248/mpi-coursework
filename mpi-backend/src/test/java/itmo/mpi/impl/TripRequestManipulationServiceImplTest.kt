@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.justRun
 import io.mockk.verify
 import itmo.mpi.entity.*
 import itmo.mpi.model.TripRatingRequest
@@ -50,7 +51,7 @@ class TripRequestManipulationServiceImplTest {
 
     @Test
     fun `Test creating trip request`() {
-        every { tripRequestRepository.save(any()) } answers { nothing }
+        justRun { tripRequestRepository.save(any()) }
         every { userRepository.findByNick(any()) } returns mockedUser
 
         tripRequestManipulationServiceImpl.createTripRequest(mockedTripRequest, "nick")
@@ -58,6 +59,7 @@ class TripRequestManipulationServiceImplTest {
         verify { tripRequestRepository.save(mockedTripRequest) }
 
     }
+
     @Test
     fun `Test creating trip request with empty username`() {
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.createTripRequest(TripRequest(), null) }
@@ -66,7 +68,7 @@ class TripRequestManipulationServiceImplTest {
     @Test
     fun `Test cancelling trip request`() {
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
-        every { tripRequestRepository.save(any()) } answers { nothing }
+        justRun { tripRequestRepository.save(any()) }
         every { userRepository.findByNick(any()) } returns mockedUser
 
         tripRequestManipulationServiceImpl.cancelRequest(mockedTripRequest, "nick")
@@ -79,27 +81,32 @@ class TripRequestManipulationServiceImplTest {
     @Test
     fun `Test cancelling trip request for COMPLETE status`() {
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
+
         mockedTripRequest.status = TripRequestStatus.COMPLETE
+
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.cancelRequest(mockedTripRequest, "nick") }
     }
 
     @Test
     fun `Test cancelling trip request for REJECTED status`() {
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
+
         mockedTripRequest.status = TripRequestStatus.REJECTED
+
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.cancelRequest(mockedTripRequest, "nick") }
     }
 
     @Test
     fun `Test cancelling trip request with incorrect username`() {
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
+
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.cancelRequest(mockedTripRequest, "test") }
     }
 
     @Test
     fun `Test rejecting trip request`() {
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
-        every { tripRequestRepository.save(any()) } answers { nothing }
+        justRun { tripRequestRepository.save(any()) }
         every { userRepository.findByNick(any()) } returns mockedUser
 
         tripRequestManipulationServiceImpl.rejectRequest(mockedTripRequest, "nick")
@@ -112,7 +119,9 @@ class TripRequestManipulationServiceImplTest {
     @Test
     fun `Test rejecting trip request for COMPLETE status`() {
         mockedTripRequest.status = TripRequestStatus.COMPLETE
+
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
+
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.rejectRequest(mockedTripRequest, "nick") }
     }
 
@@ -126,13 +135,14 @@ class TripRequestManipulationServiceImplTest {
     @Test
     fun `Test rejecting trip request with incorrect username`() {
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
+
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.rejectRequest(mockedTripRequest, "test") }
     }
 
     @Test
     fun `Test deleting trip`() {
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
-        every { tripRequestRepository.delete(any()) } answers { nothing }
+        justRun { tripRequestRepository.delete(any()) }
 
         tripRequestManipulationServiceImpl.deleteRequest(mockedTripRequest, "nick")
 
@@ -142,6 +152,7 @@ class TripRequestManipulationServiceImplTest {
     @Test
     fun `Test deleting trip with incorrect username`() {
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
+
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.deleteRequest(mockedTripRequest, "test") }
     }
 
@@ -272,7 +283,7 @@ class TripRequestManipulationServiceImplTest {
         mockedTripRequest.traveler = mockedTraveler
         mockedTripRequest.status = TripRequestStatus.APPROVED_BY_SHIP
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
-        every { tripRequestInfoServiceImpl.getApprovedRequestsForCrew(any()) } answers  { Lists.newArrayList(mockedTripRequest) }
+        every { tripRequestInfoServiceImpl.getApprovedRequestsForCrew(any()) } answers { Lists.newArrayList(mockedTripRequest) }
 
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.approveRequest(mockedTripRequest, "nick") }
     }
@@ -286,7 +297,7 @@ class TripRequestManipulationServiceImplTest {
         mockedTripRequest.status = TripRequestStatus.APPROVED_BY_SHIP
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
         every { tripRequestRepository.save(any()) } returns mockedTripRequest
-        every { tripRequestInfoServiceImpl.getApprovedRequestsForCrew(any()) } answers  { Lists.newArrayList() }
+        every { tripRequestInfoServiceImpl.getApprovedRequestsForCrew(any()) } answers { Lists.newArrayList() }
 
         tripRequestManipulationServiceImpl.approveRequest(mockedTripRequest, "nick")
 
@@ -302,7 +313,7 @@ class TripRequestManipulationServiceImplTest {
         mockedTripRequest.traveler = mockedTraveler
         mockedTripRequest.status = TripRequestStatus.PENDING
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
-        every { tripRequestInfoServiceImpl.getApprovedRequestsForCrew(any()) } answers  { Lists.newArrayList(mockedTripRequest) }
+        every { tripRequestInfoServiceImpl.getApprovedRequestsForCrew(any()) } answers { Lists.newArrayList(mockedTripRequest) }
 
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.approveRequest(mockedTripRequest, "nick") }
     }
@@ -316,7 +327,7 @@ class TripRequestManipulationServiceImplTest {
         mockedTripRequest.status = TripRequestStatus.PENDING
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
         every { tripRequestRepository.save(any()) } returns mockedTripRequest
-        every { tripRequestInfoServiceImpl.getApprovedRequestsForCrew(any()) } answers  { Lists.newArrayList() }
+        every { tripRequestInfoServiceImpl.getApprovedRequestsForCrew(any()) } answers { Lists.newArrayList() }
 
         tripRequestManipulationServiceImpl.approveRequest(mockedTripRequest, "nick")
 
@@ -427,7 +438,7 @@ class TripRequestManipulationServiceImplTest {
         mockedTripRequest.crew = mockedCrew
         mockedTripRequest.status = TripRequestStatus.APPROVED_BY_CREW
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
-        every { tripRequestInfoServiceImpl.getApprovedRequestsForShip(any()) } answers  { Lists.newArrayList(mockedTripRequest) }
+        every { tripRequestInfoServiceImpl.getApprovedRequestsForShip(any()) } answers { Lists.newArrayList(mockedTripRequest) }
 
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.approveRequest(mockedTripRequest, "nick") }
     }
@@ -445,7 +456,7 @@ class TripRequestManipulationServiceImplTest {
         mockedTripRequest.status = TripRequestStatus.APPROVED_BY_CREW
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
         every { tripRequestRepository.save(any()) } returns mockedTripRequest
-        every { tripRequestInfoServiceImpl.getApprovedRequestsForShip(any()) } answers  { Lists.newArrayList() }
+        every { tripRequestInfoServiceImpl.getApprovedRequestsForShip(any()) } answers { Lists.newArrayList() }
 
         tripRequestManipulationServiceImpl.approveRequest(mockedTripRequest, "nick")
 
@@ -465,7 +476,7 @@ class TripRequestManipulationServiceImplTest {
         mockedTripRequest.crew = mockedCrew
         mockedTripRequest.status = TripRequestStatus.PENDING
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
-        every { tripRequestInfoServiceImpl.getApprovedRequestsForShip(any()) } answers  { Lists.newArrayList(mockedTripRequest) }
+        every { tripRequestInfoServiceImpl.getApprovedRequestsForShip(any()) } answers { Lists.newArrayList(mockedTripRequest) }
 
         assertThrows<IllegalArgumentException> { tripRequestManipulationServiceImpl.approveRequest(mockedTripRequest, "nick") }
     }
@@ -483,7 +494,7 @@ class TripRequestManipulationServiceImplTest {
         mockedTripRequest.status = TripRequestStatus.PENDING
         every { tripRequestRepository.getById(any()) } returns mockedTripRequest
         every { tripRequestRepository.save(any()) } returns mockedTripRequest
-        every { tripRequestInfoServiceImpl.getApprovedRequestsForShip(any()) } answers  { Lists.newArrayList() }
+        every { tripRequestInfoServiceImpl.getApprovedRequestsForShip(any()) } answers { Lists.newArrayList() }
 
         tripRequestManipulationServiceImpl.approveRequest(mockedTripRequest, "nick")
 
@@ -505,11 +516,11 @@ class TripRequestManipulationServiceImplTest {
         verify { crewRepository.save(mockedCrew) }
 
         assertAll(
-            { assertEquals(2, mockedCrew.ratesNumber) },
-            { assertEquals(4.0, mockedCrew.ratesAverage) },
-            { assertEquals(2, mockedShip.ratesNumber) },
-            { assertEquals(4.0, mockedShip.ratesAverage) },
-            { assertTrue { mockedTripRequest.isRated } }
+                { assertEquals(2, mockedCrew.ratesNumber) },
+                { assertEquals(4.0, mockedCrew.ratesAverage) },
+                { assertEquals(2, mockedShip.ratesNumber) },
+                { assertEquals(4.0, mockedShip.ratesAverage) },
+                { assertTrue { mockedTripRequest.isRated } }
         )
     }
 

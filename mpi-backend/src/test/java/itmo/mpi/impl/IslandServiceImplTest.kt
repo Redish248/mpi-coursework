@@ -54,7 +54,7 @@ class IslandServiceImplTest {
 
     @Test
     fun `Test getting all islands for vip user`() {
-        every { userRepository.findByNick(any()) } answers { vipUser }
+        every { userRepository.findByNick(any()) } returns vipUser
         every { adminRepository.findAdminByNick(any()) } answers { null }
 
         val result = islandServiceImpl.getIslands()
@@ -64,7 +64,7 @@ class IslandServiceImplTest {
 
     @Test
     fun `Test getting all islands for not vip user`() {
-        every { userRepository.findByNick(any()) } answers { notVipUser }
+        every { userRepository.findByNick(any()) } returns notVipUser
         every { adminRepository.findAdminByNick(any()) } answers { null }
 
         val result = islandServiceImpl.getIslands()
@@ -74,7 +74,7 @@ class IslandServiceImplTest {
 
     @Test
     fun `Test getting all islands for admin`() {
-        every { userRepository.findByNick(any()) } answers { null }
+        every { userRepository.findByNick(any()) } returns null
         every { adminRepository.findAdminByNick(any()) } answers { Admin() }
 
         val result = islandServiceImpl.getIslands()
@@ -84,8 +84,8 @@ class IslandServiceImplTest {
 
     @Test
     fun `Test getting all islands for empty user`() {
-        every { userRepository.findByNick(any()) } answers { null }
-        every { adminRepository.findAdminByNick(any()) } answers { null }
+        every { userRepository.findByNick(any()) } returns null
+        every { adminRepository.findAdminByNick(any()) } returns null
 
         val result = islandServiceImpl.getIslands()
 

@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.justRun
 import io.mockk.verify
 import itmo.mpi.entity.Admin
 import itmo.mpi.entity.User
@@ -33,13 +34,13 @@ class AdminServiceImplTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
-        every { userRepository.save(any()) } answers { nothing }
-        every { userRepository.delete(any()) } answers { nothing }
+        justRun { userRepository.save(any()) }
+        justRun { userRepository.delete(any()) }
     }
 
     @Test
     fun `Test activating user`() {
-        every { userRepository.findByNick(any()) } answers { User() }
+        every { userRepository.findByNick(any()) } returns User()
 
         adminServiceImpl.processUser("nick", true)
 
@@ -48,7 +49,7 @@ class AdminServiceImplTest {
 
     @Test
     fun `Test saving user`() {
-        every { userRepository.findByNick(any()) } answers { User() }
+        every { userRepository.findByNick(any()) } returns User()
 
         adminServiceImpl.processUser("nick", false)
 
@@ -57,8 +58,8 @@ class AdminServiceImplTest {
 
     @Test
     fun `Test creating admin`() {
-        every { userRepository.findByNick(any()) } answers { null }
-        every { adminRepository.findAdminByNick(any()) } answers { null }
+        every { userRepository.findByNick(any()) } returns null
+        every { adminRepository.findAdminByNick(any()) } returns null
         every { adminRepository.save(any()) } answers { mockedAdmin }
 
         val admin = adminServiceImpl.createAdmin("name", "surname",
@@ -75,8 +76,8 @@ class AdminServiceImplTest {
 
     @Test
     fun `Test creating admin when user with the same nick exists`() {
-        every { userRepository.findByNick(any()) } answers { User() }
-        every { adminRepository.findAdminByNick(any()) } answers { null }
+        every { userRepository.findByNick(any()) } returns User()
+        every { adminRepository.findAdminByNick(any()) } returns null
 
         assertThrows<UserAlreadyExistException> {
             adminServiceImpl.createAdmin("name", "surname",
@@ -86,8 +87,8 @@ class AdminServiceImplTest {
 
     @Test
     fun `Test creating admin when admin with the same nick exists`() {
-        every { userRepository.findByNick(any()) } answers { null }
-        every { adminRepository.findAdminByNick(any()) } answers { Admin() }
+        every { userRepository.findByNick(any()) } returns null
+        every { adminRepository.findAdminByNick(any()) } returns Admin()
 
         assertThrows<UserAlreadyExistException> {
             adminServiceImpl.createAdmin("name", "surname",

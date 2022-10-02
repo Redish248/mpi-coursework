@@ -5,6 +5,7 @@ import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
 import io.mockk.junit5.MockKExtension
+import io.mockk.justRun
 import io.mockk.verify
 import itmo.mpi.entity.TripRequest
 import itmo.mpi.impl.TripRequestInfoServiceImpl
@@ -34,20 +35,22 @@ class SchedulerServiceTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
-        every { userServiceImpl.removeOldRegistrationRequests(any()) } answers { nothing }
+        justRun { userServiceImpl.removeOldRegistrationRequests(any()) }
         every { tripRequestInfoServiceImpl.getTripsByStatus(any()) } answers { Lists.newArrayList(mockedTripRequest) }
-        every { tripRequestManipulationServiceImpl.endTrip(any()) } answers { nothing }
+        justRun { tripRequestManipulationServiceImpl.endTrip(any()) }
     }
 
     @Test
     fun `Test cleaning registration requests`() {
         schedulerService.cleanRegistrationRequests()
+
         verify { userServiceImpl.removeOldRegistrationRequests(any()) }
     }
 
     @Test
     fun `Test cleaning old trips by date`() {
         schedulerService.endRequestsByDate()
+
         verify { tripRequestInfoServiceImpl.getTripsByStatus(any()) }
         verify { tripRequestManipulationServiceImpl.endTrip(mockedTripRequest) }
     }
