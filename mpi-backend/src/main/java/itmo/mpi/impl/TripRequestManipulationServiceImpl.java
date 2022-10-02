@@ -28,7 +28,7 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
     private final CrewRepository crewRepository;
     private final ShipRepository shipRepository;
     private final UserRepository userRepository;
-    private final TripRequestInfoService requestInfoService;
+    private final TripRequestInfoService tripRequestInfoService;
 
     @Override
     public void createTripRequest(TripRequest request, String username) {
@@ -164,7 +164,8 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
         tripRequestRepository.save(request);
     }
 
-    private void approveRequestByShip(TripRequest request) {
+    private void
+    approveRequestByShip(TripRequest request) {
         switch (request.getStatus()) {
             case APPROVED_BY_SHIP:
             case APPROVED_BY_BOTH:
@@ -192,12 +193,12 @@ public class TripRequestManipulationServiceImpl implements TripRequestManipulati
     }
 
     private boolean isShipAvailable(TripRequest request) {
-        return requestInfoService.getApprovedRequestsForShip(request.getShip()).stream()
+        return tripRequestInfoService.getApprovedRequestsForShip(request.getShip()).stream()
                 .noneMatch(trip -> tripsOverlap(trip, request));
     }
 
     private boolean ifCrewAvailable(TripRequest request) {
-        return requestInfoService.getApprovedRequestsForCrew(request.getCrew()).stream()
+        return tripRequestInfoService.getApprovedRequestsForCrew(request.getCrew()).stream()
                 .noneMatch(trip -> tripsOverlap(trip, request));
     }
 
