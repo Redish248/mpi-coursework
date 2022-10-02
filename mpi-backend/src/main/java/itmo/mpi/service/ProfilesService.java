@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ProfilesService {
 
-    CrewResponse registerCrew(String nickName, CrewRequest newCrew);
+    CrewResponse registerCrew(String nickName, RegisterCrewRequest newCrew);
 
-    CrewResponse updateCrew(String nickName, CrewRequest newCrew);
+    CrewResponse updateCrew(String nickName, RegisterCrewRequest newCrew);
 
     ShipResponse registerShip(String nickName, ShipRequest newShip);
 

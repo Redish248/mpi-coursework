@@ -3,6 +3,7 @@ package itmo.mpi.impl;
 import itmo.mpi.entity.Admin;
 import itmo.mpi.entity.Island;
 import itmo.mpi.entity.User;
+import itmo.mpi.model.IslandResponse;
 import itmo.mpi.repository.AdminRepository;
 import itmo.mpi.repository.IslandRepository;
 import itmo.mpi.repository.UserRepository;
@@ -31,6 +32,13 @@ public class IslandServiceImpl implements IslandService {
                         island.setHasPirates(false);
                     }
                 })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<IslandResponse> getAllIslandsForFsb() {
+        return islandRepository.findAll().stream()
+                .map(el -> new IslandResponse(el.getId(), el.getName(), el.getHasPirates()))
                 .collect(Collectors.toList());
     }
 

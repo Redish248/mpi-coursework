@@ -1,7 +1,5 @@
 package itmo.mpi.entity;
 
-import lombok.Data;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "island")
-@Data
 public class Island {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,4 +27,43 @@ public class Island {
     @Column(name = "has_pirates")
     private Boolean hasPirates;
 
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Integer getXCoordinate() {
+        return xCoordinate;
+    }
+
+    public Integer getYCoordinate() {
+        return yCoordinate;
+    }
+
+    public Boolean getHasPirates() {
+        return hasPirates;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setXCoordinate(Integer xCoordinate) {
+        this.xCoordinate = xCoordinate;
+    }
+
+    public void setYCoordinate(Integer yCoordinate) {
+        this.yCoordinate = yCoordinate;
+    }
+
+    public void setHasPirates(Boolean hasPirates) {
+        this.hasPirates = hasPirates;
+    }
 }

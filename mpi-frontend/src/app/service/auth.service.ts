@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core'
-import {Permissions, User} from '../entity/User'
-import {HttpClient, HttpParams} from '@angular/common/http'
-import {Router} from '@angular/router'
-import {ConfigService} from './config.service'
-import {map, Observable, Subscription} from 'rxjs'
+import { Injectable } from '@angular/core'
+import { Permissions, User } from '../entity/User'
+import { HttpClient, HttpParams } from '@angular/common/http'
+import { Router } from '@angular/router'
+import { ConfigService } from './config.service'
+import { map, Observable, Subscription } from 'rxjs'
 
 @Injectable({
     providedIn: 'root'
@@ -94,7 +94,11 @@ export class AuthService {
         return localStorage.getItem('perm') == Permissions.SHIP_OWNER
     }
 
+    isFsbAgent(): boolean {
+        return localStorage.getItem('perm') == Permissions.FSB
+    }
+
     isLoggedIn(): boolean {
-        return this.isAdmin() || this.isTraveler() || this.isShipOwner() || this.isCrewManager();
+        return this.isAdmin() || this.isTraveler() || this.isShipOwner() || this.isCrewManager()
     }
 }

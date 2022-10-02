@@ -1,7 +1,10 @@
 package itmo.mpi.controller;
 
+import itmo.mpi.entity.Admin;
+import itmo.mpi.model.NewFsbAgentRequest;
 import itmo.mpi.model.UserInfo;
 import itmo.mpi.service.AdminService;
+import itmo.mpi.service.FsbAgentService;
 import itmo.mpi.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,16 +26,31 @@ public class AdminController {
 
     private final UserService userService;
 
-    @GetMapping( "/notActivatedUsers")
-    public @ResponseBody ResponseEntity<List<UserInfo>> getAllNotActivatedUsers() {
+    private final FsbAgentService fsbAgentService;
+
+    @GetMapping("/notActivatedUsers")
+    public @ResponseBody
+    ResponseEntity<List<UserInfo>> getAllNotActivatedUsers() {
         List<UserInfo> result = userService.findAllNotActivatedUsers();
         return ResponseEntity.ok().body(result);
     }
 
-    @PostMapping( "/processUser")
+    @PostMapping("/processUser")
     public HttpStatus processUser(String nick, boolean isActivated) {
         adminService.processUser(nick, isActivated);
         return HttpStatus.OK;
     }
 
+    @PostMapping("/registerAdmin")
+    public @ResponseBody
+    ResponseEntity<Admin> registerAdmin(String name, String surname, String nick, String password, int salary) {
+        return ResponseEntity.ok(adminService.createAdmin(name, surname, nick, password, salary));
+    }
+
+    @PostMapping("/registerFsb")
+    public @ResponseBody
+    ResponseEntity registerFsbAgent(NewFsbAgentRequest request) {
+        fsbAgentService.registerNewAgent(request);
+        return new ResponseEntity(HttpStatus.CREATED);
+    }
 }

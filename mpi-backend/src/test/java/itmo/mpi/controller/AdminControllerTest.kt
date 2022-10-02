@@ -1,12 +1,13 @@
 package itmo.mpi.controller
 
 import com.ninjasquad.springmockk.MockkBean
-import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.*
 import io.mockk.junit5.MockKExtension
-import io.mockk.justRun
+import itmo.mpi.entity.Admin
+import itmo.mpi.model.NewFsbAgentRequest
 import itmo.mpi.model.UserInfo
 import itmo.mpi.service.AdminService
+import itmo.mpi.service.FsbAgentService
 import itmo.mpi.service.UserService
 import org.assertj.core.util.Lists
 import org.hamcrest.CoreMatchers
@@ -33,30 +34,87 @@ class AdminControllerTest(@Autowired val mockMvc: MockMvc) {
     @MockkBean
     private lateinit var adminService: AdminService
 
+    @MockkBean
+    private lateinit var fsbAgentService: FsbAgentService
+
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
         every { userService.findAllNotActivatedUsers() } returns mockedUsersList
+        every { adminService.createAdmin(any(), any(), any(), any(), any()) } returns mockedAdmin
         justRun { adminService.processUser(any(), any()) }
     }
 
     @Test
     fun `Test getting all not activated users`() {
         mockMvc.perform(MockMvcRequestBuilders.get("/mpi/admin/notActivatedUsers"))
-                .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", CoreMatchers.`is`("name")))
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("$[0].name", CoreMatchers.`is`("name")))
     }
 
     @Test
     fun `Test processing user`() {
-        mockMvc.perform(MockMvcRequestBuilders.post("/mpi/admin/processUser")
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/mpi/admin/processUser")
                 .param("nick", "cat")
-                .param("isActivated", "true"))
-                .andExpect(MockMvcResultMatchers.status().isOk)
+                .param("isActivated", "true")
+        )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+    }
+
+    @Test
+    fun `Check that user admin registration endpoint is available`() {
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/mpi/admin/registerAdmin")
+                .param("name", "cat")
+                .param("surname", "name")
+                .param("nick", "tst")
+                .param("password", "1234")
+                .param("salary", "100")
+        )
+            .andExpect(MockMvcResultMatchers.status().isOk)
+            .andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.`is`(1)))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.`is`("cat")))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.surname", CoreMatchers.`is`("name")))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.nick", CoreMatchers.`is`("tst")))
+            .andExpect(MockMvcResultMatchers.jsonPath("$.salary", CoreMatchers.`is`(100)))
+    }
+
+    @Test
+    fun `Check that fsb agent registration endpoint is available`() {
+        justRun { fsbAgentService.registerNewAgent(any()) }
+        mockMvc.perform(
+            MockMvcRequestBuilders.post("/mpi/admin/registerFsb")
+                .param("name", "test-name")
+                .param("surname", "test-surname")
+                .param("nick", "test-nick")
+                .param("password", "12345")
+                .param("salary", "500")
+        )
+            .andExpect(MockMvcResultMatchers.status().isCreated)
+
+        verify(exactly = 1) {
+            fsbAgentService.registerNewAgent(
+                NewFsbAgentRequest(
+                    name = "test-name",
+                    surname = "test-surname",
+                    nick = "test-nick",
+                    password = "12345"
+                )
+            )
+        }
     }
 
     private val user = UserInfo().apply {
         name = "name"
     }
     private val mockedUsersList = Lists.newArrayList(user)
+
+    private val mockedAdmin = Admin().apply {
+        id = 1
+        name = "cat"
+        surname = "name"
+        salary = 100
+        nick = "tst"
+    }
 }

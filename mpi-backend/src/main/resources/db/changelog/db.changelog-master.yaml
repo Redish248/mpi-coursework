@@ -19,3 +19,5 @@ databaseChangeLog:
       file: /db/changelog/updates/0.9.0-add-rating.sql
   - include:
       file: /db/changelog/updates/0.10.0-reg-date.sql
+  - include:
+      file: /db/changelog/updates/0.11.0-fsb.sql

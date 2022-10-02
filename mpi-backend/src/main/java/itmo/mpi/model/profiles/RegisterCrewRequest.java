@@ -5,10 +5,10 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class CrewRequest {
+public class RegisterCrewRequest {
     private String teamName;
     private String photo;
     private String description;
     private int pricePerDay;
-    private List<CrewMemberRequest> members;
+    private List<RegisterCrewMemberRequest> members;
 }

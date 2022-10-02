@@ -13,7 +13,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "crew")
-@Data
 public class Crew {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,5 +53,69 @@ public class Crew {
 
     public Crew() {
 
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getTeamName() {
+        return teamName;
+    }
+
+    public User getCrewOwner() {
+        return crewOwner;
+    }
+
+    public Integer getPricePerDay() {
+        return pricePerDay;
+    }
+
+    public Integer getRatesNumber() {
+        return ratesNumber;
+    }
+
+    public Double getRatesAverage() {
+        return ratesAverage;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setTeamName(String teamName) {
+        this.teamName = teamName;
+    }
+
+    public void setCrewOwner(User crewOwner) {
+        this.crewOwner = crewOwner;
+    }
+
+    public void setPricePerDay(Integer pricePerDay) {
+        this.pricePerDay = pricePerDay;
+    }
+
+    public void setRatesNumber(Integer ratesNumber) {
+        this.ratesNumber = ratesNumber;
+    }
+
+    public void setRatesAverage(Double ratesAverage) {
+        this.ratesAverage = ratesAverage;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

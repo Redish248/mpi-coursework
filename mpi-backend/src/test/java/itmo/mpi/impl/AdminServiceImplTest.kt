@@ -41,6 +41,7 @@ class AdminServiceImplTest {
     @Test
     fun `Test activating user`() {
         every { userRepository.findByNick(any()) } returns User()
+        every { userRepository.save(any()) } answers { nothing }
 
         adminServiceImpl.processUser("nick", true)
 
@@ -50,10 +51,11 @@ class AdminServiceImplTest {
     @Test
     fun `Test saving user`() {
         every { userRepository.findByNick(any()) } returns User()
+        justRun { userRepository.delete(any()) }
 
         adminServiceImpl.processUser("nick", false)
 
-        verify { userRepository.delete(any()) }
+        verify(exactly = 1) { userRepository.delete(any()) }
     }
 
     @Test
@@ -62,15 +64,17 @@ class AdminServiceImplTest {
         every { adminRepository.findAdminByNick(any()) } returns null
         every { adminRepository.save(any()) } answers { mockedAdmin }
 
-        val admin = adminServiceImpl.createAdmin("name", "surname",
-                "nick", "password", 100)
+        val admin = adminServiceImpl.createAdmin(
+            "name", "surname",
+            "nick", "password", 100
+        )
 
         assertAll(
-                { assertEquals("name", admin.name) },
-                { assertEquals("surname", admin.surname) },
-                { assertEquals("nick", admin.nick) },
-                { assertEquals("hash", admin.password) },
-                { assertEquals(100, admin.salary) },
+            { assertEquals("name", admin.name) },
+            { assertEquals("surname", admin.surname) },
+            { assertEquals("nick", admin.nick) },
+            { assertEquals("hash", admin.password) },
+            { assertEquals(100, admin.salary) },
         )
     }
 
@@ -80,8 +84,10 @@ class AdminServiceImplTest {
         every { adminRepository.findAdminByNick(any()) } returns null
 
         assertThrows<UserAlreadyExistException> {
-            adminServiceImpl.createAdmin("name", "surname",
-                    "nick", "password", 100)
+            adminServiceImpl.createAdmin(
+                "name", "surname",
+                "nick", "password", 100
+            )
         }
     }
 
@@ -91,8 +97,10 @@ class AdminServiceImplTest {
         every { adminRepository.findAdminByNick(any()) } returns Admin()
 
         assertThrows<UserAlreadyExistException> {
-            adminServiceImpl.createAdmin("name", "surname",
-                    "nick", "password", 100)
+            adminServiceImpl.createAdmin(
+                "name", "surname",
+                "nick", "password", 100
+            )
         }
     }
 

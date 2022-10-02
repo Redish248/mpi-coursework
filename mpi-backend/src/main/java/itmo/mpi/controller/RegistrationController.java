@@ -1,9 +1,7 @@
 package itmo.mpi.controller;
 
-import itmo.mpi.entity.Admin;
 import itmo.mpi.entity.User;
 import itmo.mpi.model.UserInfo;
-import itmo.mpi.service.AdminService;
 import itmo.mpi.service.UserService;
 import itmo.mpi.utils.CommonUtils;
 import lombok.RequiredArgsConstructor;
@@ -22,20 +20,12 @@ public class RegistrationController {
 
     private final UserService userService;
 
-    private final AdminService adminService;
-
     private final CommonUtils commonUtils;
 
     @PostMapping("/registerUser")
     public @ResponseBody
     ResponseEntity<User> registerUser(@RequestBody UserInfo newUser) {
         return ResponseEntity.ok(userService.createUser(newUser));
-    }
-
-    @PostMapping("/registerAdmin")
-    public @ResponseBody
-    ResponseEntity<Admin> registerAdmin(String name, String surname, String nick, String password, int salary) {
-        return ResponseEntity.ok(adminService.createAdmin(name, surname, nick, password, salary));
     }
 
     @GetMapping("/roles")

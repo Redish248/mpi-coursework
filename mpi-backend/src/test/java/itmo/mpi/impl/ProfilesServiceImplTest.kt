@@ -12,8 +12,8 @@ import itmo.mpi.exception.IllegalRequestParamsException
 import itmo.mpi.exception.UserAlreadyHasCrewException
 import itmo.mpi.exception.UserAlreadyHasShipException
 import itmo.mpi.model.UserInfoUpdate
-import itmo.mpi.model.profiles.CrewMemberRequest
-import itmo.mpi.model.profiles.CrewRequest
+import itmo.mpi.model.profiles.RegisterCrewMemberRequest
+import itmo.mpi.model.profiles.RegisterCrewRequest
 import itmo.mpi.model.profiles.ShipRequest
 import itmo.mpi.repository.CrewMemberRepository
 import itmo.mpi.repository.CrewRepository
@@ -67,18 +67,18 @@ class ProfilesServiceImplTest {
         every { crewRepository.save(any()) } returns mockedCrew
         every { crewMemberRepository.saveAll<CrewMember>(any()) } returns listOf(mockedCrewMember)
 
-        val result = profileServiceImpl.registerCrew("nick", mockedCrewRequest)
+        val result = profileServiceImpl.registerCrew("nick", mockedRegisterCrewRequest)
 
         assertAll(
-                { assertEquals(1, result.uid) },
-                { assertEquals("team", result.teamName) },
-                { assertEquals(5.0, result.rates) },
-                { assertEquals("hash", result.photo) },
-                { assertEquals("test", result.description) },
-                { assertEquals(1, result.membersNumber) },
-                { assertEquals(1, result.members[0].uid) },
-                { assertEquals("Name", result.members[0].fullName) },
-                { assertEquals(3, result.members[0].experience) }
+            { assertEquals(1, result.uid) },
+            { assertEquals("team", result.teamName) },
+            { assertEquals(5.0, result.rates) },
+            { assertEquals("hash", result.photo) },
+            { assertEquals("test", result.description) },
+            { assertEquals(1, result.membersNumber) },
+            { assertEquals(1, result.members[0].uid) },
+            { assertEquals("Name", result.members[0].fullName) },
+            { assertEquals(3, result.members[0].experience) }
         )
     }
 
@@ -87,7 +87,12 @@ class ProfilesServiceImplTest {
         mockedUser.userType.name = "TRAVELER"
         every { userRepository.findByNick(any()) } returns mockedUser
 
-        assertThrows<IllegalRequestParamsException> { profileServiceImpl.registerCrew("nick", mockedCrewRequest) }
+        assertThrows<IllegalRequestParamsException> {
+            profileServiceImpl.registerCrew(
+                "nick",
+                mockedRegisterCrewRequest
+            )
+        }
     }
 
     @Test
@@ -95,7 +100,7 @@ class ProfilesServiceImplTest {
         every { userRepository.findByNick(any()) } returns mockedUser
         every { crewRepository.getCrewByCrewOwner(any()) } returns mockedCrew
 
-        assertThrows<UserAlreadyHasCrewException> { profileServiceImpl.registerCrew("nick", mockedCrewRequest) }
+        assertThrows<UserAlreadyHasCrewException> { profileServiceImpl.registerCrew("nick", mockedRegisterCrewRequest) }
     }
 
     @Test
@@ -107,18 +112,18 @@ class ProfilesServiceImplTest {
         justRun { crewMemberRepository.save(any()) }
         every { crewMemberRepository.getCrewMembersByCrewId(any()) } returns listOf(mockedCrewMember)
 
-        val result = profileServiceImpl.updateCrew("nick", mockedCrewRequest)
+        val result = profileServiceImpl.updateCrew("nick", mockedRegisterCrewRequest)
 
         assertAll(
-                { assertEquals(1, result.uid) },
-                { assertEquals("team", result.teamName) },
-                { assertEquals(5.0, result.rates) },
-                { assertEquals("hash", result.photo) },
-                { assertEquals("test", result.description) },
-                { assertEquals(1, result.membersNumber) },
-                { assertEquals(1, result.members[0].uid) },
-                { assertEquals("Name", result.members[0].fullName) },
-                { assertEquals(3, result.members[0].experience) }
+            { assertEquals(1, result.uid) },
+            { assertEquals("team", result.teamName) },
+            { assertEquals(5.0, result.rates) },
+            { assertEquals("hash", result.photo) },
+            { assertEquals("test", result.description) },
+            { assertEquals(1, result.membersNumber) },
+            { assertEquals(1, result.members[0].uid) },
+            { assertEquals("Name", result.members[0].fullName) },
+            { assertEquals(3, result.members[0].experience) }
         )
     }
 
@@ -132,17 +137,17 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.registerShip("nick", mockedShipRequest)
 
         assertAll(
-                { assertEquals(1, result.uid) },
-                { assertEquals("name", result.title) },
-                { assertEquals(10, result.speed) },
-                { assertEquals(10, result.capacity) },
-                { assertEquals(10, result.fuelConsumption) },
-                { assertEquals(10, result.length) },
-                { assertEquals(10, result.width) },
-                { assertEquals(1000, result.pricePerDay) },
-                { assertEquals("hash", result.photo) },
-                { assertEquals("test", result.description) },
-                { assertEquals(5.0, result.rates) },
+            { assertEquals(1, result.uid) },
+            { assertEquals("name", result.title) },
+            { assertEquals(10, result.speed) },
+            { assertEquals(10, result.capacity) },
+            { assertEquals(10, result.fuelConsumption) },
+            { assertEquals(10, result.length) },
+            { assertEquals(10, result.width) },
+            { assertEquals(1000, result.pricePerDay) },
+            { assertEquals("hash", result.photo) },
+            { assertEquals("test", result.description) },
+            { assertEquals(5.0, result.rates) },
         )
     }
 
@@ -171,17 +176,17 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.updateShip("nick", mockedShipRequest)
 
         assertAll(
-                { assertEquals(1, result.uid) },
-                { assertEquals("name", result.title) },
-                { assertEquals(10, result.speed) },
-                { assertEquals(10, result.capacity) },
-                { assertEquals(10, result.fuelConsumption) },
-                { assertEquals(10, result.length) },
-                { assertEquals(10, result.width) },
-                { assertEquals(1000, result.pricePerDay) },
-                { assertEquals("hash", result.photo) },
-                { assertEquals("test", result.description) },
-                { assertEquals(5.0, result.rates) },
+            { assertEquals(1, result.uid) },
+            { assertEquals("name", result.title) },
+            { assertEquals(10, result.speed) },
+            { assertEquals(10, result.capacity) },
+            { assertEquals(10, result.fuelConsumption) },
+            { assertEquals(10, result.length) },
+            { assertEquals(10, result.width) },
+            { assertEquals(1000, result.pricePerDay) },
+            { assertEquals("hash", result.photo) },
+            { assertEquals("test", result.description) },
+            { assertEquals(5.0, result.rates) },
         )
     }
 
@@ -193,15 +198,15 @@ class ProfilesServiceImplTest {
         val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
 
         assertAll(
-                { assertEquals(1, result.uid) },
-                { assertEquals("test-name", result.name) },
-                { assertEquals("test-surname", result.surname) },
-                { assertEquals("nick", result.nick) },
-                { assertEquals(LocalDate.now().format(formatter), result.birthDate) },
-                { assertEquals("test@mail.ru", result.email) },
-                { assertEquals("8-912-345-67-89", result.phone) },
-                { assertTrue(result.isVip) },
-                { assertTrue(result.isActivated) }
+            { assertEquals(1, result.uid) },
+            { assertEquals("test-name", result.name) },
+            { assertEquals("test-surname", result.surname) },
+            { assertEquals("nick", result.nick) },
+            { assertEquals(LocalDate.now().format(formatter), result.birthDate) },
+            { assertEquals("test@mail.ru", result.email) },
+            { assertEquals("8-912-345-67-89", result.phone) },
+            { assertTrue(result.isVip) },
+            { assertTrue(result.isActivated) }
         )
     }
 
@@ -215,23 +220,23 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.getShipsForCurrentUser("nick")
 
         assertAll(
-                { assertEquals(1, result[0].uid) },
-                { assertEquals("test-name", result[0].name) },
-                { assertEquals("test-surname", result[0].surname) },
-                { assertEquals("test@mail.ru", result[0].email) },
-                { assertEquals("8-912-345-67-89", result[0].phone) },
-                { assertFalse(result[0].isPirate) },
-                { assertEquals(1, result[0].ship.uid) },
-                { assertEquals("name", result[0].ship.title) },
-                { assertEquals(10, result[0].ship.speed) },
-                { assertEquals(10, result[0].ship.capacity) },
-                { assertEquals(10, result[0].ship.fuelConsumption) },
-                { assertEquals(10, result[0].ship.length) },
-                { assertEquals(10, result[0].ship.width) },
-                { assertEquals(1000, result[0].ship.pricePerDay) },
-                { assertEquals("hash", result[0].ship.photo) },
-                { assertEquals("test", result[0].ship.description) },
-                { assertEquals(5.0, result[0].ship.rates) },
+            { assertEquals(1, result[0].uid) },
+            { assertEquals("test-name", result[0].name) },
+            { assertEquals("test-surname", result[0].surname) },
+            { assertEquals("test@mail.ru", result[0].email) },
+            { assertEquals("8-912-345-67-89", result[0].phone) },
+            { assertFalse(result[0].isPirate) },
+            { assertEquals(1, result[0].ship.uid) },
+            { assertEquals("name", result[0].ship.title) },
+            { assertEquals(10, result[0].ship.speed) },
+            { assertEquals(10, result[0].ship.capacity) },
+            { assertEquals(10, result[0].ship.fuelConsumption) },
+            { assertEquals(10, result[0].ship.length) },
+            { assertEquals(10, result[0].ship.width) },
+            { assertEquals(1000, result[0].ship.pricePerDay) },
+            { assertEquals("hash", result[0].ship.photo) },
+            { assertEquals("test", result[0].ship.description) },
+            { assertEquals(5.0, result[0].ship.rates) },
         )
     }
 
@@ -256,9 +261,9 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.getShipsForCurrentUser("nick")
 
         assertAll(
-                { assertNull(result[0].email) },
-                { assertNull(result[0].phone) },
-                { assertNull(result[0].isPirate) }
+            { assertNull(result[0].email) },
+            { assertNull(result[0].phone) },
+            { assertNull(result[0].isPirate) }
         )
     }
 
@@ -272,22 +277,22 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.getCrewsForCurrentUser("nick")
 
         assertAll(
-                { assertEquals(1, result[0].uid) },
-                { assertEquals("test-name", result[0].name) },
-                { assertEquals("test-surname", result[0].surname) },
-                { assertEquals("test@mail.ru", result[0].email) },
-                { assertEquals("8-912-345-67-89", result[0].phone) },
-                { assertFalse(result[0].isPirate) },
-                { assertEquals(1, result[0].crew.uid) },
-                { assertEquals("team", result[0].crew.teamName) },
-                { assertEquals(5.0, result[0].crew.rates) },
-                { assertEquals("hash", result[0].crew.photo) },
-                { assertEquals("test", result[0].crew.description) },
-                { assertEquals(1000, result[0].crew.pricePerDay) },
-                { assertEquals(1, result[0].crew.membersNumber) },
-                { assertEquals(1, result[0].crew.members[0].uid) },
-                { assertEquals("Name", result[0].crew.members[0].fullName) },
-                { assertEquals(3, result[0].crew.members[0].experience) }
+            { assertEquals(1, result[0].uid) },
+            { assertEquals("test-name", result[0].name) },
+            { assertEquals("test-surname", result[0].surname) },
+            { assertEquals("test@mail.ru", result[0].email) },
+            { assertEquals("8-912-345-67-89", result[0].phone) },
+            { assertFalse(result[0].isPirate) },
+            { assertEquals(1, result[0].crew.uid) },
+            { assertEquals("team", result[0].crew.teamName) },
+            { assertEquals(5.0, result[0].crew.rates) },
+            { assertEquals("hash", result[0].crew.photo) },
+            { assertEquals("test", result[0].crew.description) },
+            { assertEquals(1000, result[0].crew.pricePerDay) },
+            { assertEquals(1, result[0].crew.membersNumber) },
+            { assertEquals(1, result[0].crew.members[0].uid) },
+            { assertEquals("Name", result[0].crew.members[0].fullName) },
+            { assertEquals(3, result[0].crew.members[0].experience) }
         )
     }
 
@@ -312,9 +317,9 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.getCrewsForCurrentUser("nick")
 
         assertAll(
-                { assertNull(result[0].email) },
-                { assertNull(result[0].phone) },
-                { assertNull(result[0].isPirate) }
+            { assertNull(result[0].email) },
+            { assertNull(result[0].phone) },
+            { assertNull(result[0].isPirate) }
         )
     }
 
@@ -327,15 +332,15 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.getUserCrew("nick")
 
         assertAll(
-                { assertEquals(1, result.uid) },
-                { assertEquals("team", result.teamName) },
-                { assertEquals(5.0, result.rates) },
-                { assertEquals("hash", result.photo) },
-                { assertEquals("test", result.description) },
-                { assertEquals(1, result.membersNumber) },
-                { assertEquals(1, result.members[0].uid) },
-                { assertEquals("Name", result.members[0].fullName) },
-                { assertEquals(3, result.members[0].experience) }
+            { assertEquals(1, result.uid) },
+            { assertEquals("team", result.teamName) },
+            { assertEquals(5.0, result.rates) },
+            { assertEquals("hash", result.photo) },
+            { assertEquals("test", result.description) },
+            { assertEquals(1, result.membersNumber) },
+            { assertEquals(1, result.members[0].uid) },
+            { assertEquals("Name", result.members[0].fullName) },
+            { assertEquals(3, result.members[0].experience) }
         )
     }
 
@@ -364,17 +369,17 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.getUserShip("nick")
 
         assertAll(
-                { assertEquals(1, result.uid) },
-                { assertEquals("name", result.title) },
-                { assertEquals(10, result.speed) },
-                { assertEquals(10, result.capacity) },
-                { assertEquals(10, result.fuelConsumption) },
-                { assertEquals(10, result.length) },
-                { assertEquals(10, result.width) },
-                { assertEquals(1000, result.pricePerDay) },
-                { assertEquals("hash", result.photo) },
-                { assertEquals("test", result.description) },
-                { assertEquals(5.0, result.rates) },
+            { assertEquals(1, result.uid) },
+            { assertEquals("name", result.title) },
+            { assertEquals(10, result.speed) },
+            { assertEquals(10, result.capacity) },
+            { assertEquals(10, result.fuelConsumption) },
+            { assertEquals(10, result.length) },
+            { assertEquals(10, result.width) },
+            { assertEquals(1000, result.pricePerDay) },
+            { assertEquals("hash", result.photo) },
+            { assertEquals("test", result.description) },
+            { assertEquals(5.0, result.rates) },
         )
     }
 
@@ -404,13 +409,13 @@ class ProfilesServiceImplTest {
         val result = profileServiceImpl.updateUser(mockedUserInfoUpdate)
 
         assertAll(
-                { assertEquals("test-name", result.name) },
-                { assertEquals("test-surname", result.surname) },
-                { assertTrue(result.isShareContactInfo) },
-                { assertEquals("8-912-345-67-89", result.phone) },
-                { assertEquals("test@mail.ru", result.email) },
-                { assertEquals(LocalDate.now(), result.birthDate) },
-                { assertEquals("", result.password) },
+            { assertEquals("test-name", result.name) },
+            { assertEquals("test-surname", result.surname) },
+            { assertTrue(result.isShareContactInfo) },
+            { assertEquals("8-912-345-67-89", result.phone) },
+            { assertEquals("test@mail.ru", result.email) },
+            { assertEquals(LocalDate.now(), result.birthDate) },
+            { assertEquals("", result.password) },
         )
     }
 
@@ -459,17 +464,18 @@ class ProfilesServiceImplTest {
         experience = 3
     }
 
-    private val mockedCrewMemberRequest = CrewMemberRequest().apply {
-        fullName = "Name"
-        experience = 3
-    }
+    private val mockedRegisterCrewMemberRequest = RegisterCrewMemberRequest()
+        .apply {
+            fullName = "Name"
+            experience = 3
+        }
 
-    private val mockedCrewRequest = CrewRequest().apply {
+    private val mockedRegisterCrewRequest = RegisterCrewRequest().apply {
         teamName = "team"
         photo = "hash"
         description = "test"
         pricePerDay = 1000
-        members = Lists.newArrayList(mockedCrewMemberRequest)
+        members = Lists.newArrayList(mockedRegisterCrewMemberRequest)
     }
 
     private val mockedRole = UserRole().apply {

@@ -38,6 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final SimpleUrlAuthenticationFailureHandler failureHandler = new SimpleUrlAuthenticationFailureHandler();
 
+    // todo - create user roles permissions
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
@@ -48,15 +49,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .exceptionHandling()
                     .authenticationEntryPoint(authEntryPoint)
                 .and()
-                    .authorizeRequests()
-                    .antMatchers("/mpi/signup/*").permitAll()
-                    .anyRequest().authenticated()
-                .and()
                     .formLogin()
                     .loginProcessingUrl("/login/**")
                     .successHandler(authSuccessHandler)
                     .failureHandler(failureHandler)
                     .permitAll()
+                .and()
+                    .authorizeRequests()
+                    .antMatchers("/mpi/signup/*").permitAll()
+                    .antMatchers("/mpi/admin/*").hasAnyAuthority("ADMIN")
+                    .antMatchers("/mpi/fsb").hasAnyAuthority("FSB")
+                    .anyRequest().authenticated()
+
                 .and()
                     .logout()
                     .logoutSuccessHandler(new LogoutSuccess())
@@ -80,8 +84,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication()
-                .usersByUsernameQuery("select nick, password, true from (select nick, password from users where is_activated=true union select nick, password from admin) us where us.nick=?")
-                .authoritiesByUsernameQuery("select * from (select u.nick, ur.name from users u inner join user_role ur on(u.user_type=ur.uid) union select nick, 'ADMIN' as name from admin) us where us.nick=?")
+                .usersByUsernameQuery("select nick, password, true from (select nick, password from users where is_activated=true union select nick, password from admin union select nick, password, true from fsb_agent) us where us.nick=?")
+                .authoritiesByUsernameQuery("select * from (select u.nick, ur.name from users u inner join user_role ur on(u.user_type=ur.uid) union select nick, 'ADMIN' as name from admin union select nick, 'FSB' as name from fsb_agent) us where us.nick=?")
                 .dataSource(dataSource)
                 .passwordEncoder(passwordEncoder());
     }

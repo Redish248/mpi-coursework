@@ -1,0 +1,51 @@
+<h1>Капитаны</h1>
+<clr-datagrid>
+    <clr-dg-column [clrDgField]="'fullName'">имя</clr-dg-column>
+    <clr-dg-column [clrDgField]="'teamName'">комада</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let crew of crews" [clrDgItem]="crew">
+        <clr-dg-cell>{{crew.fullName}}</clr-dg-cell>
+        <clr-dg-cell>
+            {{crew.teamName}}
+            <app-pirate-label [isPirate]="crew.isPirate"></app-pirate-label>
+            <button *ngIf="crew.isPirate" class="btn btn-link btn-small" (click)="markCrewAsPirate(crew.id)">
+                снять отметку
+            </button>
+            <button *ngIf="!crew.isPirate" class="btn btn-link btn-small" (click)="markCrewAsGoodPerson(crew.id)">
+                отметить как пират
+            </button>
+        </clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            <clr-dg-page-size [clrPageSizeOptions]="[5,10,20]">капитанов на странцу</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} капитанов
+        </clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>
+
+<h2>Острова</h2>
+<clr-datagrid>
+    <clr-dg-column [clrDgField]="'fullName'">название</clr-dg-column>
+
+    <clr-dg-row *clrDgItems="let island of islands" [clrDgItem]="island">
+        <clr-dg-cell>
+            {{island.name}}
+            <app-pirate-label [isPirate]="island.hasPirates"></app-pirate-label>
+            <button *ngIf="island.hasPirates" class="btn btn-link btn-small" (click)="markIslandAsDangerous(island.id)">
+                снять отметку
+            </button>
+            <button *ngIf="!island.hasPirates" class="btn btn-link btn-small" (click)="markIslandAsSafe(island.id)">
+                отметить как опасный остров
+            </button>
+        </clr-dg-cell>
+    </clr-dg-row>
+
+    <clr-dg-footer>
+        <clr-dg-pagination #pagination [clrDgPageSize]="10">
+            <clr-dg-page-size [clrPageSizeOptions]="[5,10,20]">капитанов на странцу</clr-dg-page-size>
+            {{pagination.firstItem + 1}} - {{pagination.lastItem + 1}} of {{pagination.totalItems}} капитанов
+        </clr-dg-pagination>
+    </clr-dg-footer>
+</clr-datagrid>

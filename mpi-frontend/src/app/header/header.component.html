@@ -10,7 +10,7 @@
         <a *ngIf="user" class="nav-link" [routerLink]="['map']" routerLinkActive="active">
             <span class="nav-text">Карта</span>
         </a>
-        <a *ngIf="!isAdmin()"
+        <a *ngIf="isUsualPerson()"
            class="nav-link" [routerLink]="['requests']"
            routerLinkActive="active">
             <span class=" nav-text">Заявки</span>
@@ -18,11 +18,14 @@
         <a *ngIf="isAdmin()" class="nav-link" [routerLink]="['approvals']" routerLinkActive="active">
             <span class="nav-text">Регистрации</span>
         </a>
-        <a *ngIf="!isAdmin()" class="nav-link" [routerLink]="['ships']" routerLinkActive="active">
+        <a *ngIf="isUsualPerson()" class="nav-link" [routerLink]="['ships']" routerLinkActive="active">
             <span class="nav-text">Корабли</span>
         </a>
-        <a *ngIf="!isAdmin()" class="nav-link" [routerLink]="['crews']" routerLinkActive="active">
+        <a *ngIf="isUsualPerson()" class="nav-link" [routerLink]="['crews']" routerLinkActive="active">
             <span class="nav-text">Экипажи</span>
+        </a>
+        <a *ngIf="isFsbAgent()" class="nav-link" [routerLink]="['fsb']" routerLinkActive="active">
+            <span class="nav-text">Статистика</span>
         </a>
     </div>
     <div class="header-actions header-actions--overflow" *ngIf="user">

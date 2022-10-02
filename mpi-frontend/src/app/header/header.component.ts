@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core'
-import {AuthService} from '../service/auth.service'
-import {Router} from '@angular/router'
+import { Component, OnInit } from '@angular/core'
+import { AuthService } from '../service/auth.service'
+import { Router } from '@angular/router'
 
 @Component({
     selector: 'app-header',
@@ -35,8 +35,16 @@ export class HeaderComponent implements OnInit {
         return this.authService.isCrewManager()
     }
 
+    isUsualPerson(): boolean {
+        return this.isAdmin() == false && this.isFsbAgent() == false
+    }
+
     isAdmin(): boolean {
         return this.authService.isAdmin()
+    }
+
+    isFsbAgent(): boolean {
+        return this.authService.isFsbAgent()
     }
 
     openUserProfile() {

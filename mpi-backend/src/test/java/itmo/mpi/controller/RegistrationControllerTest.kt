@@ -37,16 +37,12 @@ class RegistrationControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val
     private lateinit var userService: UserService
 
     @MockkBean
-    private lateinit var adminService: AdminService
-
-    @MockkBean
     private lateinit var commonUtils: CommonUtils
 
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
         every { userService.createUser(any()) } returns mockedUser
-        every { adminService.createAdmin(any(), any(), any(), any(), any()) } returns mockedAdmin
         every { commonUtils.getCurrentUser() } returns TestingAuthenticationToken(Object(), Object(), "test")
     }
 
@@ -75,21 +71,7 @@ class RegistrationControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val
                 .andExpect(MockMvcResultMatchers.jsonPath("$.userType.name", CoreMatchers.`is`("TRAVELER")))
     }
 
-    @Test
-    fun `Check that user admin registration endpoint is available`() {
-        mockMvc.perform(MockMvcRequestBuilders.post("/mpi/signup/registerAdmin")
-                .param("name", "cat")
-                .param("surname", "name")
-                .param("nick", "tst")
-                .param("password", "1234")
-                .param("salary", "100"))
-                .andExpect(MockMvcResultMatchers.status().isOk)
-                .andExpect(MockMvcResultMatchers.jsonPath("$.id", CoreMatchers.`is`(1)))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.name", CoreMatchers.`is`("cat")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.surname", CoreMatchers.`is`("name")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.nick", CoreMatchers.`is`("tst")))
-                .andExpect(MockMvcResultMatchers.jsonPath("$.salary", CoreMatchers.`is`(100)))
-    }
+
 
     @Test
     fun `Check that roles endpoint is available`() {
@@ -110,13 +92,5 @@ class RegistrationControllerTest(@Autowired val mockMvc: MockMvc, @Autowired val
         birthDate = LocalDate.now()
         userType = role
         phone = "8-912-345-67-89"
-    }
-
-    private val mockedAdmin = Admin().apply {
-        id = 1
-        name = "cat"
-        surname = "name"
-        salary = 100
-        nick = "tst"
     }
 }
