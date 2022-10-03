@@ -7,26 +7,19 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class WebDriverConfiguration {
 
-    private static final String MPI_URL = "https://localhost:4200";
+    private static final String MPI_URL = "http://localhost:4200/";
 
     public enum Browser {
         FIREFOX, CHROME, YANDEX
     }
 
     public static WebDriver getWebDriver(Browser browser) {
-        WebDriver driver;
+        WebDriver driver =
         switch (browser) {
-            case YANDEX:
-                driver = getYandexDriver();
-                break;
-            case FIREFOX:
-                driver = getFirefoxDriver();
-                break;
-            case CHROME:
-            default:
-                driver = getChromeDriver();
-                break;
-        }
+            case YANDEX -> getYandexDriver();
+            case FIREFOX -> getFirefoxDriver();
+            case CHROME -> getChromeDriver();
+        };
         driver.manage().window().maximize();
         // driver.manage().timeouts().implicitlyWait(1000, TimeUnit.SECONDS);
         driver.get(MPI_URL);
@@ -35,21 +28,21 @@ public class WebDriverConfiguration {
 
     private static FirefoxDriver getFirefoxDriver() {
         //Linux
-        System.setProperty("webdriver.chrome.driver", "./drivers/linux/chromedriver");
-        //Win
-        // System.setProperty("webdriver.chrome.driver", "./drivers/win/chromedriver.exe");
-        //MacOS
-        // System.setProperty("webdriver.chrome.driver", "./drivers/mac/chromedriver");
-        return new FirefoxDriver();
-    }
-
-    private static ChromeDriver getChromeDriver() {
-        //Linux
         System.setProperty("webdriver.gecko.driver", "./drivers/linux/geckodriver");
         //Win
         //System.setProperty("webdriver.gecko.driver", "./drivers/win/geckodriver.exe");
         //MacOS
         //System.setProperty("webdriver.gecko.driver", "./drivers/mac/geckodriver");
+        return new FirefoxDriver();
+    }
+
+    private static ChromeDriver getChromeDriver() {
+        //Linux
+        System.setProperty("webdriver.chrome.driver", "./drivers/linux/chromedriver");
+        //Win
+        // System.setProperty("webdriver.chrome.driver", "./drivers/win/chromedriver.exe");
+        //MacOS
+        // System.setProperty("webdriver.chrome.driver", "./drivers/mac/chromedriver");
         return new ChromeDriver();
     }
 
@@ -57,11 +50,16 @@ public class WebDriverConfiguration {
         //Linux
         System.setProperty("webdriver.chrome.driver", "./drivers/linux/chromedriver");
         //Win
-        //System.setProperty("webdriver.gecko.driver", "./drivers/win/yandexdriver.exe");
+        // System.setProperty("webdriver.chrome.driver", "./drivers/win/chromedriver.exe");
         //MacOS
-        //System.setProperty("webdriver.gecko.driver", "./drivers/mac/yandexdriver");
+        // System.setProperty("webdriver.chrome.driver", "./drivers/mac/chromedriver");
         ChromeOptions options = new ChromeOptions();
+        //Linux
         options.setBinary("./drivers/linux/yandexdriver");
+        //win
+        //options.setBinary("./drivers/win/yandexdriver");
+        //mac
+        //options.setBinary("./drivers/mac/yandexdriver");
         return new ChromeDriver(options);
     }
 }

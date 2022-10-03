@@ -9,7 +9,7 @@ public class LogInPage extends PageObject {
         super(driver);
     }
 
-    private final String NICK = "//*[@id=\"clr-form-control-5\"]";
+    private final String NICK = "//*[@id=\"clr-form-control-1\"]";
     private final String PASSWORD = "//*[@id=\"clr-form-control-6\"]";
     private final String SIGN_IN = "/html/body/app-root/app-login/div/form/div/button[1]";
 
@@ -32,6 +32,10 @@ public class LogInPage extends PageObject {
 
     public void clickSignIn() {
         signIn.click();
+    }
+
+    public boolean isNickInputDisplayed() {
+        return nickInput.isDisplayed();
     }
 
     public boolean isPassInputDisplayed() {
