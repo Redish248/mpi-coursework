@@ -81,8 +81,11 @@ export class SignupComponent implements OnInit {
                     }
                 }, error => {
                     this.loading = false
-                    if (error.includes('register')) {
+                    console.log(error)
+                    if (error.includes('409')) {
                         this.errorMessage = "Такой пользователь уже существует в системе"
+                    } else if (error.includes('406')) {
+                        this.errorMessage = "Ошибка в формате даты"
                     } else {
                         this.errorMessage = "Ошибка регистрации"
                     }
