@@ -12,7 +12,7 @@ public class LogInPage extends PageObject {
     private final String NICK = "//*[@name=\"username\"]";
     private final String PASSWORD = "//*[@name=\"password\"]";
     private final String SIGN_IN = "//*[@id=\"button-signin\"]";
-
+    private final String SIGN_UP = "//*[@id=\"button-signup\"]";
     private final String ERROR_TEXT = "//*[@id=\"errorAlert\"]";
 
     @FindBy(xpath = NICK)
@@ -23,6 +23,9 @@ public class LogInPage extends PageObject {
 
     @FindBy(xpath = SIGN_IN)
     private WebElement signIn;
+
+    @FindBy(xpath = SIGN_UP)
+    private WebElement signUp;
 
     @FindBy(xpath = ERROR_TEXT)
     private WebElement errorText;
@@ -37,6 +40,10 @@ public class LogInPage extends PageObject {
 
     public void clickSignIn() {
         signIn.click();
+    }
+
+    public void clickSignUp() {
+        signUp.click();
     }
 
     public void signIn(String nick, String pass) {

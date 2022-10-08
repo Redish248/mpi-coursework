@@ -21,7 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LogInTest {
     private WebDriver webDriver;
     private LogInPage logInPage;
-
     private MapPage mapPage;
 
     @BeforeEach

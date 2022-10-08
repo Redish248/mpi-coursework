@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.time.format.DateTimeParseException;
+
 @ControllerAdvice
 @Slf4j
 public class ControllerAdvisor extends ResponseEntityExceptionHandler {
@@ -15,5 +17,11 @@ public class ControllerAdvisor extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleUserException(UserAlreadyExistException exception) {
         log.error(exception.getMessage());
         return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @ExceptionHandler(value = {DateTimeParseException.class})
+    public ResponseEntity<Object> handleUserException(DateTimeParseException exception) {
+        log.error(exception.getMessage());
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 }
