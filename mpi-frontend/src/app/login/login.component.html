@@ -6,7 +6,7 @@
             Treasure Island
         </section>
         <div class="login-group">
-            <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
+            <clr-alert id="errorAlert" clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
             <clr-input-container>
                 <label class="label-login">Логин</label>
                 <input class="inp-login" type="text" name="username" clrInput placeholder="Nickname"
@@ -18,7 +18,7 @@
                        formControlName="pswd"/>
             </clr-password-container>
 
-            <button [disabled]="loginForm?.invalid" (click)="submitLogin()" class="btn btn-primary btn-log">ВОЙТИ
+            <button id="button-signin" [disabled]="loginForm?.invalid" (click)="submitLogin()" class="btn btn-primary btn-log">ВОЙТИ
             </button>
 
             <button class="btn btn-link btn-signin" (click)="registrationMode = true">Зарегистрироваться</button>

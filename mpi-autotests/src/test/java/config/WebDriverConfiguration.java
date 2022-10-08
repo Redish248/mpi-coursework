@@ -55,7 +55,7 @@ public class WebDriverConfiguration {
         // System.setProperty("webdriver.chrome.driver", "./drivers/mac/chromedriver");
         ChromeOptions options = new ChromeOptions();
         //Linux
-        options.setBinary("./drivers/linux/yandexdriver");
+        options.setBinary("./drivers/linux/yandex_browser");
         //win
         //options.setBinary("./drivers/win/yandexdriver");
         //mac

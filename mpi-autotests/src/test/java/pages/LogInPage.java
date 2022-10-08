@@ -9,18 +9,23 @@ public class LogInPage extends PageObject {
         super(driver);
     }
 
-    private final String NICK = "//*[@id=\"clr-form-control-1\"]";
-    private final String PASSWORD = "//*[@id=\"clr-form-control-6\"]";
-    private final String SIGN_IN = "/html/body/app-root/app-login/div/form/div/button[1]";
+    private final String NICK = "//*[@name=\"username\"]";
+    private final String PASSWORD = "//*[@name=\"password\"]";
+    private final String SIGN_IN = "//*[@id=\"button-signin\"]";
+
+    private final String ERROR_TEXT = "//*[@id=\"errorAlert\"]";
 
     @FindBy(xpath = NICK)
-    WebElement nickInput;
+    private WebElement nickInput;
 
     @FindBy(xpath = PASSWORD)
-    WebElement passwordInput;
+    private WebElement passwordInput;
 
     @FindBy(xpath = SIGN_IN)
-    WebElement signIn;
+    private WebElement signIn;
+
+    @FindBy(xpath = ERROR_TEXT)
+    private WebElement errorText;
 
     public void inputNick(String nick) {
         nickInput.sendKeys(nick);
@@ -34,12 +39,18 @@ public class LogInPage extends PageObject {
         signIn.click();
     }
 
-    public boolean isNickInputDisplayed() {
-        return nickInput.isDisplayed();
+    public void signIn(String nick, String pass) {
+        inputNick(nick);
+        inputPassword(pass);
+        clickSignIn();
     }
 
-    public boolean isPassInputDisplayed() {
-        return passwordInput.isDisplayed();
+    public boolean isSignInButtonEnabled() {
+        return signIn.isEnabled();
+    }
+
+    public boolean isErrorDisplayed() {
+        return errorText.isDisplayed();
     }
 
 }
