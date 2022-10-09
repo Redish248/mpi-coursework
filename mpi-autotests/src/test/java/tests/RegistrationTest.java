@@ -22,13 +22,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class RegistrationTest {
 
     private WebDriver webDriver;
-    private LogInPage logInPage;
     private RegistrationPage registrationPage;
 
     @BeforeEach
     public void setUp() {
         webDriver = WebDriverConfiguration.getWebDriver(WebDriverConfiguration.Browser.CHROME);
-        logInPage = new LogInPage(webDriver);
+        LogInPage logInPage = new LogInPage(webDriver);
         registrationPage = new RegistrationPage(webDriver);
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
         logInPage.clickSignUp();

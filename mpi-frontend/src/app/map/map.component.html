@@ -1,12 +1,12 @@
 <div *ngIf="canCreateRequests()" class="map-form">
-    <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
+    <clr-alert id="errorAlert" clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
     <form clrform [formGroup]="expeditionControl">
         <table>
             <tr>
                 <td>
                     <clr-select-container class="grid-cell">
                         <label class="map-label">Откуда</label>
-                        <select class="map-input" (change)="onChangeFrom()" clrSelect name="from" formControlName="from"
+                        <select id="fromIslandInput" class="map-input" (change)="onChangeFrom()" clrSelect name="from" formControlName="from"
                                 required>
                             <option *ngFor="let island of islands"
                                     value={{island.id}}>{{island.name | islandPipe}}</option>
@@ -15,7 +15,7 @@
                     </clr-select-container>
                     <clr-select-container class="grid-cell">
                         <label class="map-label">Куда</label>
-                        <select class="map-input" (change)="onChangeTo()" clrSelect name="to" formControlName="to"
+                        <select id="toIslandInput" class="map-input" (change)="onChangeTo()" clrSelect name="to" formControlName="to"
                                 required>
                             <option *ngFor="let island of islands"
                                     value={{island.id}}>{{island.name | islandPipe}}</option>
@@ -26,20 +26,20 @@
                 <td>
                     <clr-input-container class="grid-cell">
                         <label class="map-label">Бюджет</label>
-                        <input class="map-input" clrInput placeholder="Бюджет" type="number" name="budget"
+                        <input id="budgetInput" class="map-input" clrInput placeholder="Бюджет" type="number" name="budget"
                                formControlName="budget" required/>
                         <clr-control-error>Необходимое поле</clr-control-error>
                     </clr-input-container>
                     <clr-date-container class="grid-cell">
                         <label class="map-label">Дата отправления</label>
-                        <input class="map-input-date" clrDate placeholder="Дата отправления" name="startDate"
+                        <input id="dateInput" class="map-input-date" clrDate placeholder="Дата отправления" name="startDate"
                                formControlName="startDate" required/>
                         <clr-control-error>Необходимое поле</clr-control-error>
                     </clr-date-container>
                 </td>
                 <td>
                     <div class="btn-find">
-                        <button (click)="submit()" class="btn btn-primary">Найти корабль и команду</button>
+                        <button id="find-button" (click)="submit()" class="btn btn-primary">Найти корабль и команду</button>
                     </div>
                 </td>
             </tr>
