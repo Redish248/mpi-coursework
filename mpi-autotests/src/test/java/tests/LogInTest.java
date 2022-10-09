@@ -77,6 +77,14 @@ public class LogInTest {
         assertTrue(logInPage.isErrorDisplayed());
     }
 
+    @Test
+    @DisplayName("Test logout")
+    public void testLogout() {
+        logInPage.signIn("irina", "12345");
+        logInPage.logout();
+        assertTrue(logInPage.isignUpDisplayed());
+    }
+
     @AfterEach
     public void tearDown(){
         webDriver.quit();

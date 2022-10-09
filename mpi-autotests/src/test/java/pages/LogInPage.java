@@ -14,6 +14,8 @@ public class LogInPage extends PageObject {
     private final String SIGN_IN = "//*[@id=\"button-signin\"]";
     private final String SIGN_UP = "//*[@id=\"button-signup\"]";
     private final String ERROR_TEXT = "//*[@id=\"errorAlert\"]";
+    private final String PROFILE_ICON = "/html/body/app-root/app-header/header/div[3]/clr-dropdown/button";
+    private final String LOGOUT = "/html/body/app-root/app-header/header/div[3]/clr-dropdown/div/a[2]";
 
     @FindBy(xpath = NICK)
     private WebElement nickInput;
@@ -29,6 +31,12 @@ public class LogInPage extends PageObject {
 
     @FindBy(xpath = ERROR_TEXT)
     private WebElement errorText;
+
+    @FindBy(xpath = PROFILE_ICON)
+    private WebElement profileIcon;
+
+    @FindBy(xpath = LOGOUT)
+    private WebElement logout;
 
     public void inputNick(String nick) {
         nickInput.sendKeys(nick);
@@ -46,6 +54,10 @@ public class LogInPage extends PageObject {
         signUp.click();
     }
 
+    public boolean isignUpDisplayed() {
+        return signUp.isDisplayed();
+    }
+
     public void signIn(String nick, String pass) {
         inputNick(nick);
         inputPassword(pass);
@@ -58,6 +70,11 @@ public class LogInPage extends PageObject {
 
     public boolean isErrorDisplayed() {
         return errorText.isDisplayed();
+    }
+
+    public void logout() {
+        profileIcon.click();
+        logout.click();
     }
 
 }
