@@ -22,11 +22,11 @@
             <clr-dg-cell>{{next.phone}}</clr-dg-cell>
             <clr-dg-cell>{{next.registrationDate}}</clr-dg-cell>
             <clr-dg-cell>
-                <button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, true)">Активировать
+                <button id="btn-activate" type="button" class="btn btn-outline" (click)="this.processUser(next.nick, true)">Активировать
                 </button>
             </clr-dg-cell>
             <clr-dg-cell>
-                <button type="button" class="btn btn-outline" (click)="this.processUser(next.nick, false)">Удалить
+                <button id="btn-delete" type="button" class="btn btn-outline" (click)="this.processUser(next.nick, false)">Удалить
                 </button>
             </clr-dg-cell>
         </clr-dg-row>
