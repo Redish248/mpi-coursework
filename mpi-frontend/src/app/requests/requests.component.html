@@ -1,6 +1,6 @@
 <clr-tabs>
     <clr-tab>
-        <button clrTabLink id="link1">Активные заявки</button>
+        <button id="active-tab" clrTabLink id="link1">Активные заявки</button>
         <clr-tab-content id="active" *clrIfActive="true">
             <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
             <div *ngFor="let request of activeRequests" class="request-block">
@@ -60,7 +60,7 @@
     </clr-tab>
 
     <clr-tab>
-        <button clrTabLink>Отмененные путешествия</button>
+        <button id="cancelled-tab" clrTabLink>Отмененные путешествия</button>
         <clr-tab-content id="cancelled" *clrIfActive>
             <div *ngFor="let request of cancelledRequests" class="request-block">
                 <div>
@@ -111,7 +111,7 @@
     </clr-tab>
 
     <clr-tab>
-        <button clrTabLink>Согласованные путешествия</button>
+        <button id="accepted-tab" clrTabLink>Согласованные путешествия</button>
         <clr-tab-content id="completed" *clrIfActive>
             <div *ngFor="let request of completedRequests" class="request-block">
                 <div>
@@ -155,7 +155,7 @@
                     <div class="value">{{request.status | statusPipe}}</div>
                 </div>
                 <div>
-                    <button *ngIf="canDelete(request)"  (click)="endTrip(request)" class="btn btn-success">
+                    <button id="end-trip-button" *ngIf="canDelete(request)"  (click)="endTrip(request)" class="btn btn-success">
                         Завершить
                     </button>
                 </div>
@@ -164,7 +164,7 @@
     </clr-tab>
 
     <clr-tab>
-        <button clrTabLink>Законченные путешествия</button>
+        <button id="ended-tab" clrTabLink>Законченные путешествия</button>
         <clr-tab-content id="ended" *clrIfActive>
             <div *ngFor="let request of endedRequests" class="request-block">
                 <div>
@@ -208,7 +208,7 @@
                     <div class="value">{{request.status | statusPipe}}</div>
                 </div>
                 <div *ngIf="!request.isRated && canDelete(request)">
-                    <button (click)="ratingMode = true" class="btn btn-success">
+                    <button id="rate-trip-btn" (click)="ratingMode = true" class="btn btn-success">
                         Выставить рейтинг
                     </button>
                 </div>

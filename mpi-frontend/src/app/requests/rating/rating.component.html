@@ -5,15 +5,15 @@
             <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
             <clr-input-container>
                 <label class="label-rating">Рейтинг корабля</label>
-                <input class="input-rating" clrInput formControlName="ship" type="number">
+                <input id="ship-rate" class="input-rating" clrInput formControlName="ship" type="number">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-rating">Рейтинг экипажа</label>
-                <input class="input-rating" clrInput formControlName="crew" type="number">
+                <input id="crew-rate" class="input-rating" clrInput formControlName="crew" type="number">
             </clr-input-container>
         </div>
         <div class="modal-footer">
-            <button [disabled]="tripRatingForm.invalid" type="button" class="btn btn-outline btn-rating"
+            <button id="rateTrip" [disabled]="tripRatingForm.invalid" type="button" class="btn btn-outline btn-rating"
                     (click)="rateTrip()">
                 Выставить рейтинг
             </button>
