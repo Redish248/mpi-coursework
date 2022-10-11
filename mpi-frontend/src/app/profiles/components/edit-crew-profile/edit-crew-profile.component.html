@@ -5,23 +5,23 @@
             <clr-alert clrAlertType="danger" *ngIf="infoUpdated">{{infoUpdated}}</clr-alert>
             <clr-input-container>
                 <label class="label-crew">Название</label>
-                <input class="input-crew" clrInput formControlName="teamName" type="text">
+                <input id="crew-name" class="input-crew" clrInput formControlName="teamName" type="text">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-crew">Фотография</label>
-                <input class="input-crew" clrInput formControlName="photo" type="text">
+                <input id="photo-crew" class="input-crew" clrInput formControlName="photo" type="text">
             </clr-input-container>
             <img *ngIf="photo" [src]="photo" id="photo" alt="">
             <clr-input-container>
                 <label class="label-crew">Цена за день</label>
-                <input class="input-crew" clrInput formControlName="pricePerDay" type="number">
+                <input id="price-crew" class="input-crew" clrInput formControlName="pricePerDay" type="number">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-crew">Описание</label>
-                <input class="input-crew" clrInput formControlName="description" type="text">
+                <input id="description-crew" class="input-crew" clrInput formControlName="description" type="text">
             </clr-input-container>
 
-            <div formArrayName="members" class="marginTop20">
+            <div id="membersDiv" formArrayName="members" class="marginTop20">
                 <hr>
                 <label class="label-crew">Члены экипажа:</label>
                 <hr>
@@ -49,6 +49,7 @@
 
         <div class="modal-footer">
             <button *ngIf="crewProfile"
+                    id="btn-crew-update"
                     class="btn btn-outline btn-crew"
                     [disabled]="crewProfileForm.invalid"
                     (click)="updateCrewProfile()">

@@ -5,45 +5,46 @@
             <clr-alert clrAlertType="danger" *ngIf="infoUpdated">{{infoUpdated}}</clr-alert>
             <clr-input-container>
                 <label class="label-ship">Название</label>
-                <input class="input-ship" clrInput formControlName="name" type="text">
+                <input id="profile-name" class="input-ship" clrInput formControlName="name" type="text">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-ship">Фотография</label>
-                <input class="input-ship" clrInput formControlName="photo" type="text">
+                <input id="photo-input" class="input-ship" clrInput formControlName="photo" type="text">
             </clr-input-container>
             <img *ngIf="photo" [src]="photo" id="photo" alt="">
             <clr-input-container>
                 <label class="label-ship">Цена за день</label>
-                <input class="input-ship" clrInput formControlName="pricePerDay" type="number">
+                <input id="price" class="input-ship" clrInput formControlName="pricePerDay" type="number">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-ship">Описание</label>
-                <input class="input-ship" clrInput formControlName="description" type="text">
+                <input id="description" class="input-ship" clrInput formControlName="description" type="text">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-ship">Длина</label>
-                <input class="input-ship" clrInput formControlName="length" type="number">
+                <input id="length" class="input-ship" clrInput formControlName="length" type="number">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-ship">Ширина</label>
-                <input class="input-ship" clrInput formControlName="width" type="number">
+                <input id="width" class="input-ship" clrInput formControlName="width" type="number">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-ship">Расход топлива</label>
-                <input class="input-ship" clrInput formControlName="fuelConsumption" type="number">
+                <input id="fuel" class="input-ship" clrInput formControlName="fuelConsumption" type="number">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-ship">Скорость</label>
-                <input class="input-ship" clrInput formControlName="speed" type="number">
+                <input id="speed" class="input-ship" clrInput formControlName="speed" type="number">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-ship">Вместимость</label>
-                <input class="input-ship" clrInput formControlName="capacity" type="number">
+                <input id="capacity" class="input-ship" clrInput formControlName="capacity" type="number">
             </clr-input-container>
         </div>
 
         <div class="modal-footer">
             <button *ngIf="shipProfile"
+                    id="btn-update"
                     class="btn btn-outline btn-save"
                     [disabled]="shipProfileForm.invalid"
                     (click)="updateShipProfile()">

@@ -17,37 +17,37 @@
 
                     <clr-input-container>
                         <label>Имя</label>
-                        <input clrInput formControlName="name" type="text">
+                        <input id="name" clrInput formControlName="name" type="text">
                     </clr-input-container>
                     <clr-input-container>
                         <label>Фамилия</label>
-                        <input clrInput formControlName="surname" type="text">
+                        <input id="surname" clrInput formControlName="surname" type="text">
                     </clr-input-container>
                     <clr-checkbox-wrapper>
                         <label>Делиться контактами</label>
-                        <input type="checkbox" clrCheckbox formControlName="shareContacts"/>
+                        <input id="contact-shared" type="checkbox" clrCheckbox formControlName="shareContacts"/>
                     </clr-checkbox-wrapper>
                     <clr-input-container>
                         <label>Почта</label>
-                        <input clrInput formControlName="email" type="text">
+                        <input id="email" clrInput formControlName="email" type="text">
                     </clr-input-container>
                     <clr-input-container>
                         <label>Телефон</label>
-                        <input clrInput formControlName="phone" type="text">
+                        <input id="phone" clrInput formControlName="phone" type="text">
                     </clr-input-container>
                     <clr-input-container>
                         <label>Дата рождения</label>
-                        <input clrInput formControlName="birthDate" type="text">
+                        <input id="birthDate" clrInput formControlName="birthDate" type="text">
                     </clr-input-container>
 
-                    <button *ngIf="shipOwner" (click)="openShipProfile()" class="btn btn-outline btn-bottom">
+                    <button id="ship-profile" *ngIf="shipOwner" (click)="openShipProfile()" class="btn btn-outline btn-bottom">
                         Профиль корабля
                     </button>
-                    <button *ngIf="crewManager" (click)="openCrewProfile()" class="btn btn-outline btn-bottom">
+                    <button id="crew-member-profile" *ngIf="crewManager" (click)="openCrewProfile()" class="btn btn-outline btn-bottom">
                         Профиль команды
                     </button>
 
-                    <button [disabled]="!userProfileForm.touched" (click)="updateUser()"
+                    <button id="btn-save" [disabled]="!userProfileForm.touched" (click)="updateUser()"
                             class="btn btn-outline btn-bottom">
                         Сохранить изменения
                     </button>
