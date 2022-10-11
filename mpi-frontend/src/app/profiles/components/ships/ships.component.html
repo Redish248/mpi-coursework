@@ -6,7 +6,7 @@
             <td>
                 <clr-input-container>
                     <label>Минимальная скорость</label>
-                    <input clrInput type="number" [(ngModel)]="filter.minSpeed"
+                    <input id="filterSpeed" clrInput type="number" [(ngModel)]="filter.minSpeed"
                            (change)="filterProfiles()">
                 </clr-input-container>
             </td>
@@ -14,7 +14,7 @@
             <td>
                 <clr-range-container>
                     <label>Вместимость: {{filter.capacity}}</label>
-                    <input clrRange type="range" [min]="minCapacity" [max]="maxCapacity"
+                    <input id="filterCapacity" clrRange type="range" [min]="minCapacity" [max]="maxCapacity"
                            [(ngModel)]="filter.capacity"
                            (change)="filterProfiles()"/>
                     <clr-control-helper>от {{minCapacity}} до {{maxCapacity}}</clr-control-helper>
@@ -24,7 +24,7 @@
             <td>
                 <clr-range-container>
                     <label>Минимальный рейтинг: {{filter.minRates}}</label>
-                    <input clrRange type="range" [min]="minRates" [max]="maxRates"
+                    <input id="filterRating" clrRange type="range" [min]="minRates" [max]="maxRates"
                            [(ngModel)]="filter.minRates"
                            (change)="filterProfiles()"/>
                     <clr-control-helper>от {{minRates}} до {{maxRates}}</clr-control-helper>
