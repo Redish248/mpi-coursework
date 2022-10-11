@@ -105,6 +105,7 @@ public class ShipPage extends PageObject {
 
     public void setRating() {
         filterRating.sendKeys(Keys.ARROW_RIGHT);
+        filterRating.sendKeys(Keys.ARROW_LEFT);
     }
 
 }

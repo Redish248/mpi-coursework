@@ -78,9 +78,9 @@ public class ShipProfileTest {
     @DisplayName("Test that width can be changed")
     public void testWidthInputField() {
         String previous = shipProfilePage.getWidthInputText();
-        shipProfilePage.setWidth("test");
+        shipProfilePage.setWidth("300");
         shipProfilePage.clickUpdateButton();
-        assertEquals("test", shipProfilePage.getWidthInputText());
+        assertEquals("300", shipProfilePage.getWidthInputText());
         shipProfilePage.setWidth(previous);
         shipProfilePage.clickUpdateButton();
         assertEquals(previous, shipProfilePage.getWidthInputText());
@@ -90,9 +90,9 @@ public class ShipProfileTest {
     @DisplayName("Test that length can be changed")
     public void testLengthInputField() {
         String previous = shipProfilePage.getLengthInputText();
-        shipProfilePage.setLength("test");
+        shipProfilePage.setLength("300");
         shipProfilePage.clickUpdateButton();
-        assertEquals("test", shipProfilePage.getLengthInputText());
+        assertEquals("300", shipProfilePage.getLengthInputText());
         shipProfilePage.setLength(previous);
         shipProfilePage.clickUpdateButton();
         assertEquals(previous, shipProfilePage.getLengthInputText());

@@ -10,7 +10,7 @@ public class CrewPage extends PageObject {
     }
 
     private final String CREW_CARD = "//*[@id=\"profiles-list\"]/div[1]";
-    private final String CREW_CARD_HEADER = "//*[@id=\"profiles-list\"]//[@class=\"card-header\"]";
+    private final String CREW_CARD_HEADER = "//*[@id=\"profiles-list\"]/div[1]/div[1]";
     private final String CREW_CARD_IMG = "//*[@id=\"profiles-list\"]//img";
     private final String CREW_CARD_INFO = "//*[@class=\"card-text\"]";
 

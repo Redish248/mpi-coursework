@@ -3,7 +3,6 @@ package tests;
 import config.WebDriverConfiguration;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -17,7 +16,6 @@ import pages.TripRequestPage;
 import java.time.Duration;
 import java.util.concurrent.TimeUnit;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TripRequestTest {
@@ -76,7 +74,6 @@ public class TripRequestTest {
     }
 
     @Test
-    @Disabled
     @DisplayName("Test full trip request creation flow")
     public void testFullRequestCreationFlow() {
         WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
@@ -131,6 +128,6 @@ public class TripRequestTest {
 
     @AfterEach
     public void tearDown(){
-        //webDriver.quit();
+        webDriver.quit();
     }
 }
