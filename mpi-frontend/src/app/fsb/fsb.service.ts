@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http'
 import { ConfigService } from '../service/config.service'
 import { Crew } from './model/crew'
 import { Observable } from 'rxjs'
+import {Island} from "./model/island";
 
 @Injectable({
   providedIn: 'root'
