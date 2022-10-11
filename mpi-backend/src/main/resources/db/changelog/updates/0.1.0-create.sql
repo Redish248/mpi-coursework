@@ -41,7 +41,8 @@ CREATE TABLE crew (
                       crew_owner BIGINT NOT NULL REFERENCES users,
                       price_per_day INTEGER NOT NULL,
                       rates_number INTEGER NOT NULL,
-                      rates_average FLOAT(8) NOT NULL
+                      rates_average FLOAT(8) NOT NULL,
+                      description TEXT DEFAULT 'Краткое описание для привлечения внимания клиентов'
 );
 
 CREATE TABLE crew_member (
@@ -54,7 +55,7 @@ CREATE TABLE ship (
                       uid serial PRIMARY KEY,
                       name VARCHAR(50) NOT NULL,
                       owner BIGINT NOT NULL REFERENCES users,
-                      description TEXT,
+                      description TEXT DEFAULT 'Краткое описание для привлечения внимания клиентов',
                       speed INTEGER CHECK (speed >= 0),
                       capacity INTEGER CHECK (capacity >= 0),
                       fuel_consumption INTEGER,
