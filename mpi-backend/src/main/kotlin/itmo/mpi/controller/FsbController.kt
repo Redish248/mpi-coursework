@@ -1,6 +1,5 @@
 package itmo.mpi.controller
 
-import itmo.mpi.entity.Island
 import itmo.mpi.model.CrewMemberResponse
 import itmo.mpi.model.IslandResponse
 import itmo.mpi.service.FsbAgentService
