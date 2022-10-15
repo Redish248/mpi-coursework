@@ -3,9 +3,11 @@ package itmo.mpi.model.profiles;
 import itmo.mpi.entity.Ship;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class ShipResponse {
     private int uid;
     private String title;

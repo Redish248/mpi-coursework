@@ -2,6 +2,7 @@ package itmo.mpi.model.profiles;
 
 import itmo.mpi.entity.Crew;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 
 import java.util.List;
@@ -11,6 +12,7 @@ import java.util.List;
  * Only VIP users get information about pirates
  */
 @Data
+@NoArgsConstructor
 public class CrewProfileResponse {
     // user profile info
     private int uid;

@@ -16,8 +16,6 @@ jacocoTestCoverageVerification {
                     'itmo.mpi.model.**',
                     'itmo.mpi.repository.**',
                     'itmo.mpi.service.**',
-                    'itmo.mpi.impl.FsbAgentServiceImpl',
-                    'itmo.mpi.controller.ProfilesController',
                     'itmo.mpi.util.**',
                     'itmo.mpi.utils.**',
             ]

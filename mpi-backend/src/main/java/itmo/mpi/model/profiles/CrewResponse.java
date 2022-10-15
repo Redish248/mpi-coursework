@@ -4,12 +4,14 @@ import itmo.mpi.entity.Crew;
 import itmo.mpi.entity.CrewMember;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class CrewResponse {
     private int uid;
     private String teamName;

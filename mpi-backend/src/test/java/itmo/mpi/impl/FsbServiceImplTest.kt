@@ -2,26 +2,29 @@ package itmo.mpi.impl
 
 import io.mockk.*
 import io.mockk.impl.annotations.InjectMockKs
-import itmo.mpi.entity.Island
-import itmo.mpi.entity.User
-import itmo.mpi.entity.UserRole
+import itmo.mpi.entity.*
 import itmo.mpi.exception.IllegalRequestParamsException
 import itmo.mpi.exception.IslandNotFoundException
 import itmo.mpi.exception.UserNotFoundException
+import itmo.mpi.model.CrewMemberResponse
+import itmo.mpi.model.NewFsbAgentRequest
 import itmo.mpi.repository.CrewRepository
 import itmo.mpi.repository.FsbAgentRepository
 import itmo.mpi.repository.IslandRepository
 import itmo.mpi.repository.UserRepository
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertAll
 import java.util.*
+import kotlin.test.assertTrue
 
 class FsbServiceImplTest {
 
     private val fbsAgentRepository: FsbAgentRepository = mockk()
-    private val creRepository: CrewRepository = mockk()
+    private val crewRepository: CrewRepository = mockk()
     private val userRepository: UserRepository = mockk()
     private val islandRepository: IslandRepository = mockk()
 
@@ -31,6 +34,39 @@ class FsbServiceImplTest {
     @BeforeEach
     fun init() {
         MockKAnnotations.init(this)
+    }
+
+    @Test
+    fun `Test registering new agent`() {
+        every { fbsAgentRepository.save(any()) } returns FsbAgent()
+
+        val newFsbAgentRequest = NewFsbAgentRequest("name", "surname", "nick", "pass")
+        fsbServiceImpl.registerNewAgent(newFsbAgentRequest)
+
+        verify { fbsAgentRepository.save(any()) }
+    }
+
+    @Test
+    fun `Test getting crews`() {
+        every { crewRepository.findAll() } returns mutableListOf(Crew().apply {
+            teamName = "test"
+            crewOwner = User().apply {
+                id = 1
+                name = "name"
+                surname = "surname"
+                teamName = "teamName"
+                isPirate = true
+            }
+        })
+
+        val result = fsbServiceImpl.getCrews()
+
+        assertAll(
+                { assertEquals(1, result[0].id) },
+                { assertEquals("name surname", result[0].fullName) },
+                { assertEquals("teamName", result[0].teamName) },
+                { assertTrue(result[0].isPirate) }
+        )
     }
 
     @Test
