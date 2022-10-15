@@ -80,7 +80,7 @@ export class ShipsComponent implements OnInit {
     filterProfiles() {
         this.filteredProfiles = this.ships.filter(sp =>
             sp.ship.speed >= this.filter.minSpeed &&
-            sp.ship.capacity == this.filter.capacity &&
+            sp.ship.capacity >= this.filter.capacity &&
             sp.ship.rates >= this.filter.minRates
         )
     }

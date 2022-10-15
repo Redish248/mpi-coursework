@@ -82,9 +82,9 @@ export class CrewsComponent implements OnInit {
 
     filterProfiles() {
         this.filteredProfiles = this.crews.filter(el =>
-            el.crew.rates > this.filter.minRates &&
-            (el.crew?.membersNumber || -1) > this.filter.minMembersNumber &&
-            (el.crew?.membersNumber || Number.MAX_SAFE_INTEGER) < this.filter.maxMembersNumber
+            el.crew.rates >= this.filter.minRates &&
+            (el.crew?.membersNumber || -1) >= this.filter.minMembersNumber &&
+            (el.crew?.membersNumber || Number.MAX_SAFE_INTEGER) <= this.filter.maxMembersNumber
         )
     }
 }
