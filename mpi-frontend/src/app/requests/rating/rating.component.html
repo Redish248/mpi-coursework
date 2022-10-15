@@ -5,11 +5,11 @@
             <clr-alert clrAlertType="danger" *ngIf="errorMessage">{{errorMessage}}</clr-alert>
             <clr-input-container>
                 <label class="label-rating">Рейтинг корабля</label>
-                <input id="ship-rate" class="input-rating" clrInput formControlName="ship" type="number">
+                <input id="ship-rate" class="input-rating" clrInput formControlName="ship" type="number" min="1" max="5">
             </clr-input-container>
             <clr-input-container>
                 <label class="label-rating">Рейтинг экипажа</label>
-                <input id="crew-rate" class="input-rating" clrInput formControlName="crew" type="number">
+                <input id="crew-rate" class="input-rating" clrInput formControlName="crew" type="number" min="1" max="5">
             </clr-input-container>
         </div>
         <div class="modal-footer">

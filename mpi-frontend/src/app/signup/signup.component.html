@@ -30,7 +30,7 @@
             </clr-input-container>
             <clr-date-container>
                 <label class="label-signup">Дата рождения</label>
-                <input id="birthDate" class="input-signup-date" type="date" clrDate formControlName="birthDate"/>
+                <input id="birthDate" max="{{today}}" class="input-signup-date" type="date" clrDate formControlName="birthDate"/>
             </clr-date-container>
             <clr-select-container>
                 <label class="label-signup">Тип пользователя</label>

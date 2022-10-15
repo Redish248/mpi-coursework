@@ -91,4 +91,4 @@ compileTestKotlin {
     }
 }
 
-tasks.build.dependsOn testWithCoverage
+//tasks.build.dependsOn testWithCoverage

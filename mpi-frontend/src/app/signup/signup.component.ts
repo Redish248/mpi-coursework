@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms'
 import {AuthService} from '../service/auth.service'
 import {SignupService} from "./signup.service"
 import {Permissions} from '../entity/User'
+import {DatePipe} from "@angular/common";
 
 @Component({
     selector: 'app-signup',
@@ -18,7 +19,8 @@ export class SignupComponent implements OnInit {
 
     constructor(private formBuilder: FormBuilder,
                 private signupService: SignupService,
-                private authService: AuthService
+                private authService: AuthService,
+                public datepipe: DatePipe
     ) {
         this.signupForm = this.formBuilder.group({
             name: ['', Validators.required],
@@ -36,6 +38,8 @@ export class SignupComponent implements OnInit {
     errorMessage: string | undefined
     loading: boolean = false
     Roles = Permissions
+    // @ts-ignore
+    today: string = this.datepipe.transform(new Date(), 'yyyy-MM-dd');
 
     ngOnInit(): void {
     }

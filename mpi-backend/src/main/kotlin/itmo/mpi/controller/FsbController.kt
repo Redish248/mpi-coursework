@@ -28,7 +28,7 @@ class FsbController(private val fsbAgentService: FsbAgentService, private val is
     else fsbAgentService.markAsGoodPerson(crewUid)
 
     @PutMapping("island/{islandUid}/pirate/{isPirate}")
-    fun updateCrew(
+    fun updateIsland(
         @PathVariable islandUid: Int,
         @PathVariable isPirate: Boolean
     ) = if (isPirate) fsbAgentService.markIslandAsDangerous(islandUid)

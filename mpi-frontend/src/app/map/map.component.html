@@ -32,7 +32,7 @@
                     </clr-input-container>
                     <clr-date-container class="grid-cell">
                         <label class="map-label">Дата отправления</label>
-                        <input id="dateInput" class="map-input-date" clrDate placeholder="Дата отправления" name="startDate"
+                        <input id="dateInput" min="{{today}}" class="map-input-date" clrDate placeholder="Дата отправления" name="startDate"
                                formControlName="startDate" required/>
                         <clr-control-error>Необходимое поле</clr-control-error>
                     </clr-date-container>

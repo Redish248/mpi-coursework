@@ -25,9 +25,14 @@ export class MapComponent implements OnInit {
     public islands: Island[] = [];
     private clickStatus: number = 0;
     errorMessage: string | undefined
+    // @ts-ignore
+    today: string = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
-    constructor(private islandService: IslandService, private router: Router, private options: OptionsService,
-                private datePipe: DatePipe, private auth: AuthService) {
+    constructor(private islandService: IslandService,
+                private router: Router,
+                private options: OptionsService,
+                private datePipe: DatePipe,
+                private auth: AuthService) {
         this.errorMessage = undefined
     }
 

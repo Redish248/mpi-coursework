@@ -36,6 +36,8 @@ class ProfilesControllerTest(@Autowired val mockMcv: MockMvc) {
     @MockkBean
     private lateinit var commonUtils: CommonUtils
 
+    private val baseUrl: String = "/mpi/profiles"
+
     @BeforeEach
     fun init() {
         MockKAnnotations.init(this)
@@ -102,5 +104,4 @@ class ProfilesControllerTest(@Autowired val mockMcv: MockMvc) {
         description = ""
         ratesAverage = 1.0
     }
-    private val baseUrl: String = "/mpi/profiles"
 }
