@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core'
+import { Injectable } from '@angular/core'
 
 @Injectable({
     providedIn: 'root'
@@ -8,11 +8,14 @@ export class ConfigService {
     constructor() {
     }
 
+    // private url = 'http://localhost:8088'
+    private url = 'http://localhost:80'
+
     get baseUrl(): string {
-        return 'http://localhost:8088'
+        return this.url
     }
 
     get appUrl(): string {
-        return 'http://localhost:8088/mpi'
+        return `${this.url}/mpi`
     }
 }

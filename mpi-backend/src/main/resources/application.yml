@@ -6,9 +6,9 @@ spring:
   application:
     name: mpi-backend
   datasource:
-    url: jdbc:postgresql://localhost:5432/mpi_coursework
-    username: mag_db
-    password: mag_db
+    url: jdbc:postgresql://postgres:5432/postgres
+    username: postgres
+    password: psql
     driver-class-name: org.postgresql.Driver
 
   jpa:
