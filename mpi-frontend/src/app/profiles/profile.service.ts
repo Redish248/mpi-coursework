@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core'
-import {ConfigService} from '../service/config.service'
-import {HttpClient} from '@angular/common/http'
-import {Observable} from 'rxjs'
-import {Crew, CrewProfile} from './model/CrewProfile'
-import {UserProfile} from './model/UserProfile'
-import {Ship, ShipProfile} from './model/ShipProfile'
+import { Injectable } from '@angular/core'
+import { ConfigService } from '../service/config.service'
+import { HttpClient } from '@angular/common/http'
+import { Observable } from 'rxjs'
+import { Crew, CrewProfile } from './model/CrewProfile'
+import { UserProfile } from './model/UserProfile'
+import { Ship, ShipProfile } from './model/ShipProfile'
 
 
 @Injectable({
@@ -17,6 +17,14 @@ export class ProfileService {
 
     private get apiUrl(): string {
         return `${this.configService.appUrl}/profiles`
+    }
+
+    updateCrewAfraid(newValue: boolean) {
+        return this.http.post<void>(`${this.apiUrl}/crew/afraid/${newValue}`, null, {headers: {'Content-Type': 'application/json'}})
+    }
+
+    updateShipAfraid(newValue: boolean) {
+        return this.http.post<void>(`${this.apiUrl}/ship/afraid/${newValue}`, null, {headers: {'Content-Type': 'application/json'}})
     }
 
     getCurrentUserInfo(): Observable<UserProfile> {
@@ -66,5 +74,9 @@ export class ProfileService {
     updateUser(userInfo: any): Observable<UserProfile> {
         console.log(userInfo)
         return this.http.post<UserProfile>(`${this.apiUrl}/userinfo`, JSON.stringify(userInfo), {headers: {'Content-Type': 'application/json'}})
+    }
+
+    getAfraid(): Observable<boolean> {
+        return this.http.get<boolean>(`${this.apiUrl}/afraid`)
     }
 }

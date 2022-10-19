@@ -29,4 +29,10 @@ public interface ProfilesService {
     User updateUser(UserInfoUpdate userInfo);
 
     void changeVipStatus(boolean isEnabled);
+
+    boolean getAfraid(String nickName);
+
+    void updateShipAfraid(String nick, Boolean value);
+
+    void updateCrewAfraid(String nick, Boolean value);
 }

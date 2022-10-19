@@ -272,6 +272,32 @@ public class ProfilesServiceImpl implements ProfilesService {
         userRepository.save(user);
     }
 
+    @Override
+    public boolean getAfraid(String nickname) {
+        User user = userRepository.findByNick(nickname);
+        if (user.getUserType().getName().equals(CREW_MANAGER))
+            return crewRepository.getCrewByCrewOwner(user).getAfraidPirates();
+        else if (user.getUserType().getName().equals(SHIP_OWNER))
+            return shipRepository.getShipByOwnerId(user.getId()).getAfraidPirates();
+        else return false;
+    }
+
+    @Override
+    public void updateShipAfraid(String nick, Boolean value) {
+        User user = userRepository.findByNick(nick);
+        Ship ship = shipRepository.getShipByOwnerId(user.getId());
+        ship.setAfraidPirates(value);
+        shipRepository.save(ship);
+    }
+
+    @Override
+    public void updateCrewAfraid(String nick, Boolean value) {
+        User user = userRepository.findByNick(nick);
+        Crew crew = crewRepository.getCrewByCrewOwner(user);
+        crew.setAfraidPirates(value);
+        crewRepository.save(crew);
+    }
+
     private Crew getCrew(User user) {
         try {
             return crewRepository.getCrewByCrewOwner(user);

@@ -21,6 +21,7 @@ public class CrewProfileResponse {
     private String email;
     private String phone;
     private Boolean isPirate; // true false - for VIP & null for others
+    private Boolean afraid;
 
     // crew info
     private CrewResponse crew;
@@ -33,6 +34,7 @@ public class CrewProfileResponse {
         this.email = email;
         this.phone = phone;
         this.isPirate = isPirate;
+        this.afraid = crew.getAfraidPirates();
 
         this.crew = new CrewResponse(
                 crew,

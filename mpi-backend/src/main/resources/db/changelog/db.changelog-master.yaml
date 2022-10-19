@@ -21,3 +21,5 @@ databaseChangeLog:
       file: /db/changelog/updates/0.10.0-reg-date.sql
   - include:
       file: /db/changelog/updates/0.11.0-fsb.sql
+  - include:
+      file: /db/changelog/updates/0.12.0-afraid-pirates.sql

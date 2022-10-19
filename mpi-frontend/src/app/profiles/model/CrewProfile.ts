@@ -6,6 +6,7 @@ export interface CrewProfile {
     email: string
     phone: string
     isPirate: boolean
+    afraid: boolean
 
     crew: Crew
 }

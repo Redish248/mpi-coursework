@@ -1,6 +1,10 @@
 <form clrForm [formGroup]="shipProfileForm">
     <clr-modal [(clrModalOpen)]="modalOpen" (clrModalOpenChange)="modalClose.emit()">
-        <h3 class="modal-title">Профиль корабля</h3>
+        <h3 class="modal-title">
+            Профиль корабля
+            <span class="label label-success" *ngIf="!afraidPirates">предупредительный</span>
+            <span class="label label-info" *ngIf="afraidPirates">смелый</span>
+        </h3>
         <div class="modal-body">
             <clr-alert clrAlertType="danger" *ngIf="infoUpdated">{{infoUpdated}}</clr-alert>
             <clr-input-container>
@@ -40,6 +44,12 @@
                 <label class="label-ship">Вместимость</label>
                 <input id="capacity" class="input-ship" clrInput formControlName="capacity" type="number">
             </clr-input-container>
+            <button id="vip" *ngIf="!afraidPirates" (click)="updateAfraid(true)" class="btn btn-link">
+                боюсь пиратов
+            </button>
+            <button id="not-vip" *ngIf="afraidPirates" (click)="updateAfraid(false)" class="btn btn-link">
+                не боюсь пиратов
+            </button>
         </div>
 
         <div class="modal-footer">

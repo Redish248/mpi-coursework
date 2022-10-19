@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
-import {FormBuilder, FormGroup, Validators} from '@angular/forms'
-import {ProfileService} from '../../profile.service'
-import {Ship} from '../../model/ShipProfile'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { ProfileService } from '../../profile.service'
+import { Ship } from '../../model/ShipProfile'
 
 @Component({
     selector: 'app-edit-ship-profile',
@@ -32,9 +32,18 @@ export class EditShipProfileComponent implements OnInit {
 
     shipProfileForm: FormGroup
     infoUpdated: string
+    afraidPirates: boolean = false
 
     ngOnInit(): void {
         if (this.shipProfile) this.fillForm()
+        this.getAfraid()
+    }
+
+    private getAfraid() {
+        this.profileService.getAfraid().subscribe(
+            afraid => this.afraidPirates = afraid,
+            err => console.log(err)
+        )
     }
 
     fillForm() {
@@ -49,6 +58,16 @@ export class EditShipProfileComponent implements OnInit {
             photo: this.shipProfile?.photo,
             description: this.shipProfile?.description
         })
+    }
+
+    updateAfraid(target: any) {
+        this.profileService.updateShipAfraid(target.value).subscribe(
+            _ => {
+                this.getAfraid()
+            }, err => {
+                console.log(err)
+            }
+        )
     }
 
     updateShipProfile() {

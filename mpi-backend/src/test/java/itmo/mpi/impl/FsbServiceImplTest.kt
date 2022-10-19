@@ -62,10 +62,10 @@ class FsbServiceImplTest {
         val result = fsbServiceImpl.getCrews()
 
         assertAll(
-                { assertEquals(1, result[0].id) },
-                { assertEquals("name surname", result[0].fullName) },
-                { assertEquals("teamName", result[0].teamName) },
-                { assertTrue(result[0].isPirate) }
+            { assertEquals(1, result[0].id) },
+            { assertEquals("name surname", result[0].fullName) },
+            { assertEquals("teamName", result[0].teamName) },
+            { assertTrue(result[0].isPirate) }
         )
     }
 
@@ -80,7 +80,7 @@ class FsbServiceImplTest {
             }
         }
         val savedUser = slot<User>()
-        every { userRepository.findById(crew.id.toLong()) } returns Optional.of(crew)
+        every { userRepository.findById(crew.id) } returns Optional.of(crew)
         every { userRepository.save(capture(savedUser)) } returns crew
 
         fsbServiceImpl.markAsPirate(crew.id.toLong())
@@ -99,7 +99,7 @@ class FsbServiceImplTest {
             }
         }
         val savedUser = slot<User>()
-        every { userRepository.findById(crew.id.toLong()) } returns Optional.of(crew)
+        every { userRepository.findById(crew.id) } returns Optional.of(crew)
         every { userRepository.save(capture(savedUser)) } returns crew
 
         val thrown = assertThrows(IllegalRequestParamsException::class.java) {
@@ -110,11 +110,11 @@ class FsbServiceImplTest {
 
     @Test
     fun `check mark unknown crew as pirate`() {
-        val unkownId = 1L
+        val unkownId = 1
         every { userRepository.findById(unkownId) } returns Optional.empty()
 
         val thrown = assertThrows(UserNotFoundException::class.java) {
-            fsbServiceImpl.markAsPirate(unkownId)
+            fsbServiceImpl.markAsPirate(unkownId.toLong())
         }
         assertThat(thrown).hasMessageContaining(unkownId.toString())
     }
@@ -130,7 +130,7 @@ class FsbServiceImplTest {
             }
         }
         val savedUser = slot<User>()
-        every { userRepository.findById(crew.id.toLong()) } returns Optional.of(crew)
+        every { userRepository.findById(crew.id) } returns Optional.of(crew)
         every { userRepository.save(capture(savedUser)) } returns crew
 
         fsbServiceImpl.markAsGoodPerson(crew.id.toLong())
@@ -149,7 +149,7 @@ class FsbServiceImplTest {
             }
         }
         val savedUser = slot<User>()
-        every { userRepository.findById(crew.id.toLong()) } returns Optional.of(crew)
+        every { userRepository.findById(crew.id) } returns Optional.of(crew)
         every { userRepository.save(capture(savedUser)) } returns crew
 
         val thrown = assertThrows(IllegalRequestParamsException::class.java) {
@@ -160,11 +160,11 @@ class FsbServiceImplTest {
 
     @Test
     fun `check mark unknown crew as good person`() {
-        val unkownId = 1L
+        val unkownId = 1
         every { userRepository.findById(unkownId) } returns Optional.empty()
 
         val thrown = assertThrows(UserNotFoundException::class.java) {
-            fsbServiceImpl.markAsGoodPerson(unkownId)
+            fsbServiceImpl.markAsGoodPerson(unkownId.toLong())
         }
         assertThat(thrown).hasMessageContaining(unkownId.toString())
     }

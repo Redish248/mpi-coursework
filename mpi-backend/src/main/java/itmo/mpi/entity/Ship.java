@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "ship")
+@Table(name = "ship", schema = "s243882")
 @Data
 public class Ship {
     @Id
@@ -57,6 +57,16 @@ public class Ship {
     @Column(name = "description")
     private String description;
 
+    public Boolean getAfraidPirates() {
+        return afraidPirates;
+    }
+
+    public void setAfraidPirates(Boolean afraidPirates) {
+        this.afraidPirates = afraidPirates;
+    }
+
+    @Column(name = "afraid_pirates")
+    private Boolean afraidPirates;
 
     public Ship(String name, User owner, Integer speed, Integer capacity, Integer fuelConsumption, Integer length, Integer width, Integer pricePerDay, String photo, String description) {
         this.name = name;
