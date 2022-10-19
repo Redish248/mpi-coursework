@@ -22,7 +22,7 @@
                         <label>Фамилия</label>
                         <input id="surname" clrInput formControlName="surname" type="text">
                     </clr-input-container>
-                    <clr-checkbox-wrapper>
+                    <clr-checkbox-wrapper *ngIf="shipOwner || crewManager">
                         <label>Делиться контактами</label>
                         <input id="contact-shared" type="checkbox" clrCheckbox formControlName="shareContacts"/>
                     </clr-checkbox-wrapper>
@@ -39,10 +39,12 @@
                         <input id="birthDate" clrInput formControlName="birthDate" type="text">
                     </clr-input-container>
 
-                    <button id="ship-profile" *ngIf="shipOwner" (click)="openShipProfile()" class="btn btn-outline btn-bottom">
+                    <button id="ship-profile" *ngIf="shipOwner" (click)="openShipProfile()"
+                            class="btn btn-outline btn-bottom">
                         Профиль корабля
                     </button>
-                    <button id="crew-member-profile" *ngIf="crewManager" (click)="openCrewProfile()" class="btn btn-outline btn-bottom">
+                    <button id="crew-member-profile" *ngIf="crewManager" (click)="openCrewProfile()"
+                            class="btn btn-outline btn-bottom">
                         Профиль команды
                     </button>
 
@@ -51,12 +53,12 @@
                         Сохранить изменения
                     </button>
 
-                    <button id="vip" *ngIf="user.vip" (click)="revertVip()" class="btn btn-outline btn-bottom">
-                        Убрать VIP статус
-                    </button>
-                    <button id="not-vip" *ngIf="!user.vip" (click)="makeUserVip()" class="btn btn-outline btn-bottom">
-                        Стать VIP пользователем
-                    </button>
+<!--                    <button id="vip" *ngIf="user.vip" (click)="revertVip()" class="btn btn-outline btn-bottom">-->
+<!--                        Убрать VIP статус-->
+<!--                    </button>-->
+<!--                    <button id="not-vip" *ngIf="!user.vip" (click)="makeUserVip()" class="btn btn-outline btn-bottom">-->
+<!--                        Стать VIP пользователем-->
+<!--                    </button>-->
                 </form>
             </td>
         </tr>

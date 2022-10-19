@@ -87,4 +87,23 @@ public class ProfilesController {
     public void revertVipStatus() {
         profilesService.changeVipStatus(false);
     }
+
+
+    @GetMapping("afraid")
+    public boolean getAfraidPirates() {
+        String nickname = commonUtils.getCurrentUser().getName();
+        return profilesService.getAfraid(nickname);
+    }
+
+    @PostMapping("/crew/afraid/{value}")
+    public void updateCrewAfraid(@PathVariable Boolean value) {
+        String nickname = commonUtils.getCurrentUser().getName();
+        profilesService.updateCrewAfraid(nickname, value);
+    }
+
+    @PostMapping("/ship/afraid/{value}")
+    public void updateShipAfraid(@PathVariable Boolean value) {
+        String nickname = commonUtils.getCurrentUser().getName();
+        profilesService.updateShipAfraid(nickname, value);
+    }
 }

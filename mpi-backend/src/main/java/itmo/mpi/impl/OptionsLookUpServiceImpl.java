@@ -53,6 +53,14 @@ public class OptionsLookUpServiceImpl implements OptionsLookUpService {
                                     .finishDate(tripRequestDto.getStartDate().plus(days, ChronoUnit.DAYS))
                                     .build());
                 })
+                .filter(candidate -> {
+                    var dangerous = tripRequestDto.getFrom().getHasPirates() ||
+                            tripRequestDto.getTo().getHasPirates() ||
+                            candidate.getCrew().getCrewOwner().getIsPirate();
+                    var afraid = candidate.getCrew().getAfraidPirates() || candidate.getShip().getAfraidPirates();
+
+                    return !(dangerous && afraid);
+                })
                 .collect(Collectors.toList());
     }
 

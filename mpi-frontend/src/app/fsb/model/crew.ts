@@ -4,3 +4,4 @@ export interface Crew {
   teamName: string,
   pirate: boolean
 }
+

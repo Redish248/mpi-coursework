@@ -89,7 +89,7 @@ export class FsbComponent implements OnInit {
     this.fsbService.markIslandAsDangerous(islandId).subscribe(
       _ => {
         this.loading = false
-        this.getCrews()
+        this.getIslands()
       }
       ,
       err => {
@@ -105,7 +105,7 @@ export class FsbComponent implements OnInit {
     this.fsbService.markIslandAsSafe(islandId).subscribe(
       _ => {
         this.loading = false
-        this.getCrews()
+        this.getIslands()
       },
       err => {
         this.loading = false

@@ -5,6 +5,7 @@ export interface ShipProfile {
     email: string
     phone: string
     isPirate: boolean
+    afraid: boolean
 
     ship: Ship
 }

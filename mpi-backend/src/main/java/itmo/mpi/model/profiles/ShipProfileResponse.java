@@ -14,6 +14,7 @@ public class ShipProfileResponse {
     private String phone;
     private Boolean isPirate;
     private ShipResponse ship;
+    private Boolean afraid;
 
     public ShipProfileResponse(int uid, String name, String surname, String email, String phone, Boolean isPirate, Ship ship) {
         this.uid = uid;
@@ -22,6 +23,7 @@ public class ShipProfileResponse {
         this.email = email;
         this.phone = phone;
         this.isPirate = isPirate;
+        this.afraid = ship.getAfraidPirates();
 
         this.ship = new ShipResponse(ship);
     }

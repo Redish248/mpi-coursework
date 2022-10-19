@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "user_role")
+@Table(name = "user_role", schema = "s243882")
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

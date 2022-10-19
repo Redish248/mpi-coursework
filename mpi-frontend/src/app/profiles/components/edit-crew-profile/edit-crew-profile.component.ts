@@ -1,7 +1,7 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core'
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms'
-import {Crew, CrewMember} from '../../model/CrewProfile'
-import {ProfileService} from '../../profile.service'
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { Crew, CrewMember } from '../../model/CrewProfile'
+import { ProfileService } from '../../profile.service'
 
 
 @Component({
@@ -28,9 +28,29 @@ export class EditCrewProfileComponent implements OnInit {
 
     infoUpdated: string
     crewProfileForm: FormGroup
+    afraidPirates: boolean = false
 
     ngOnInit(): void {
         if (this.crewProfile) this.fillForm()
+        this.getAfraid()
+    }
+
+    private getAfraid() {
+        this.profileService.getAfraid().subscribe(
+            afraid => this.afraidPirates = afraid,
+            err => console.log(err)
+        )
+    }
+
+    updateAfraid(value: boolean) {
+        this.profileService.updateCrewAfraid(value).subscribe(
+            _ => {
+                this.getAfraid()
+            },
+            err => {
+                console.log(err)
+            }
+        )
     }
 
     private fillForm() {
