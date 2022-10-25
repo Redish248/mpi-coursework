@@ -2,7 +2,7 @@
 <clr-spinner *ngIf="loading"></clr-spinner>
 
 <div class="user-div">
-    <h1>Мой профиль</h1>
+    <h1>Мой профиль <clr-icon *ngIf="user?.vip" shape="crown"></clr-icon></h1>
     <clr-alert clrAlertType="danger" *ngIf="infoUpdated">{{infoUpdated}}</clr-alert>
     <table>
         <tr>
@@ -13,7 +13,6 @@
                 <form clrForm [formGroup]="userProfileForm">
                     <span *ngIf="!user?.activated"
                           class="label label-danger">Акаунт не подтвержден администратором</span>
-                    <clr-icon *ngIf="user?.isVip" shape="crown"></clr-icon>
 
                     <clr-input-container>
                         <label>Имя</label>
@@ -50,6 +49,13 @@
                     <button id="btn-save" [disabled]="!userProfileForm.touched" (click)="updateUser()"
                             class="btn btn-outline btn-bottom">
                         Сохранить изменения
+                    </button>
+
+                    <button id="vip" *ngIf="user.vip" (click)="revertVip()" class="btn btn-outline btn-bottom">
+                        Убрать VIP статус
+                    </button>
+                    <button id="not-vip" *ngIf="!user.vip" (click)="makeUserVip()" class="btn btn-outline btn-bottom">
+                        Стать VIP пользователем
                     </button>
                 </form>
             </td>

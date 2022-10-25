@@ -45,14 +45,14 @@ class FsbAgentServiceImpl(
         }
 
     override fun markAsPirate(userUid: Long) {
-        val user = userRepository.findById(userUid).orElseThrow { UserNotFoundException(userUid) }
+        val user = userRepository.findById(userUid.toInt()).orElseThrow { UserNotFoundException(userUid) }
         if (user.userType.name == CREW_MANAGER) {
             userRepository.save(user.apply { isPirate = true })
         } else throw IllegalRequestParamsException("Incorrect user $userUid")
     }
 
     override fun markAsGoodPerson(userUid: Long) {
-        val user = userRepository.findById(userUid).orElseThrow { UserNotFoundException(userUid) }
+        val user = userRepository.findById(userUid.toInt()).orElseThrow { UserNotFoundException(userUid) }
         if (user.userType.name == CREW_MANAGER) {
             userRepository.save(user.apply { isPirate = false })
         } else throw IllegalRequestParamsException("Incorrect user $userUid")

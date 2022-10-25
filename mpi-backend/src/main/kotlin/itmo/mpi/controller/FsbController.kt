@@ -17,7 +17,7 @@ class FsbController(private val fsbAgentService: FsbAgentService, private val is
     @GetMapping("/crews")
     fun getCrews(): List<CrewMemberResponse> = fsbAgentService.getCrews()
 
-    @GetMapping("/island")
+    @GetMapping("/islands")
     fun getIsland(): List<IslandResponse> = islandService.allIslandsForFsb.toList()
 
     @PutMapping("crew/{crewUid}/pirate/{isPirate}")

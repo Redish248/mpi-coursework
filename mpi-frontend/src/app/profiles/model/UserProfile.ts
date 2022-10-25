@@ -7,6 +7,6 @@ export interface UserProfile {
     shareContactInfo: boolean
     email: string
     phone: string
-    isVip: boolean
+    vip: boolean
     activated: boolean
 }

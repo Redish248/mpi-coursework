@@ -14,15 +14,15 @@ export class FsbService {
   }
 
   private get url() {
-    return this.config.baseUrl + "/fsb"
+    return this.config.baseUrl + "/mpi/fsb"
   }
 
   getCrews(): Observable<Crew[]> {
-    return this.http.get<Crew[]>(`${this.url}/crews'`)
+    return this.http.get<Crew[]>(`${this.url}/crews`)
   }
 
   getIslands(): Observable<Island[]> {
-    return this.http.get<Island[]>(`${this.url}/islands'`)
+    return this.http.get<Island[]>(`${this.url}/islands`)
   }
 
   markCrewAsPirate(crewId: number) {

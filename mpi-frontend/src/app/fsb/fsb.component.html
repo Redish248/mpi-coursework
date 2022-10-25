@@ -7,12 +7,12 @@
         <clr-dg-cell>{{crew.fullName}}</clr-dg-cell>
         <clr-dg-cell>
             {{crew.teamName}}
-            <app-pirate-label [isPirate]="crew.isPirate"></app-pirate-label>
-            <button *ngIf="crew.isPirate" class="btn btn-link btn-small" (click)="markCrewAsPirate(crew.id)">
-                снять отметку
+            <app-pirate-label [isPirate]="crew.pirate"></app-pirate-label>
+            <button *ngIf="crew.pirate" class="btn btn-link btn-small" (click)="markCrewAsGoodPerson(crew.id)">
+                Снять отметку
             </button>
-            <button *ngIf="!crew.isPirate" class="btn btn-link btn-small" (click)="markCrewAsGoodPerson(crew.id)">
-                отметить как пират
+            <button *ngIf="!crew.pirate" class="btn btn-link btn-small" (click)="markCrewAsPirate(crew.id)">
+                Заподозрить
             </button>
         </clr-dg-cell>
     </clr-dg-row>
@@ -33,11 +33,11 @@
         <clr-dg-cell>
             {{island.name}}
             <app-pirate-label [isPirate]="island.hasPirates"></app-pirate-label>
-            <button *ngIf="island.hasPirates" class="btn btn-link btn-small" (click)="markIslandAsDangerous(island.id)">
-                снять отметку
+            <button *ngIf="island.hasPirates" class="btn btn-link btn-small" (click)="markIslandAsSafe(island.id)">
+                Cнять отметку
             </button>
-            <button *ngIf="!island.hasPirates" class="btn btn-link btn-small" (click)="markIslandAsSafe(island.id)">
-                отметить как опасный остров
+            <button *ngIf="!island.hasPirates" class="btn btn-link btn-small" (click)="markIslandAsDangerous(island.id)">
+                Отметить как опасный остров
             </button>
         </clr-dg-cell>
     </clr-dg-row>

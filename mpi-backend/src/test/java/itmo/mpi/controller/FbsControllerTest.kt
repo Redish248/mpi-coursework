@@ -49,7 +49,7 @@ class FbsControllerTest(@Autowired val mockMcv: MockMvc) {
     fun `check get islands is available`() {
         every { islandService.allIslandsForFsb } returns emptyList()
         mockMcv
-            .perform(MockMvcRequestBuilders.get("$baseUrl/island"))
+            .perform(MockMvcRequestBuilders.get("$baseUrl/islands"))
             .andExpect(MockMvcResultMatchers.status().isOk)
     }
 

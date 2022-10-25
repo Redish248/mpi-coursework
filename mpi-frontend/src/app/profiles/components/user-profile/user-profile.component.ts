@@ -119,6 +119,34 @@ export class UserProfileComponent implements OnInit {
         )
     }
 
+    makeUserVip() {
+        this.loading = true
+        this.profileService.makeUserVip().subscribe(
+            (data) => {
+                this.loading = false
+                this.getUserInfo()
+            },
+            err => {
+                this.loading = false
+                this.errorMessage = err
+            }
+        )
+    }
+
+    revertVip() {
+        this.loading = true
+        this.profileService.revertVip().subscribe(
+            (data) => {
+                this.loading = false
+                this.getUserInfo()
+            },
+            err => {
+                this.loading = false
+                this.errorMessage = err
+            }
+        )
+    }
+
     formatDate(date: string): string {
         const datepipe: DatePipe = new DatePipe('ru-RU')
         return <string>datepipe.transform(date, 'dd.MM.yyyy');

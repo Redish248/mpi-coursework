@@ -31,6 +31,14 @@ export class ProfileService {
         return this.http.get<Ship>(`${this.apiUrl}/ship`)
     }
 
+    makeUserVip() {
+        return this.http.post(`${this.apiUrl}/makevip`, null)
+    }
+
+    revertVip() {
+        return this.http.post(`${this.apiUrl}/revertVip`, null)
+    }
+
     getShips(): Observable<ShipProfile[]> {
         return this.http.get<ShipProfile[]>(`${this.apiUrl}/ships`)
     }
