@@ -266,6 +266,12 @@ public class ProfilesServiceImpl implements ProfilesService {
         return userToReturn;
     }
 
+    public void changeVipStatus(boolean isEnabled) {
+        User user = userRepository.findByNick(commonUtils.getCurrentUser().getName());
+        user.setIsVip(isEnabled);
+        userRepository.save(user);
+    }
+
     private Crew getCrew(User user) {
         try {
             return crewRepository.getCrewByCrewOwner(user);

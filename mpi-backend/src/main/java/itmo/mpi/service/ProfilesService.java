@@ -27,4 +27,6 @@ public interface ProfilesService {
     ShipResponse getUserShip(String nickName);
 
     User updateUser(UserInfoUpdate userInfo);
+
+    void changeVipStatus(boolean isEnabled);
 }

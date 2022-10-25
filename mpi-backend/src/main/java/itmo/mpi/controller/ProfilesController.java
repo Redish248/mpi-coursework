@@ -77,4 +77,14 @@ public class ProfilesController {
     public User updateUserInfo(@RequestBody UserInfoUpdate request) {
         return profilesService.updateUser(request);
     }
+
+    @PostMapping("/makevip")
+    public void makeUserVip() {
+        profilesService.changeVipStatus(true);
+    }
+
+    @PostMapping("/revertVip")
+    public void revertVipStatus() {
+        profilesService.changeVipStatus(false);
+    }
 }
