@@ -13,7 +13,7 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "users", schema = "s243882")
+@Table(name = "users", schema = "s242361")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

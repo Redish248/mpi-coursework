@@ -6,7 +6,7 @@ import lombok.Data;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "fsb_agents", schema = "s243882")
+@Table(name = "fsb_agents", schema = "s242361")
 public class FsbAgent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

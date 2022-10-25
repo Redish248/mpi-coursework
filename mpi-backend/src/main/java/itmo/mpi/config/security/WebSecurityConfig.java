@@ -59,10 +59,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .authorizeRequests()
                     .antMatchers("/mpi/signup/*").permitAll()
+                    .antMatchers("/mpi-frontend/*").permitAll()
+                    .antMatchers("/mpi-backend/*").permitAll()
                     .antMatchers("/mpi/admin/*").hasAnyAuthority("ADMIN")
                     .antMatchers("/mpi/fsb").hasAnyAuthority("FSB")
-                    //.anyRequest().authenticated()
-
+                 //   .anyRequest().authenticated()
+                .and().httpBasic()
                 .and()
                     .logout()
                     .logoutSuccessHandler(new LogoutSuccess())
@@ -71,6 +73,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .permitAll();
 
         http.sessionManagement().maximumSessions(1).sessionRegistry(sessionRegistry());
+    }
+
+    @Override
+    public void configure(WebSecurity web) {
+        web.ignoring()
+                .antMatchers("**/mpi-frontend/**","/resources/**", "**/static/**",
+                        "**.js", "**.css", "**.ico", "**.jpg");
     }
 
     @Bean
@@ -92,20 +101,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-    @Override
-    public void configure(WebSecurity web) {
-        web.ignoring()
-                .antMatchers(
-                        "**/mpi-frontend/**",
-                        "**/resources/**",
-                        "**/static/**",
-                        "**.js",
-                        "**.css",
-                        "**.ico",
-                        "**.jpg"
-                        );
-    }
-
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -114,7 +109,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://127.0.0.1:4200", "http://localhost:8080", "http://127.0.0.1:8080", "http://localhost:8088", "http://127.0.0.1:8088"));
+        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://127.0.0.1:4200", "" +
+                "http://localhost:8088/", "http://localhost:63343/", "http://localhost:8080/"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("authorization", "content-type", "x-auth-token"));
         configuration.setExposedHeaders(Arrays.asList("x-auth-token"));

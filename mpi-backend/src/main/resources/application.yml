@@ -1,15 +1,12 @@
-server:
-  shutdown: graceful
-  port: 8088
-
 spring:
   application:
     name: mpi-backend
-  datasource:
-    url: jdbc:postgresql://localhost:5432/mpi_coursework
-    username: mag_db
-    password: mag_db
-    driver-class-name: org.postgresql.Driver
+  profiles:
+    active: helios
+
+server:
+  shutdown: graceful
+  port: 8088
 
   jpa:
     hibernate:

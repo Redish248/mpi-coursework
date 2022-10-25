@@ -1,0 +1,11 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/studs?currentSchema=s242361
+    username: s242361
+    password: dzOjAyxR9pu0Mxmt
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    url: jdbc:postgresql://localhost:5432/studs?currentSchema=s242361
+    user: "s242361"
+    password: ""
+    default-schema: "s242361"
