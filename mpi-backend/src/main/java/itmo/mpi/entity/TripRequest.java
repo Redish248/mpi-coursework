@@ -17,7 +17,7 @@ import javax.persistence.Table;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "trip_request", schema = "s243882")
+@Table(name = "trip_request")
 @Data
 public class TripRequest {
     @Id
